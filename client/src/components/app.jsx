@@ -6,17 +6,14 @@ import QAndA from './QA/wrapper.jsx';
 
 
 
-function App() {
-
-  return(
-    <div>
+var App = () => (
+  <div>
     <h1>Product Detail Page</h1>
     <Overview/>
     <RelatedItems/>
     <QAndA/>
     <Reviews/>
-    </div>
-  )
-}
+  </div>
+)
 
 export default App;
