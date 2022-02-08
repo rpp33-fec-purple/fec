@@ -60,7 +60,51 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _Overview_wrapper_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Overview/wrapper.jsx */ \"./client/src/components/Overview/wrapper.jsx\");\n/* harmony import */ var _Reviews_wrapper_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Reviews/wrapper.jsx */ \"./client/src/components/Reviews/wrapper.jsx\");\n/* harmony import */ var _RelatedItems_wrapper_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RelatedItems/wrapper.jsx */ \"./client/src/components/RelatedItems/wrapper.jsx\");\n/* harmony import */ var _QA_wrapper_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QA/wrapper.jsx */ \"./client/src/components/QA/wrapper.jsx\");\n\n\n\n\n\n\nvar App = function App() {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"h1\", null, \"Product Detail Page\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Overview_wrapper_jsx__WEBPACK_IMPORTED_MODULE_1__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RelatedItems_wrapper_jsx__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_QA_wrapper_jsx__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Reviews_wrapper_jsx__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null));\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);\n\n//# sourceURL=webpack://fec/./client/src/components/app.jsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _containers_OverviewContainer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/OverviewContainer.js */ \"./client/src/containers/OverviewContainer.js\");\n/* harmony import */ var _containers_QAContainer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/QAContainer.js */ \"./client/src/containers/QAContainer.js\");\n/* harmony import */ var _containers_RelatedItemsContainer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/RelatedItemsContainer.js */ \"./client/src/containers/RelatedItemsContainer.js\");\n/* harmony import */ var _containers_ReviewsContainer_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../containers/ReviewsContainer.js */ \"./client/src/containers/ReviewsContainer.js\");\n\n\n\n\n\n\nvar App = function App() {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"h1\", null, \"Product Detail Page\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_OverviewContainer_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_RelatedItemsContainer_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_QAContainer_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_ReviewsContainer_js__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null));\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);\n\n//# sourceURL=webpack://fec/./client/src/components/app.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/containers/OverviewContainer.js":
+/*!****************************************************!*\
+  !*** ./client/src/containers/OverviewContainer.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _components_Overview_wrapper_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Overview/wrapper.jsx */ \"./client/src/components/Overview/wrapper.jsx\");\n\n // import pertinent action right here\n\nvar mapDispatchToProps = function mapDispatchToProps(dispatch) {\n  return {};\n};\n\nvar mapStateToProps = function mapStateToProps(state) {\n  return {};\n};\n\nvar OverviewContainer = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_components_Overview_wrapper_jsx__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OverviewContainer);\n\n//# sourceURL=webpack://fec/./client/src/containers/OverviewContainer.js?");
+
+/***/ }),
+
+/***/ "./client/src/containers/QAContainer.js":
+/*!**********************************************!*\
+  !*** ./client/src/containers/QAContainer.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _components_QA_wrapper_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/QA/wrapper.jsx */ \"./client/src/components/QA/wrapper.jsx\");\n\n // import pertinent action right here\n\nvar mapDispatchToProps = function mapDispatchToProps(dispatch) {\n  return {};\n};\n\nvar mapStateToProps = function mapStateToProps(state) {\n  return {};\n};\n\nvar QAContainer = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_components_QA_wrapper_jsx__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QAContainer);\n\n//# sourceURL=webpack://fec/./client/src/containers/QAContainer.js?");
+
+/***/ }),
+
+/***/ "./client/src/containers/RelatedItemsContainer.js":
+/*!********************************************************!*\
+  !*** ./client/src/containers/RelatedItemsContainer.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _components_RelatedItems_wrapper_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/RelatedItems/wrapper.jsx */ \"./client/src/components/RelatedItems/wrapper.jsx\");\n\n // import pertinent action right here\n\nvar mapDispatchToProps = function mapDispatchToProps(dispatch) {\n  return {};\n};\n\nvar mapStateToProps = function mapStateToProps(state) {\n  return {};\n};\n\nvar RelatedItemsContainer = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_components_RelatedItems_wrapper_jsx__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RelatedItemsContainer);\n\n//# sourceURL=webpack://fec/./client/src/containers/RelatedItemsContainer.js?");
+
+/***/ }),
+
+/***/ "./client/src/containers/ReviewsContainer.js":
+/*!***************************************************!*\
+  !*** ./client/src/containers/ReviewsContainer.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var _components_Reviews_wrapper_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Reviews/wrapper.jsx */ \"./client/src/components/Reviews/wrapper.jsx\");\n\n // import pertinent action right here\n\nvar mapDispatchToProps = function mapDispatchToProps(dispatch) {\n  return {};\n};\n\nvar mapStateToProps = function mapStateToProps(state) {\n  return {};\n};\n\nvar ReviewContainer = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_components_Reviews_wrapper_jsx__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ReviewContainer);\n\n//# sourceURL=webpack://fec/./client/src/containers/ReviewsContainer.js?");
 
 /***/ }),
 
@@ -75,6 +119,61 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 
 /***/ }),
 
+/***/ "./client/src/reducers/main.js":
+/*!*************************************!*\
+  !*** ./client/src/reducers/main.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n/* harmony import */ var _overview_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./overview.js */ \"./client/src/reducers/overview.js\");\n/* harmony import */ var _qa_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./qa.js */ \"./client/src/reducers/qa.js\");\n/* harmony import */ var _relatedItems_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./relatedItems.js */ \"./client/src/reducers/relatedItems.js\");\n/* harmony import */ var _reviews_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reviews.js */ \"./client/src/reducers/reviews.js\");\n\n\n\n\n //import all other reducers and insert into rootReducer\n\nvar rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({\n  currentProduct: _overview_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"],\n  qA: _qa_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n  relatedItems: _relatedItems_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"],\n  reviews: _reviews_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"]\n});\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (rootReducer);\n\n//# sourceURL=webpack://fec/./client/src/reducers/main.js?");
+
+/***/ }),
+
+/***/ "./client/src/reducers/overview.js":
+/*!*****************************************!*\
+  !*** ./client/src/reducers/overview.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n\n\nvar currentProductReducer = function currentProductReducer() {\n  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;\n  var action = arguments.length > 1 ? arguments[1] : undefined;\n\n  switch (action.type) {\n    case 'your action type here':\n      return (\n        /* relevant property of the action || */\n        null\n      );\n\n    default:\n      return state;\n  }\n\n  ;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (currentProductReducer);\n\n//# sourceURL=webpack://fec/./client/src/reducers/overview.js?");
+
+/***/ }),
+
+/***/ "./client/src/reducers/qa.js":
+/*!***********************************!*\
+  !*** ./client/src/reducers/qa.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n\n\nvar qAReducer = function qAReducer() {\n  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;\n  var action = arguments.length > 1 ? arguments[1] : undefined;\n\n  switch (action.type) {\n    case 'your action type here':\n      return (\n        /* relevant property of the action ||*/\n        null\n      );\n\n    default:\n      return state;\n  }\n\n  ;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (qAReducer);\n\n//# sourceURL=webpack://fec/./client/src/reducers/qa.js?");
+
+/***/ }),
+
+/***/ "./client/src/reducers/relatedItems.js":
+/*!*********************************************!*\
+  !*** ./client/src/reducers/relatedItems.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n\n\nvar relatedItemsReducer = function relatedItemsReducer() {\n  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;\n  var action = arguments.length > 1 ? arguments[1] : undefined;\n\n  switch (action.type) {\n    case 'your action type here':\n      return (\n        /* relevant property of the action || */\n        null\n      );\n\n    default:\n      return state;\n  }\n\n  ;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (relatedItemsReducer);\n\n//# sourceURL=webpack://fec/./client/src/reducers/relatedItems.js?");
+
+/***/ }),
+
+/***/ "./client/src/reducers/reviews.js":
+/*!****************************************!*\
+  !*** ./client/src/reducers/reviews.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n\n\nvar reviewsReducer = function reviewsReducer() {\n  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;\n  var action = arguments.length > 1 ? arguments[1] : undefined;\n\n  switch (action.type) {\n    case 'your action type here':\n      return (\n        /* relevant property of the action ||*/\n        null\n      );\n\n    default:\n      return state;\n  }\n\n  ;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (reviewsReducer);\n\n//# sourceURL=webpack://fec/./client/src/reducers/reviews.js?");
+
+/***/ }),
+
 /***/ "./client/src/store.js":
 /*!*****************************!*\
   !*** ./client/src/store.js ***!
@@ -82,7 +181,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n\nvar initialState = {};\n\nvar rootReducer = function rootReducer() {\n  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_0__.createStore)(rootReducer));\n\n//# sourceURL=webpack://fec/./client/src/store.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-thunk */ \"./node_modules/redux-thunk/es/index.js\");\n/* harmony import */ var _reducers_main_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reducers/main.js */ \"./client/src/reducers/main.js\");\n\n\n\nvar initialState = {}; //This should eventually initialize as product 1\n\nvar store = (0,redux__WEBPACK_IMPORTED_MODULE_1__.createStore)(_reducers_main_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"], initialState, (0,redux__WEBPACK_IMPORTED_MODULE_1__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_2__[\"default\"]));\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store); // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;\n// const store = createStore(reducer, initialState, composeEnhancers(applyMiddleWare(thunk));\n// export default store;\n\n//# sourceURL=webpack://fec/./client/src/store.js?");
 
 /***/ }),
 
@@ -543,6 +642,17 @@ eval("/** @license React v17.0.2\n * react.development.js\n *\n * Copyright (c) 
 
 "use strict";
 eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs/react.development.js */ \"./node_modules/react/cjs/react.development.js\");\n}\n\n\n//# sourceURL=webpack://fec/./node_modules/react/index.js?");
+
+/***/ }),
+
+/***/ "./node_modules/redux-thunk/es/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/redux-thunk/es/index.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/** A function that accepts a potential \"extra argument\" value to be injected later,\r\n * and returns an instance of the thunk middleware that uses that value\r\n */\nfunction createThunkMiddleware(extraArgument) {\n  // Standard Redux middleware definition pattern:\n  // See: https://redux.js.org/tutorials/fundamentals/part-4-store#writing-custom-middleware\n  var middleware = function middleware(_ref) {\n    var dispatch = _ref.dispatch,\n        getState = _ref.getState;\n    return function (next) {\n      return function (action) {\n        // The thunk middleware looks for any functions that were passed to `store.dispatch`.\n        // If this \"action\" is really a function, call it and return the result.\n        if (typeof action === 'function') {\n          // Inject the store's `dispatch` and `getState` methods, as well as any \"extra arg\"\n          return action(dispatch, getState, extraArgument);\n        } // Otherwise, pass the action down the middleware chain as usual\n\n\n        return next(action);\n      };\n    };\n  };\n\n  return middleware;\n}\n\nvar thunk = createThunkMiddleware(); // Attach the factory function so users can create a customized version\n// with whatever \"extra arg\" they want to inject into their thunks\n\nthunk.withExtraArgument = createThunkMiddleware;\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (thunk);\n\n//# sourceURL=webpack://fec/./node_modules/redux-thunk/es/index.js?");
 
 /***/ }),
 
