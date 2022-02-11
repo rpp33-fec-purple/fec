@@ -9,7 +9,7 @@ import ReviewsContainer from '../containers/ReviewsContainer.js';
 
 var App = () => (
   <div>
-    <h1>Product Detail Page</h1>
+    <h1 className= 'App'>Product Detail Page</h1>
     <OverviewContainer/>
     <RelatedItemsContainer/>
     <QAContainer/>

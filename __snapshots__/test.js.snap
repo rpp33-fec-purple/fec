@@ -1,21 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`render the component Q&A 1`] = `
-<h2>
-  Questions and Answers Component
-</h2>
-`;
-
-exports[`render the component RelatedItems  1`] = `
-<h2>
-  Related Items and Outfit Component
-</h2>
-`;
-
-exports[`render the component RelatedItems the component should match the saved snapshot 1`] = `
 <h2
-  className="Related Items"
+  className="QA"
 >
-  Related Items and Outfit Component
+  Questions and Answers Component
 </h2>
 `;

@@ -7,7 +7,7 @@ class QAndA extends React.Component {
 
   render() {
     return (
-      <h2>Questions and Answers Component</h2>
+      <h2 className='QA'>Questions and Answers Component</h2>
     )
   }
 }

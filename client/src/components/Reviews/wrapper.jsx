@@ -7,7 +7,7 @@ class Reviews extends React.Component {
 
   render() {
     return (
-      <h2>Review Component</h2>
+      <h2 className='Review'>Review Component</h2>
     )
   }
 }
