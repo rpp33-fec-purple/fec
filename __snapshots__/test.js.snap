@@ -11,3 +11,11 @@ exports[`render the component RelatedItems  1`] = `
   Related Items and Outfit Component
 </h2>
 `;
+
+exports[`render the component RelatedItems the component should match the saved snapshot 1`] = `
+<h2
+  className="Related Items"
+>
+  Related Items and Outfit Component
+</h2>
+`;
