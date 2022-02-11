@@ -8,7 +8,7 @@ class RelatedItems extends React.Component {
   render() {
     return (
       <h2>Related Items and Outfit Component</h2>
-      // < RelatedItems data = {this.state.items} --> connect(mapStateToProps)(RelatedItems)
+
     )
   }
 }

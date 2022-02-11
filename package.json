@@ -6,7 +6,7 @@
   "scripts": {
     "react-dev": "webpack --watch",
     "server-dev": "npx nodemon server.js",
-    "test": "jest --config ./jest.config.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
     "url": "https://github.com/rpp33-fec-purple/fec/issues"
   },
   "jest" : {
-    
+
   },
   "homepage": "https://github.com/rpp33-fec-purple/fec#readme",
   "dependencies": {

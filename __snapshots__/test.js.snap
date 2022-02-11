@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render the component Q&A 1`] = `
+<h2>
+  Questions and Answers Component
+</h2>
+`;
+
+exports[`render the component RelatedItems  1`] = `
+<h2>
+  Related Items and Outfit Component
+</h2>
+`;
