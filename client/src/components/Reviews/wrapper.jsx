@@ -1,4 +1,5 @@
 import React from 'react';
+import List from './list.jsx';
 
 class Reviews extends React.Component {
   constructor(props) {
@@ -7,9 +8,13 @@ class Reviews extends React.Component {
 
   render() {
     return (
-      <h2>Review Component</h2>
+      <div>
+        <h2>Review Component</h2>
+        <List/>
+      </div>
     )
   }
 }
 
 export default Reviews;
+//test
