@@ -11,6 +11,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
   }
+  ComponentDidMount() {
+    $.ajax({
+      url: 'http://localhost:3000/products',
+      method: 'GET',
+      success: (data) => {
+        // console.log('data from api:', data);
+      },
+      error: (err) => {
+        // console.log('Error with GET request: ', err);
+      }
+    });
+  }
   render() {
     return (
       <div>
