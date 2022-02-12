@@ -1,20 +1,28 @@
 import React from 'react';
-import OverviewContainer from '../containers/OverviewContainer.js';
-import QAContainer from '../containers/QAContainer.js';
-import RelatedItemsContainer from '../containers/RelatedItemsContainer.js';
-import ReviewsContainer from '../containers/ReviewsContainer.js';
+import Overview from './Overview/wrapper.jsx';
+import QA from './QA/wrapper.jsx';
+import RelatedItems from './RelatedItems/wrapper.jsx';
+import Reviews from './Reviews/wrapper.jsx';
 
 
 
 
-var App = () => (
-  <div>
-    <h1 className= 'App'>Product Detail Page</h1>
-    <OverviewContainer/>
-    <RelatedItemsContainer/>
-    <QAContainer/>
-    <ReviewsContainer/>
-  </div>
-)
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h1 className= 'App'>Product Detail Page</h1>
+        <Overview/>
+        <RelatedItems/>
+        <QA/>
+        <Reviews/>
+      </div>
+    )
+  }
+}
+
 
 export default App;
