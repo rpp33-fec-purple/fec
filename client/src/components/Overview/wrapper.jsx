@@ -7,7 +7,7 @@ class Overview extends React.Component {
 
   render() {
     return (
-      <h2>Product Overview Component</h2>
+      <h2 className='Overview'>Product Overview Component</h2>
     )
   }
 }
