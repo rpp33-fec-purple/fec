@@ -4,9 +4,6 @@ import QA from './QA/wrapper.jsx';
 import RelatedItems from './RelatedItems/wrapper.jsx';
 import Reviews from './Reviews/wrapper.jsx';
 
-
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +20,7 @@ class App extends React.Component {
       // },
       method: 'GET',
       success: (data) => {
-        console.log('data in client', data)
+        console.log('data in client', data);
         this.setState({basicProductInfo: data});
         console.log('GET request to http://localhost:3000/products/64621 successful!');
       },
