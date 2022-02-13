@@ -10,16 +10,25 @@ import Reviews from './Reviews/wrapper.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      basicProductInfo: {}
+    }
   }
-  ComponentDidMount() {
+  componentDidMount() {
     $.ajax({
-      url: 'http://localhost:3000/products',
+      url: 'http://localhost:3000/products/64621',
+      // data: {
+      //   page: 1,
+      //   count: 5
+      // },
       method: 'GET',
       success: (data) => {
-        // console.log('data from api:', data);
+        console.log('data in client', data)
+        this.setState({basicProductInfo: data});
+        console.log('GET request to http://localhost:3000/products/64621 successful!');
       },
       error: (err) => {
-        // console.log('Error with GET request: ', err);
+        console.log('Error with GET request:', err);
       }
     });
   }
@@ -27,10 +36,10 @@ class App extends React.Component {
     return (
       <div>
         <h1 className= 'App'>Product Detail Page</h1>
-        <Overview/>
-        <RelatedItems/>
-        <QA/>
-        <Reviews/>
+        <Overview basicProductInfo={this.state.basicProductInfo}/>
+        <RelatedItems productID = {this.state.basicProductInfo.id}/>
+        <QA productID={this.state.basicProductInfo.id}/>
+        <Reviews productID={this.state.basicProductInfo.id}/>
       </div>
     )
   }
@@ -38,3 +47,5 @@ class App extends React.Component {
 
 
 export default App;
+
+
