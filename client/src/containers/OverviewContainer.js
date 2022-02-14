@@ -8,7 +8,7 @@ var mapDispatchToProps = (dispatch) => ({
 
 var mapStateToProps = (state) => ({
 
-})
+});
 
 var OverviewContainer = connect(mapStateToProps, mapDispatchToProps)(Overview);
 export default OverviewContainer;
