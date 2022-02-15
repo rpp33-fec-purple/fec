@@ -12,5 +12,9 @@ class List extends React.Component {
   }
 }
 
+<<<<<<< HEAD
 export default List;
 //test
+=======
+export default List;
+>>>>>>> b6866bbe0a509b2a8ceaba9f836aeb822744eaee

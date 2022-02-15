@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render the component Q&A 1`] = `
+<h2
+  className="QA"
+>
+  Questions and Answers Component
+</h2>
+`;
