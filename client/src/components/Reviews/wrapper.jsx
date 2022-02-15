@@ -7,24 +7,38 @@ class Reviews extends React.Component {
     super(props);
 
     this.state = {
-      sort: 'relevant'
+      reviews: {},
+      meta: {}
     }
 
   }
 
   render() {
-    if (this.props.productID) {
-      //get all reviews for current product
+    return (
+      <div>
+        <h2>Review Component</h2>
+        <List/>
+        <Tile productID={this.props.productID}/>
+      </div>
+    )
+  }
+
+  componentDidMount() {};
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.productID !== this.props.productID) {
       $.ajax({
         url: `http://localhost:3000/reviews/`,
         data: {
           product_id: this.props.productID,
           page: 1,
-          count: 100
+          count: 100,
+          sort: 'relevant'
         },
         method: 'GET',
         success: (data) => {
           console.log('REVIEWS', data);
+          // this.setState({reviews: data});
         },
         error: (err) => {
           console.log('Error with GET request:', err);
@@ -40,22 +54,14 @@ class Reviews extends React.Component {
         method: 'GET',
         success: (data) => {
           console.log('REVIEWS METADATA', data);
+          // this.setState({meta: data});
         },
         error: (err) => {
           console.log('Error with GET request:', err);
         }
       });
     }
-    return (
-      <div>
-        <h2>Review Component</h2>
-        <List/>
-        <Tile productID={this.props.productID}/>
-      </div>
-    )
   }
-
-  componentDidMount() {};
 }
 
 export default Reviews;
