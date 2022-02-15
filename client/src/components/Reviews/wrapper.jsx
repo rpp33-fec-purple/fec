@@ -1,5 +1,6 @@
 import React from 'react';
 import List from './list.jsx';
+import Tile from './tile.jsx';
 
 class Reviews extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Reviews extends React.Component {
       <div>
         <h2>Review Component</h2>
         <List/>
+        <Tile productID={this.props.productID}/>
       </div>
     )
   }
