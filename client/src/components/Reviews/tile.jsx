@@ -7,7 +7,6 @@ class Tile extends React.Component {
   }
 
   render() {
-    console.log('in tile',this.props);
     return (
       <div>Review Tile</div>
     )
