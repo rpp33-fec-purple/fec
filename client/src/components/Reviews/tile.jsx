@@ -9,11 +9,14 @@ class Tile extends React.Component {
   render() {
     let view;
     if (this.props.reviews.results) {
-      let date = new Date(this.props.reviews.results[0].date).toLocaleDateString();
+      let currentReview = this.props.reviews.results[0];
+      let date = new Date(currentReview.date).toLocaleDateString();
       console.log(date);
       view =
       <div>
-        <div>{this.props.reviews.results[0].reviewer_name}, {date}</div>
+        <div>{currentReview.reviewer_name}, {date}</div>
+        <div><b>{currentReview.summary}</b></div>
+        <div>{currentReview.body}</div>
       </div>
     } else {
       view = <div>No Reviews Yet</div>
