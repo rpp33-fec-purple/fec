@@ -57,7 +57,7 @@ class QAndA extends React.Component {
 
   render() {
 
-    let listDiv = this.state.sortedQuestions ? <ListView qa={this.state.sortedQuestions} /> : <div/>
+    let listDiv = this.state.sortedQuestions ? <ListView qAndAList={this.state.sortedQuestions} /> : <div/>
 
     return (
       <div>
