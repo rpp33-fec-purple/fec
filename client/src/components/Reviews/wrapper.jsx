@@ -18,7 +18,7 @@ class Reviews extends React.Component {
       <div>
         <h2>Review Component</h2>
         <List/>
-        <Tile productID={this.props.productID}/>
+        <Tile productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
       </div>
     )
   }
@@ -38,7 +38,7 @@ class Reviews extends React.Component {
         method: 'GET',
         success: (data) => {
           console.log('REVIEWS', data);
-          // this.setState({reviews: data});
+          this.setState({reviews: data});
         },
         error: (err) => {
           console.log('Error with GET request:', err);
@@ -54,7 +54,7 @@ class Reviews extends React.Component {
         method: 'GET',
         success: (data) => {
           console.log('REVIEWS METADATA', data);
-          // this.setState({meta: data});
+          this.setState({meta: data});
         },
         error: (err) => {
           console.log('Error with GET request:', err);
