@@ -1,4 +1,5 @@
 import React from 'react';
+import {formatDate} from '../../utils.js';
 
 class Tile extends React.Component {
   constructor(props) {
@@ -10,7 +11,8 @@ class Tile extends React.Component {
     let view;
     if (this.props.reviews.results) {
       let currentReview = this.props.reviews.results[0];
-      let date = new Date(currentReview.date).toLocaleDateString();
+      let date = formatDate(currentReview.date);
+      // let date = new Date(currentReview.date).toLocaleDateString();
       console.log(date);
       view =
       <div>
