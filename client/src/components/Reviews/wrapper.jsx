@@ -16,7 +16,7 @@ class Reviews extends React.Component {
   render() {
     return (
       <div>
-        <h2>Review Component</h2>
+        <h2 className='Review'>Review Component</h2>
         <List/>
         <Tile productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
       </div>
