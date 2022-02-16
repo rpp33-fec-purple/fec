@@ -5,13 +5,23 @@ class QuestionListEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state= {
+      answersInDisplay: 2,
+      displayingAll: false
     }
     this.seeMoreAnswers = this.seeMoreAnswers.bind(this);
 
   }
 
   seeMoreAnswers() {
-    // make api call here to get all the answers?
+    // console.log('in q list entry', this.props.qACombo)
+    var totalNumOfAs = Object.keys(this.props.qACombo.answers).length;
+    console.log('total number of questions', totalNumOfAs)
+    if (totalNumOfAs > this.state.answersInDisplay) {
+      this.setState({
+        answersInDisplay: totalNumOfAs,
+        displayingAll: true
+      })
+    }
   }
 
   render(){
@@ -26,6 +36,12 @@ class QuestionListEntry extends React.Component {
         <br></br> by {a.answerer_name}, {a.date} | Helpful? Yes ({a.helpfulness}) | Report
       </div>
     )
+    const answersInView = answersDiv.slice(0, this.state.answersInDisplay);
+    if (answersDiv.length > 2) {
+      var moreAnswersButton = this.state.displayingAll ? <div/> : <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
+    } else {
+      var moreAnswersButton = <div/>
+    }
 
     return (
 
@@ -33,8 +49,8 @@ class QuestionListEntry extends React.Component {
         Q: {QandA.question_body}
         <br></br> Helpful? Yes ({QandA.question_helpfulness}) | Add Answer
         <div>
-          {answersDiv}
-          <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
+          {answersInView}
+          {moreAnswersButton}
         </div>
       </div>
 
