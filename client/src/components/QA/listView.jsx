@@ -32,7 +32,6 @@ class ListView extends React.Component {
 
   render () {
     const questionsList = this.props.qAndAList.map(qa => {
-      console.log('qanda comobo', qa)
 
       return (
         <div key={qa.question_id}>
