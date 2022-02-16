@@ -1,5 +1,7 @@
 import React from 'react';
 import {formatDate} from '../../utils.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 class Tile extends React.Component {
   constructor(props) {
@@ -10,13 +12,10 @@ class Tile extends React.Component {
   render() {
     let view;
     if (this.props.reviews.results) {
-      let currentReview = this.props.reviews.results[0];
-      let date = formatDate(currentReview.date);
-      // let date = new Date(currentReview.date).toLocaleDateString();
-      console.log(date);
+      let currentReview = this.props.reviews.results[1];
       view =
       <div>
-        <div>{currentReview.reviewer_name}, {date}</div>
+        <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
         <div><b>{currentReview.summary}</b></div>
         <div>{currentReview.body}</div>
       </div>
@@ -32,3 +31,6 @@ class Tile extends React.Component {
 }
 
 export default Tile;
+
+
+{/* <FontAwesomeIcon icon={faCheck} /> */}
