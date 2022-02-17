@@ -1,6 +1,7 @@
 import React from 'react';
 import List from './list.jsx';
 import Tile from './tile.jsx';
+import { GlobalStyle } from './GlobalStyles.js';
 
 class Reviews extends React.Component {
   constructor(props) {
