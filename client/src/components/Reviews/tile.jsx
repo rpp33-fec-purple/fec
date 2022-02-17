@@ -19,11 +19,8 @@ class Tile extends React.Component {
     let view;
     if (this.props.reviews.results) {
       let currentReview = this.props.reviews.results[2];
-      let recommend;
+      const checkMark = <FontAwesomeIcon icon={faCheck} />
       let photos;
-      if (currentReview.recommend) {
-        recommend = <div><FontAwesomeIcon icon={faCheck} /> I recommend this product</div>
-      }
       if (currentReview.photos) {
         photos = currentReview.photos.map((photo) => {
           return <Thumbnail src={photo.url} key={photo.id}></Thumbnail>
@@ -35,7 +32,7 @@ class Tile extends React.Component {
         <div><b>{currentReview.summary}</b></div>
         <div>{currentReview.body}</div>
         {photos}
-        <div>{recommend}</div>
+        {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
       </div>
     } else {
       view = <div>No Reviews Yet</div>
