@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {formatDate} from '../../utils.js';
+import {formatDate, shorten} from '../../utils.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import ImgModal from './imgModal.jsx';
@@ -45,7 +45,11 @@ class Tile extends React.Component {
         {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
         <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
         <div><b>{currentReview.summary}</b></div>
-        <div>{currentReview.body}</div>
+        <div className="more">{currentReview.body}test texttest texttest texttest texttest text
+        test texttest texttest texttest texttest texttest texttest texttest text
+        test texttest texttest texttest texttest texttest texttest texttest text
+        test texttest texttest texttest texttest texttest texttest texttest text
+        test texttest texttest texttest texttest texttest texttest texttest text</div>
         {photos}
         {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
       </div>

@@ -26,3 +26,16 @@ export const formatDate = (isoDate) => {
 
   return `${monthName} ${day}, ${year}`
 }
+
+
+export const shorten = (string, maxChars) => {
+  //count characters in string
+  //if string is less than maxChars
+    //return string
+  //otherwise
+  // split string at maxChars
+  // store first string and second string
+  //wrap second string in a span tag
+
+  //return firststring moreButton span secondstring
+}
