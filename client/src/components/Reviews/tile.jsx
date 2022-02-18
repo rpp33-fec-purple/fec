@@ -52,6 +52,7 @@ class Tile extends React.Component {
         test texttest texttest texttest texttest texttest texttest texttest text</div>
         {photos}
         {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
+        {currentReview.response ? <dib>Response: {currentReview.response}</dib>: null}
       </div>
     } else {
       view = <div>No Reviews Yet</div>
