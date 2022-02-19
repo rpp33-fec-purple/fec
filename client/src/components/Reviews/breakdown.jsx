@@ -20,7 +20,7 @@ class Breakdown extends React.Component {
       for (let key in this.props.meta.ratings) {
         totalRating += (parseInt(key) * this.props.meta.ratings[key]);
       }
-      avgRating = totalRating / reviewCount;
+      avgRating = (totalRating / reviewCount).toFixed(1);
 
       view =
       <div>{avgRating}</div>
