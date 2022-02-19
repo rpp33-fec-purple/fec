@@ -3,7 +3,6 @@ import SearchBar from './searchBar.jsx';
 import ListView from './listView.jsx';
 import AddQuestion from './addQuestion.jsx';
 import sampleProductQuestions from './sampleData.js';
-import $ from 'jquery';
 
 class QAndA extends React.Component {
   constructor(props) {
@@ -16,15 +15,12 @@ class QAndA extends React.Component {
   }
 
   componentDidMount() {
-    // the props should have the product ID
-    // once I have the product ID, I should make a call to the API to get the questions and answers
-    // var productID = this.props.productID;
     console.log('product id in wrapper', this.props)
 
     $.ajax({
       url: `http://localhost:3000/qa/questions`,
       data: {
-        product_id: this.props.productID,
+        product_id: this.props.product.id,
         page: 1,
         count: 50
       },
@@ -38,16 +34,6 @@ class QAndA extends React.Component {
       }
     });
 
-
-
-
-    // this.sortQuestions(sampleProductQuestions, (sorted) => {
-    //   this.setState({
-    //     sortedQuestions: sorted
-    //   }, () => {
-    //     console.log('sortedQuestions in state', this.state.sortedQuestions)
-    //   })
-    // });
   }
 
   sortQuestions(data, cb) {
@@ -57,14 +43,14 @@ class QAndA extends React.Component {
 
   render() {
 
-    let listDiv = this.state.sortedQuestions ? <ListView qAndAList={this.state.sortedQuestions} /> : <div/>
+    let listDiv = this.state.sortedQuestions ? <ListView qAndAList={this.state.sortedQuestions} productName={this.props.product.name}/> : <div/>
 
     return (
       <div>
         <h2>Questions and Answers</h2>
         <SearchBar/>
         <div>{listDiv}</div>
-        <AddQuestion/>
+        <AddQuestion productName={this.props.product.name}/>
       </div>
     )
   }
