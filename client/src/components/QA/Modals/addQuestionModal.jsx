@@ -85,15 +85,17 @@ class QuestionModal extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     var question = this.state.question;
-    console.log('question length', question.length)
     var nickname = this.state.nickname;
     var email = this.state.email;
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (question.length === 0) {
       alert('You must enter the following: Question')
     } else if (nickname.length === 0) {
       alert('You must enter the following: Nickname')
     } else if (email.length === 0) {
       alert('You must enter the following: Email')
+    } else if (!email.match(validRegex)) {
+      alert('The email address provided is not in correct email format')
     } else {
       this.props.changeModalState()
     }
@@ -116,7 +118,7 @@ class QuestionModal extends React.Component {
                   <input id='nickname' name='nickname' placeholder="Example: jackson11!" maxLength='60' onChange={this.handleChange}></input><br></br>
                   <>For privacy reasons, do not use your full name or email address</><br></br>
                   <label htmlFor='email'>Your email *</label><br></br>
-                  <input id='email' name='email' maxLength='60' onChange={this.handleChange}></input><br></br>
+                  <input id='email' name='email' maxLength='60' onChange={this.handleChange} ></input><br></br>
                   <>For authentication reasons, you will not be emailed</><br></br>
                   <button aria-label='Close modal' onClick={this.handleSubmit}>Submit question</button>
                 </form>
