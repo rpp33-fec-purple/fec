@@ -1,6 +1,7 @@
 import React from 'react';
 import List from './list.jsx';
 import Tile from './tile.jsx';
+import Breakdown from './breakdown.jsx';
 import { GlobalStyle } from './GlobalStyles.js';
 
 class Reviews extends React.Component {
@@ -20,6 +21,7 @@ class Reviews extends React.Component {
         <h4 className='Review'>RATINGS & REVIEWS</h4>
         <List productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
         <Tile productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
+        <Breakdown productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
       </div>
     )
   }

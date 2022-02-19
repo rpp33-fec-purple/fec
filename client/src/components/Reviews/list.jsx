@@ -1,4 +1,5 @@
 import React from 'react';
+import Tile from './tile.jsx';
 
 class List extends React.Component {
   constructor(props) {
@@ -25,7 +26,11 @@ class List extends React.Component {
     }
 
     return (
-      <div>{view}</div>
+      <div>
+        <div>{view}</div>
+        <button>MORE REVIEWS</button>
+        <button>ADD A REVIEW +</button>
+      </div>
     )
   }
 }
