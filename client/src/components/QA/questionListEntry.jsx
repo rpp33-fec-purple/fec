@@ -10,6 +10,7 @@ class QuestionListEntry extends React.Component {
     }
     this.seeMoreAnswers = this.seeMoreAnswers.bind(this);
     this.sortAnswers = this.sortAnswers.bind(this);
+    this.formatDate = this.formatDate.bind(this);
   }
 
   seeMoreAnswers() {
@@ -34,10 +35,33 @@ class QuestionListEntry extends React.Component {
       }
     }
     sellerFirst = sellerFirst.concat(sorted);
-
-
     return sellerFirst;
   }
+
+  formatDate(isoDate) {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ]
+    const date = new Date(isoDate);
+    const year = date.getFullYear();
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const monthName = months[monthIndex];
+
+    return `${monthName} ${day}, ${year}`
+  }
+
 
   render(){
     var answers = [];
@@ -52,7 +76,7 @@ class QuestionListEntry extends React.Component {
     var answersDiv = sorted.map(a =>
       <div key={a.id}>
         A: {a.body}
-        <br></br> by {a.answerer_name}, {a.date} | Helpful? Yes ({a.helpfulness}) | Report
+        <br></br> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? Yes ({a.helpfulness}) | Report
       </div>
     )
     const answersInView = answersDiv.slice(0, this.state.answersInDisplay);
