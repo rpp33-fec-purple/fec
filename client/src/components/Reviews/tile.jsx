@@ -45,14 +45,11 @@ class Tile extends React.Component {
         {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
         <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
         <div><b>{currentReview.summary}</b></div>
-        <div className="more">{currentReview.body}test texttest texttest texttest texttest text
-        test texttest texttest texttest texttest texttest texttest texttest text
-        test texttest texttest texttest texttest texttest texttest texttest text
-        test texttest texttest texttest texttest texttest texttest texttest text
-        test texttest texttest texttest texttest texttest texttest texttest text</div>
+        <div className="more">{currentReview.body}</div>
         {photos}
         {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
-        {currentReview.response ? <dib>Response: {currentReview.response}</dib>: null}
+        {currentReview.response ? <div>Response: {currentReview.response}</div>: null}
+        <div>Helpful? Yes({currentReview.helpfulness})  |  Report</div>
       </div>
     } else {
       view = <div>No Reviews Yet</div>
