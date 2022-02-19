@@ -9,11 +9,11 @@ class QuestionListEntry extends React.Component {
       displayingAll: false
     }
     this.seeMoreAnswers = this.seeMoreAnswers.bind(this);
-
+    this.sortAnswers = this.sortAnswers.bind(this);
   }
 
   seeMoreAnswers() {
-    // console.log('in q list entry', this.props.qACombo)
+    console.log('qa combo', this.props.qACombo.answers)
     var totalNumOfAs = Object.keys(this.props.qACombo.answers).length;
     console.log('total number of questions', totalNumOfAs)
     if (totalNumOfAs > this.state.answersInDisplay) {
@@ -24,13 +24,32 @@ class QuestionListEntry extends React.Component {
     }
   }
 
+  sortAnswers(answers) {
+    var sorted = answers.sort((a, b) => b.helpfulness - a.helpfulness);
+    var sellerFirst = []
+    for (var i = 0; i < sorted.length; i++) {
+      if (sorted[i].answerer_name === 'Seller') {
+        sellerFirst.push(sorted[i]);
+        sorted.splice(i, 1);
+      }
+    }
+    sellerFirst = sellerFirst.concat(sorted);
+
+
+    return sellerFirst;
+  }
+
   render(){
     var answers = [];
     var QandA = this.props.qACombo;
     for (var key in QandA.answers) {
       answers.push(QandA.answers[key])
     }
-    var answersDiv = answers.map(a =>
+
+    var sorted = this.sortAnswers(answers);
+
+
+    var answersDiv = sorted.map(a =>
       <div key={a.id}>
         A: {a.body}
         <br></br> by {a.answerer_name}, {a.date} | Helpful? Yes ({a.helpfulness}) | Report
@@ -44,10 +63,8 @@ class QuestionListEntry extends React.Component {
     }
 
     return (
-
       <div key={QandA.question_id}>
-        Q: {QandA.question_body}
-        <br></br> Helpful? Yes ({QandA.question_helpfulness}) | Add Answer
+        Q: {QandA.question_body}   Helpful? Yes ({QandA.question_helpfulness}) | Add Answer
         <div>
           {answersInView}
           {moreAnswersButton}
