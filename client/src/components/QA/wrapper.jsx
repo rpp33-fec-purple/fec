@@ -9,9 +9,12 @@ class QAndA extends React.Component {
     super(props);
     this.state= {
       sortedQuestions: [],
-      questionsInView: []
+      questionsInView: [],
+      filteredAndSorted: []
     }
     this.sortQuestions = this.sortQuestions.bind(this);
+    this.updateStateCauseFilter = this.updateStateCauseFilter.bind(this);
+    const filterApplies = false;
   }
 
   componentDidMount() {
@@ -36,19 +39,38 @@ class QAndA extends React.Component {
 
   }
 
-  sortQuestions(data, cb) {
-    var sorted = data.results.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
-    cb(sorted);
+  sortQuestions(data) {
+    var sorted = data.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
+    // cb(sorted);
+    return sorted;
+  }
+
+  updateStateCauseFilter(filteredList, bool) {
+    if (bool) {
+      var sortedAndFiltered = this.sortQuestions(filteredList);
+      this.filterApplies = true;
+      this.setState({
+        filteredAndSorted: sortedAndFiltered
+      })
+    } else {
+      this.filterApplies = false;
+      this.setState({
+        filteredAndSorted: ''
+      })
+    }
   }
 
   render() {
-
-    let listDiv = this.state.sortedQuestions ? <ListView qAndAList={this.state.sortedQuestions} productName={this.props.product.name}/> : <div/>
+    if (this.filterApplies) {
+      var listDiv = this.state.filteredAndSorted ? <ListView qAndAList={this.state.filteredAndSorted} productName={this.props.product.name}/> : <div/>
+    } else {
+      var listDiv = this.state.sortedQuestions ? <ListView qAndAList={this.state.sortedQuestions} productName={this.props.product.name}/> : <div/>
+    }
 
     return (
       <div>
         <h2>Questions and Answers</h2>
-        <SearchBar/>
+        <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter}/>
         <div>{listDiv}</div>
         <AddQuestion productName={this.props.product.name}/>
       </div>
