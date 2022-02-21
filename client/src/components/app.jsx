@@ -30,7 +30,7 @@ class App extends React.Component {
     });
   }
   render() {
-    let qaDiv = this.state.basicProductInfo.id ? <QA productID={this.state.basicProductInfo.id}/> : <div/>
+    let qaDiv = this.state.basicProductInfo.id ? <QA product={this.state.basicProductInfo}/> : <div/>
     return (
       <div>
         <h1 className= 'App'>Product Detail Page</h1>

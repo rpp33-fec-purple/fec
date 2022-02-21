@@ -118,7 +118,7 @@ class QuestionModal extends React.Component {
                   <input id='nickname' name='nickname' placeholder="Example: jackson11!" maxLength='60' onChange={this.handleChange}></input><br></br>
                   <>For privacy reasons, do not use your full name or email address</><br></br>
                   <label htmlFor='email'>Your email *</label><br></br>
-                  <input id='email' name='email' maxLength='60' onChange={this.handleChange} ></input><br></br>
+                  <input id='email' name='email' maxLength='60' onChange={this.handleChange} placeholder="Example: jack@email.com"></input><br></br>
                   <>For authentication reasons, you will not be emailed</><br></br>
                   <button aria-label='Close modal' onClick={this.handleSubmit}>Submit question</button>
                 </form>

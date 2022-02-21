@@ -1,16 +1,40 @@
 import React from 'react';
 import $ from 'jquery';
+import styled from 'styled-components';
+import GlobalStyle from './globalStyles/globalStyles.jsx';
+import AnswerModal from './Modals/addAnswerModal.jsx';
+
+const Container = styled.div`
+  display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // height: 10vh;
+  // box-sizing: border-box;
+  // margin: 0;
+  // padding: 0;
+  // font-family: 'Arial', sans-serif;
+`
 
 class QuestionListEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state= {
       answersInDisplay: 2,
-      displayingAll: false
+      displayingAll: false,
+      isModalShowing: false
     }
     this.seeMoreAnswers = this.seeMoreAnswers.bind(this);
     this.sortAnswers = this.sortAnswers.bind(this);
     this.formatDate = this.formatDate.bind(this);
+    this.changeModalVisibilityState = this.changeModalVisibilityState.bind(this);
+  }
+
+  changeModalVisibilityState() {
+    this.setState({
+      isModalShowing: !this.state.isModalShowing
+    }, ()=> {
+      console.log('is modal showing in changestate func', this.state.isModalShowing)
+    })
   }
 
   seeMoreAnswers() {
@@ -88,7 +112,12 @@ class QuestionListEntry extends React.Component {
 
     return (
       <div key={QandA.question_id}>
-        Q: {QandA.question_body}   Helpful? Yes ({QandA.question_helpfulness}) | Add Answer
+        Q: {QandA.question_body}   Helpful? Yes ({QandA.question_helpfulness})  |
+          <p onClick={this.changeModalVisibilityState}><u>Add Answer</u></p>
+          <Container>
+            <AnswerModal question={QandA.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
+            <GlobalStyle/>
+          </Container>
         <div>
           {answersInView}
           {moreAnswersButton}

@@ -8,6 +8,10 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   // height: 10vh;
+  // box-sizing: border-box;
+  // margin: 0;
+  // padding: 0;
+  // font-family: 'Arial', sans-serif;
 `
 
 const Button = styled.button`
@@ -27,7 +31,6 @@ class AddQuestion extends React.Component {
     this.state = {
       isModalShowing: false
     }
-    this.addAQ = this.addAQ.bind(this);
     this.changeModalVisibilityState = this.changeModalVisibilityState.bind(this);
   }
 
@@ -37,10 +40,6 @@ class AddQuestion extends React.Component {
     }, ()=> {
       console.log('is modal showing in changestate func', this.state.isModalShowing)
     })
-  }
-
-  addAQ(){
-    console.log('Add a question clicked!')
   }
 
 
