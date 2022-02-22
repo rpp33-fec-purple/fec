@@ -19,7 +19,29 @@ class Tile extends React.Component {
     }
   this.expandImg = this.expandImg.bind(this);
   this.closeImgModal = this.closeImgModal.bind(this);
+  this.shorten = this.shorten.bind(this);
   }
+
+  shorten = (string, charLimit, id) => {
+    //count characters in string
+    var charCount = string.length;
+    //if string is less than maxChars return whole string
+    if (charCount <= charLimit) {
+      return <p>{string}</p>
+    } else {
+    // split string and format element to enable show/hide
+      var withinLimit = string.slice(0, charLimit);
+      var overLimit = string.slice(charLimit + 1, string.length);
+      return (
+        <div id={id} className="reviewBody">
+          <p>{withinLimit}
+            <span className="more">{overLimit}</span>
+            <button className="showMore">Show More</button>
+          </p>
+        </div>
+      )
+    }
+  };
 
   expandImg = (e) => {
     this.setState({isImageExpanded: true, expandedImageURL: e.target.src});
@@ -31,6 +53,7 @@ class Tile extends React.Component {
 
   render() {
     let view;
+    let testString = `Relevant - Relevance will be determined by a combination of both the date that the review was submitted as well as ‘helpfulness’ feedback received.  This combination should weigh the two characteristics such that recent reviews appear near the top, but do not outweigh reviews that have been found helpful.  Similarly, reviews that have been helpful should appear near the top, but should yield to more recent reviews if they are older.`
     if (this.props.reviews.results) {
       let currentReview = this.props.reviews.results[2];
       const checkMark = <FontAwesomeIcon icon={faCheck} />
@@ -45,7 +68,7 @@ class Tile extends React.Component {
         {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
         <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
         <div><b>{currentReview.summary}</b></div>
-        <div className="more">{currentReview.body}</div>
+        {this.shorten(testString, 250, currentReview.id)}
         {photos}
         {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
         {currentReview.response ? <div>Response: {currentReview.response}</div>: null}

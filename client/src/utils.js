@@ -28,7 +28,7 @@ export const formatDate = (isoDate) => {
 }
 
 
-export const shorten = (string, maxChars) => {
+export const shorten = (string, maxChars, id) => {
   //count characters in string
   //if string is less than maxChars
     //return string
@@ -38,4 +38,5 @@ export const shorten = (string, maxChars) => {
   //wrap second string in a span tag
 
   //return firststring moreButton span secondstring
+  return <div>`${string}`</div>;
 }
