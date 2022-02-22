@@ -26,6 +26,7 @@ class Tile extends React.Component {
   this.handleShowMore = this.handleShowMore.bind(this);
   }
 
+
   shorten = (string, charLimit, id) => {
     //count characters in string
     var charCount = string.length;
@@ -35,13 +36,13 @@ class Tile extends React.Component {
     } else {
     // split string and format element to enable show/hide
       var withinLimit = string.slice(0, charLimit);
-      var overLimit = string.slice(charLimit + 1, string.length);
+      var overLimit = string.slice(charLimit, string.length);
 
       return (
         <div className="reviewBody">
           <p>{withinLimit}
             <span style={{display: this.state.isBodyExpanded ?  'inline' : 'none'}}>{overLimit}</span>
-            <button className="showMore" onClick={this.handleShowMore}>Show More</button>
+            <button className="showMore" onClick={this.handleShowMore} style={{display: this.state.isBodyExpanded ?  'block' : 'inline'}}>Show More</button>
           </p>
         </div>
       )
