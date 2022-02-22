@@ -10,16 +10,20 @@ width: 100px;
 height: 100px;
 `;
 
+
+
 class Tile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isImageExpanded: false,
-      expandedImageURL: null
+      expandedImageURL: null,
+      isBodyExpanded: false
     }
   this.expandImg = this.expandImg.bind(this);
   this.closeImgModal = this.closeImgModal.bind(this);
   this.shorten = this.shorten.bind(this);
+  this.handleShowMore = this.handleShowMore.bind(this);
   }
 
   shorten = (string, charLimit, id) => {
@@ -32,16 +36,27 @@ class Tile extends React.Component {
     // split string and format element to enable show/hide
       var withinLimit = string.slice(0, charLimit);
       var overLimit = string.slice(charLimit + 1, string.length);
+
       return (
-        <div id={id} className="reviewBody">
+        <div className="reviewBody">
           <p>{withinLimit}
-            <span className="more">{overLimit}</span>
-            <button className="showMore">Show More</button>
+            <span style={{display: this.state.isBodyExpanded ?  'inline' : 'none'}}>{overLimit}</span>
+            <button className="showMore" onClick={this.handleShowMore}>Show More</button>
           </p>
         </div>
       )
     }
   };
+
+  handleShowMore = (e) => {
+    this.setState({isBodyExpanded: !this.state.isBodyExpanded}, () => {
+      if (this.state.isBodyExpanded) {
+        e.target.innerHTML = 'Show Less'
+      } else {
+        e.target.innerHTML = 'Show More'
+      }
+    });
+  }
 
   expandImg = (e) => {
     this.setState({isImageExpanded: true, expandedImageURL: e.target.src});
