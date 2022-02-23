@@ -13,7 +13,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     $.ajax({
-      url: 'http://localhost:3000/products/64621',
+      url: 'http://localhost:3000/products/64620',
       // data: {
       //   page: 1,
       //   count: 5
@@ -22,7 +22,7 @@ class App extends React.Component {
       success: (data) => {
         console.log('data in client', data);
         this.setState({basicProductInfo: data});
-        console.log('GET request to http://localhost:3000/products/64621 successful!');
+        console.log('GET request to http://localhost:3000/products/64620 successful!');
       },
       error: (err) => {
         console.log('Error with GET request:', err);
@@ -30,10 +30,12 @@ class App extends React.Component {
     });
   }
   render() {
+
+    let overviewDiv = this.state.basicProductInfo.id ? <Overview basicProductInfo={this.state.basicProductInfo}/> : <div/>;
     return (
       <div>
         <h1 className= 'App'>Product Detail Page</h1>
-        <Overview basicProductInfo={this.state.basicProductInfo}/>
+        {overviewDiv}
         <RelatedItems productID = {this.state.basicProductInfo.id}/>
         <QA productID={this.state.basicProductInfo.id}/>
         <Reviews productID={this.state.basicProductInfo.id}/>

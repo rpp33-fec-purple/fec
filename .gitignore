@@ -1,8 +1,6 @@
 .DS_Store
 config.js
 node_modules/
-<<<<<<< HEAD
 /client/dist/bundle.js
-=======
-/client/dist/bundle.js
->>>>>>> b6866bbe0a509b2a8ceaba9f836aeb822744eaee
+
+
