@@ -1,7 +1,7 @@
 import React from 'react';
 import QuestionModal from './Modals/addQuestionModal.jsx';
 import styled from 'styled-components';
-import GlobalStyle from './globalStyles/globalStyles.jsx'
+// import GlobalStyle from './globalStyles/globalStyles.jsx'
 
 const Container = styled.div`
   display: flex;
@@ -48,7 +48,7 @@ class AddQuestion extends React.Component {
       <Container>
         <Button onClick={this.changeModalVisibilityState}>ADD A QUESTION +</Button>
         <QuestionModal productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}/>
-        <GlobalStyle/>
+        {/* <GlobalStyle/> */}
       </Container>
     )
   }

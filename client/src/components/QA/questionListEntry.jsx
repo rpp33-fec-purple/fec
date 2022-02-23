@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import styled from 'styled-components';
-import GlobalStyle from './globalStyles/globalStyles.jsx';
+// import GlobalStyle from './globalStyles/globalStyles.jsx';
 import AnswerModal from './Modals/addAnswerModal.jsx';
 
 const Container = styled.div`
@@ -116,7 +116,7 @@ class QuestionListEntry extends React.Component {
           <p onClick={this.changeModalVisibilityState}><u>Add Answer</u></p>
           <Container>
             <AnswerModal question={QandA.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
-            <GlobalStyle/>
+            {/* <GlobalStyle/> */}
           </Container>
         <div>
           {answersInView}
