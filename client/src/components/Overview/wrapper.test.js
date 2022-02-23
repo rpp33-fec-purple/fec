@@ -13,8 +13,4 @@ it('should return the right inner text of the existing element ', () => {
   expect(testInst.findByProps({className:'Overview'}).children[0]).toEqual('Product Overview Component');
 })
 
-// it('the component should match the saved snapshot', () => {
-//   expect(testRenderer.toJSON()).toMatchSnapshot();
-// })
-
 })
