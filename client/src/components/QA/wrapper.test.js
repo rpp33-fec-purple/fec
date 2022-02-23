@@ -1,6 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import QA from './wrapper.jsx';
+import QA from './wrapper';
 
 describe('render the component RelatedItems', () => {
 const testRenderer = TestRenderer.create(<QA />);
