@@ -1,32 +1,53 @@
 import React from 'react';
-import starRating from './starRating.jsx';
-import price from './price.jsx';
+import styled from 'styled-components';
+import StarRating from './starRating.jsx';
+const Strikethrough = styled.span`
+  text-decoration: line-through;
+`;
+const Underline = styled.span`
+  text-decoration: underline;
+  &:hover {
+    background-color: lightblue;
+  }
+`;
 
-class productInformation extends React.Component {
+class ProductInformation extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    var price;
+    if (this.props.styleInfo[this.props.currentStyleIndex].sale_price !== null) {
+      price =
+        <div className='price'>
+          <Strikethrough>${this.props.styleInfo[this.props.currentStyleIndex].original_price}</Strikethrough>
+          <span> ${this.props.styleInfo[this.props.currentStyleIndex].sale_price}</span>
+        </div>;
+    } else {
+      price =
+        <div>
+          <span>${this.props.styleInfo[this.props.currentStyleIndex].original_price}</span>
+        </div>;
+    }
     return (
       <div className='productInformation'>
-        <starRating/> {/* shared folder? Pass in review data. Get svg for stars */}
-        <p>Read all reviews<p/>
+        <div className='reviewRating'>
+        <span/>* * * * *<span/> {/* shared folder? Pass in review data. Get svg for stars */}
+        <Underline> Read all reviews</Underline>
+        </div>
         <div className='productCategory'>
-          <h2></h2>
+          <span>Category > {this.props.productInfo.category}</span>
         </div>
 
         <div className='productTitle'>
-
+          <h1>{this.props.productInfo.name}</h1>
         </div>
 
-        <div className='price'>
-          <p>{this.props.price}</p> {/* strike original price if discounted */}
-        </div>
-
+        {price} {/* strike original price if discounted */}
       </div>
-    )
+    );
   }
 }
 
-export default productInformation;
+export default ProductInformation;
