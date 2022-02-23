@@ -3,6 +3,9 @@ import Overview from './Overview/wrapper.jsx';
 import QA from './QA/wrapper.jsx';
 import RelatedItems from './RelatedItems/wrapper.jsx';
 import Reviews from './Reviews/wrapper.jsx';
+import GlobalStyle from './globalStyles.jsx';
+import styled from 'styled-components';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -30,15 +33,16 @@ class App extends React.Component {
     });
   }
   render() {
-
+    let qaDiv = this.state.basicProductInfo.id ? <QA product={this.state.basicProductInfo}/> : <div/>
     let overviewDiv = this.state.basicProductInfo.id ? <Overview basicProductInfo={this.state.basicProductInfo}/> : <div/>;
     return (
       <div>
         <h1 className= 'App'>Product Detail Page</h1>
         {overviewDiv}
         <RelatedItems productID = {this.state.basicProductInfo.id}/>
-        <QA productID={this.state.basicProductInfo.id}/>
+        <div>{qaDiv}</div>
         <Reviews productID={this.state.basicProductInfo.id}/>
+        <GlobalStyle/>
       </div>
     )
   }
