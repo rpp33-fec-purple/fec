@@ -14,7 +14,7 @@ class QAndA extends React.Component {
     }
     this.sortQuestions = this.sortQuestions.bind(this);
     this.updateStateCauseFilter = this.updateStateCauseFilter.bind(this);
-    const filterApplies = false;
+    var filterApplies = false;
   }
 
   componentDidMount() {
@@ -61,10 +61,14 @@ class QAndA extends React.Component {
   }
 
   render() {
+    console.log('product name line 64', this.props)
+
+    var productName = this.props.product.name;
     if (this.filterApplies) {
-      var listDiv = this.state.filteredAndSorted ? <ListView qAndAList={this.state.filteredAndSorted} productName={this.props.product.name}/> : <div/>
+      var listDiv = this.state.filteredAndSorted ? <ListView qAndAList={this.state.filteredAndSorted} productName={productName} productID={this.props.product.id}/> : <div/>
     } else {
-      var listDiv = this.state.sortedQuestions ? <ListView qAndAList={this.state.sortedQuestions} productName={this.props.product.name}/> : <div/>
+      console.log('product name in QA', this.props.product.name)
+      var listDiv = this.state.sortedQuestions ? <ListView qAndAList={this.state.sortedQuestions} productName={productName}/> : <div/>
     }
 
     return (
@@ -72,7 +76,7 @@ class QAndA extends React.Component {
         <h2>Questions and Answers</h2>
         <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter}/>
         <div>{listDiv}</div>
-        <AddQuestion productName={this.props.product.name}/>
+        <AddQuestion productName={this.props.product.name} productID={this.props.product.id}/>
       </div>
     )
   }

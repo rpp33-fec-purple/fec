@@ -7,7 +7,8 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
-  position: fixed;
+  position: absolute;
+  // position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +89,7 @@ class AnswerModal extends React.Component {
     var nickname = this.state.nickname;
     var email = this.state.email;
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (question.length === 0) {
+    if (answer.length === 0) {
       alert('You must enter the following: Answer')
     } else if (nickname.length === 0) {
       alert('You must enter the following: Nickname')
@@ -97,7 +98,23 @@ class AnswerModal extends React.Component {
     } else if (!email.match(validRegex)) {
       alert('The email address provided is not in correct email format')
     } else {
-      this.props.changeModalState()
+      $.ajax({
+        url: `http://localhost:3000/qa/questions/${this.props.questionID}/answers`,
+        data: {
+          body: answer,
+          name: nickname,
+          email: email,
+        },
+        method: 'POST',
+        success: (data) => {
+          this.props.changeModalState()
+        },
+        error: (err) => {
+          console.log('Error with POST request:', err);
+          this.props.changeModalState()
+
+        }
+      })
     }
   }
 

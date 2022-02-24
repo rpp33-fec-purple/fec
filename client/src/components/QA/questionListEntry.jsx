@@ -27,6 +27,8 @@ class QuestionListEntry extends React.Component {
     this.sortAnswers = this.sortAnswers.bind(this);
     this.formatDate = this.formatDate.bind(this);
     this.changeModalVisibilityState = this.changeModalVisibilityState.bind(this);
+    this.markQuestionHelpful = this.markQuestionHelpful.bind(this);
+    this.reportQuestion = this.reportQuestion.bind(this);
   }
 
   changeModalVisibilityState() {
@@ -86,6 +88,40 @@ class QuestionListEntry extends React.Component {
     return `${monthName} ${day}, ${year}`
   }
 
+  markQuestionHelpful(questionID) {
+    $.ajax({
+      url: `http://localhost:3000/qa/questions/${questionID}/helpful`,
+      data: {
+        question_id: questionID
+      },
+      method: 'PUT',
+      success: (data) => {
+        // this.props.changeModalState()
+      },
+      error: (err) => {
+        console.log('Error with POST request:', err);
+        this.props.changeModalState()
+      }
+    })
+  }
+
+
+  reportQuestion(questionID) {
+    $.ajax({
+      url: `http://localhost:3000/qa/questions/${questionID}/report`,
+      data: {
+        question_id: questionID
+      },
+      method: 'PUT',
+      success: (data) => {
+        // this.props.changeModalState()
+      },
+      error: (err) => {
+        console.log('Error with POST request:', err);
+        this.props.changeModalState()
+      }
+    })
+  }
 
   render(){
     var answers = [];
@@ -112,10 +148,12 @@ class QuestionListEntry extends React.Component {
 
     return (
       <div key={QandA.question_id}>
-        Q: {QandA.question_body}   Helpful? Yes ({QandA.question_helpfulness})  |
+        Q: {QandA.question_body}
+          <p onClick={() => { this.markQuestionHelpful(QandA.question_id) }}><u>Helpful?</u></p>  Yes ({QandA.question_helpfulness})  |
+          <p onClick={() => { this.reportQuestion(QandA.question_id) }}><u>Report |</u></p>
           <p onClick={this.changeModalVisibilityState}><u>Add Answer</u></p>
           <Container>
-            <AnswerModal question={QandA.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
+            <AnswerModal questionID={QandA.question_id} question={QandA.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
             {/* <GlobalStyle/> */}
           </Container>
         <div>

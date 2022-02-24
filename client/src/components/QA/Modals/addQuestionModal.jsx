@@ -7,7 +7,8 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
-  position: fixed;
+  position: absolute;
+  // position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,6 +24,7 @@ const ModalWrapper = styled.div`
   position: relative;
   z-index: 10;
   border-radius: 10px;
+  // padding-left: 20px;
 `;
 
 const ModalContent = styled.div`
@@ -97,7 +99,24 @@ class QuestionModal extends React.Component {
     } else if (!email.match(validRegex)) {
       alert('The email address provided is not in correct email format')
     } else {
-      this.props.changeModalState()
+      $.ajax({
+        url: 'http://localhost:3000/qa/questions',
+        data: {
+          body: question,
+          name: nickname,
+          email: email,
+          product_id: this.props.productID
+        },
+        method: 'POST',
+        success: (data) => {
+          this.props.changeModalState()
+        },
+        error: (err) => {
+          console.log('Error with POST request:', err);
+          this.props.changeModalState()
+
+        }
+      })
     }
   }
 
