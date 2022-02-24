@@ -71,7 +71,7 @@ class Tile extends React.Component {
     let view;
     let testString = `Relevant - Relevance will be determined by a combination of both the date that the review was submitted as well as ‘helpfulness’ feedback received.  This combination should weigh the two characteristics such that recent reviews appear near the top, but do not outweigh reviews that have been found helpful.  Similarly, reviews that have been helpful should appear near the top, but should yield to more recent reviews if they are older.`
     if (this.props.reviews.results) {
-      let currentReview = this.props.reviews.results[2];
+      let currentReview = this.props.reviews.results[1];
       const checkMark = <FontAwesomeIcon icon={faCheck} />
       let photos;
       if (currentReview.photos) {
@@ -90,36 +90,6 @@ class Tile extends React.Component {
         {currentReview.response ? <div>Response: {currentReview.response}</div>: null}
         <div>Helpful? Yes({currentReview.helpfulness})  |  Report</div>
       </div>
-
-      // let currentReview = this.props.reviews.results[1];
-      // const checkMark = <FontAwesomeIcon icon={faCheck} />
-      // // let photos;
-      // // if (currentReview.photos) {
-      // //   photos = currentReview.photos.map((photo) => {
-      // //     return <Thumbnail src={photo.url} key={photo.id} onClick={this.expandImg}></Thumbnail>
-      // //   })
-      // // }
-      // view =
-      // this.props.reviews.results.map((review) => {
-      //   let photos;
-      //   if (review.photos) {
-      //     photos = review.photos.map((photo) => {
-      //     return <Thumbnail src={photo.url} key={photo.id} onClick={this.expandImg}></Thumbnail>
-      //   })
-      // }
-      //   return (
-      //    <div>
-      //     {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
-      //     <div>{review.reviewer_name}, {formatDate(review.date)}</div>
-      //     <div><b>{review.summary}</b></div>
-      //     <div className="more">{review.body}</div>
-      //     {photos}
-      //     {review.recommend ? <div>{checkMark} I recommend this product</div> : null}
-      //     {review.response ? <div>Response: {review.response}</div>: null}
-      //     <div>Helpful? Yes({review.helpfulness})  |  Report</div>
-      //   </div>
-      //   )
-      // })
     } else {
       view = <div>No Reviews Yet</div>
     }

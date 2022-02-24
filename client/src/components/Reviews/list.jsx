@@ -4,6 +4,10 @@ import Tile from './tile.jsx';
 class List extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      reviewsDisplayed: 2
+    }
   }
 
   render() {
@@ -19,6 +23,7 @@ class List extends React.Component {
          <option value="helpfulness">helpfulness</option>
          <option value="newest">newest</option>
        </select>
+       <Tile productID={this.props.productID} reviews={this.props.reviews} meta={this.props.meta}/>
      </div>
 
     } else {
@@ -26,11 +31,11 @@ class List extends React.Component {
     }
 
     return (
-      <div>
+      <>
         <div>{view}</div>
         <button>MORE REVIEWS</button>
         <button>ADD A REVIEW +</button>
-      </div>
+      </>
     )
   }
 }

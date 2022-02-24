@@ -20,7 +20,6 @@ class Reviews extends React.Component {
       <div>
         <h4 className='Review'>RATINGS & REVIEWS</h4>
         <List productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
-        <Tile productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
         <Breakdown productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
       </div>
     )
