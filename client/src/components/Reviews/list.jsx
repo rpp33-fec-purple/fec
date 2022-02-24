@@ -39,6 +39,7 @@ class List extends React.Component {
            )
          }
        })}
+       <button style={{display: reviews.results.length > reviewsDisplayed ?  'block' : 'none'}}onClick={this.handleMoreButtonClick}>MORE REVIEWS</button>
      </div>
 
     } else {
@@ -48,7 +49,6 @@ class List extends React.Component {
     return (
       <>
         <div>{view}</div>
-        <button onClick={this.handleMoreButtonClick}>MORE REVIEWS</button>
         <button>ADD A REVIEW +</button>
       </>
     )
