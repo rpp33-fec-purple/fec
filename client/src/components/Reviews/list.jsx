@@ -6,7 +6,7 @@ class List extends React.Component {
     super(props);
 
     this.state = {
-      reviewsDisplayed: 2
+      reviewsToDisplay: 2
     }
   }
 
@@ -14,6 +14,7 @@ class List extends React.Component {
     let view;
     let meta = this.props.meta;
     let reviews = this.props.reviews;
+    let reviewsDisplayed = 0;
     if (reviews.results) {
       view =
       <div>
@@ -23,7 +24,15 @@ class List extends React.Component {
          <option value="helpfulness">helpfulness</option>
          <option value="newest">newest</option>
        </select>
-       <Tile productID={this.props.productID} reviews={this.props.reviews} meta={this.props.meta}/>
+       {reviews.results.map((review) => {
+         while (reviewsDisplayed < this.state.reviewsToDisplay) {
+           let reviewIndex = reviewsDisplayed;
+           reviewsDisplayed++;
+           return (
+            <Tile key={reviewIndex} productID={this.props.productID} reviewIndex={reviewIndex} reviews={this.props.reviews} meta={this.props.meta}/>
+           )
+         }
+       })}
      </div>
 
     } else {

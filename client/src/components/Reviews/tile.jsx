@@ -71,7 +71,7 @@ class Tile extends React.Component {
     let view;
     let testString = `Relevant - Relevance will be determined by a combination of both the date that the review was submitted as well as ‘helpfulness’ feedback received.  This combination should weigh the two characteristics such that recent reviews appear near the top, but do not outweigh reviews that have been found helpful.  Similarly, reviews that have been helpful should appear near the top, but should yield to more recent reviews if they are older.`
     if (this.props.reviews.results) {
-      let currentReview = this.props.reviews.results[1];
+      let currentReview = this.props.reviews.results[this.props.reviewIndex];
       const checkMark = <FontAwesomeIcon icon={faCheck} />
       let photos;
       if (currentReview.photos) {
