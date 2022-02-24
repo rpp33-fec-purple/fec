@@ -8,6 +8,12 @@ class List extends React.Component {
     this.state = {
       reviewsToDisplay: 2
     }
+
+    this.handleMoreButtonClick = this.handleMoreButtonClick.bind(this);
+  }
+
+  handleMoreButtonClick = () => {
+    this.setState({reviewsToDisplay: this.state.reviewsToDisplay += 2})
   }
 
   render() {
@@ -42,7 +48,7 @@ class List extends React.Component {
     return (
       <>
         <div>{view}</div>
-        <button>MORE REVIEWS</button>
+        <button onClick={this.handleMoreButtonClick}>MORE REVIEWS</button>
         <button>ADD A REVIEW +</button>
       </>
     )
