@@ -15,15 +15,21 @@ class List extends React.Component {
     super(props);
 
     this.state = {
-      reviewsToDisplay: 2
+      reviewsToDisplay: 2,
     }
 
     this.handleMoreButtonClick = this.handleMoreButtonClick.bind(this);
+    this.handleSortChange = this.handleSortChange.bind(this);
   }
 
   handleMoreButtonClick = () => {
     this.setState({reviewsToDisplay: this.state.reviewsToDisplay += 2})
   }
+
+  handleSortChange = (event) => {
+    this.props.updateSort(event.target.value);
+    this.setState({reviewsToDisplay: 2});
+  };
 
   render() {
     let view;
@@ -38,9 +44,9 @@ class List extends React.Component {
         view =
         <div>
           <label>{reviews.results.length} reviews, sorted by </label>
-          <select name="sort" id="sort">
-            <option value="relevance">relevance</option>
-            <option value="helpfulness">helpfulness</option>
+          <select name="sort" id="sort" value={this.props.sortBy} onChange={this.handleSortChange}>
+            <option value="relevant">relevance</option>
+            <option value="helpful">helpfulness</option>
             <option value="newest">newest</option>
           </select>
           <ScrollableList>

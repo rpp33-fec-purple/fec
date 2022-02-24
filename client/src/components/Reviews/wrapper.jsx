@@ -10,32 +10,36 @@ class Reviews extends React.Component {
 
     this.state = {
       reviews: {},
-      meta: {}
+      meta: {},
+      sortBy: 'relevant'
     }
-
+    this.handleSortChange = this.handleSortChange.bind(this);
   }
+
+  handleSortChange = (newSortByValue) => {
+    this.setState({sortBy: newSortByValue});
+  };
 
   render() {
     return (
       <div>
         <h4 className='Review'>RATINGS & REVIEWS</h4>
-        <List productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
+        <List productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta} sortBy={this.state.sortBy} updateSort={this.handleSortChange}/>
         <Breakdown productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
       </div>
     )
   }
 
-  componentDidMount() {};
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.productID !== this.props.productID) {
+  componentDidUpdate(prevProps, prevState) {
+    console.log('PREVIOUS STATE', prevState);
+    if (prevProps.productID !== this.props.productID || prevState.sortBy !== this.state.sortBy) {
       $.ajax({
         url: `http://localhost:3000/reviews/`,
         data: {
           product_id: this.props.productID,
           page: 1,
           count: 100,
-          sort: 'relevant'
+          sort: this.state.sortBy
         },
         method: 'GET',
         success: (data) => {
