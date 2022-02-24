@@ -1,5 +1,14 @@
 import React from 'react';
 import Tile from './tile.jsx';
+import styled from 'styled-components';
+
+
+const ScrollableList = styled.div`
+      margin: 0 auto;
+      height: 250px;
+      width: 800px;
+      overflow: auto;
+  `;
 
 class List extends React.Component {
   constructor(props) {
@@ -30,16 +39,18 @@ class List extends React.Component {
          <option value="helpfulness">helpfulness</option>
          <option value="newest">newest</option>
        </select>
-       {reviews.results.map((review) => {
-         while (reviewsDisplayed < this.state.reviewsToDisplay) {
-           let reviewIndex = reviewsDisplayed;
-           reviewsDisplayed++;
-           return (
-            <Tile key={reviewIndex} productID={this.props.productID} reviewIndex={reviewIndex} reviews={this.props.reviews} meta={this.props.meta}/>
-           )
-         }
-       })}
-       <button style={{display: reviews.results.length > reviewsDisplayed ?  'block' : 'none'}}onClick={this.handleMoreButtonClick}>MORE REVIEWS</button>
+       <ScrollableList>
+          {reviews.results.map((review) => {
+            while (reviewsDisplayed < this.state.reviewsToDisplay) {
+              let reviewIndex = reviewsDisplayed;
+              reviewsDisplayed++;
+              return (
+                <Tile key={reviewIndex} productID={this.props.productID} reviewIndex={reviewIndex} reviews={this.props.reviews} meta={this.props.meta}/>
+              )
+            }
+          })}
+       </ScrollableList>
+       <button style={{display: reviews.results.length > reviewsDisplayed ?  'inline' : 'none'}}onClick={this.handleMoreButtonClick}>MORE REVIEWS</button>
      </div>
 
     } else {
@@ -48,7 +59,7 @@ class List extends React.Component {
 
     return (
       <>
-        <div>{view}</div>
+        {view}
         <button>ADD A REVIEW +</button>
       </>
     )
