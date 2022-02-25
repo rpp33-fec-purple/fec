@@ -45,6 +45,7 @@ class QuestionListEntry extends React.Component {
     this.reportAnswer = this.reportAnswer.bind(this);
 
     var newAnswerAdded = false;
+    var answerMarkedHelpful = false;
   }
 
   changeModalVisibilityState(answerAdded) {
@@ -148,25 +149,6 @@ class QuestionListEntry extends React.Component {
       method: 'PUT',
       success: (data) => {
         this.props.rerenderQandAs()
-        //fix this, i should be getting questions not answers so make ajax call from component higher up
-        // $.ajax({
-        //   url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
-        //   data: {
-        //     question_id: this.props.qACombo.question_id,
-        //     page: 1,
-        //     count: 100
-        //   },
-        //   method: 'GET',
-        //   success: (data) => {
-        //     this.questionMarkedHelpful = true;
-        //     this.setState({
-        //       updatedAnswersList: data.results
-        //     })
-        //   },
-        //   error: (err) => {
-        //     console.log('Error with POST request:', err);
-        //   }
-        // })
       },
       error: (err) => {
         console.log('Error with POST request:', err);
@@ -186,7 +168,6 @@ class QuestionListEntry extends React.Component {
       },
       error: (err) => {
         console.log('Error with POST request:', err);
-        this.props.changeModalState()
       }
     })
   }
@@ -199,11 +180,28 @@ class QuestionListEntry extends React.Component {
       },
       method: 'PUT',
       success: (data) => {
-        // this.props.changeModalState()
+        $.ajax({
+          url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+          data: {
+            question_id: this.props.qACombo.question_id,
+            page: 1,
+            count: 100
+          },
+          method: 'GET',
+          success: (data) => {
+            this.answerMarkedHelpful = true;
+            console.log('Successfully marking answer as helpful')
+            this.setState({
+              updatedAnswersList: data.results
+            })
+          },
+          error: (err) => {
+            console.log('Error with GET request:', err);
+          }
+        })
       },
       error: (err) => {
-        console.log('Error with POST request:', err);
-        this.props.changeModalState()
+        console.log('Error with answer PUT request when marking helpful:', err);
       }
     })
   }
@@ -220,7 +218,6 @@ class QuestionListEntry extends React.Component {
       },
       error: (err) => {
         console.log('Error with POST request:', err);
-        this.props.changeModalState()
       }
     })
   }
@@ -230,15 +227,16 @@ class QuestionListEntry extends React.Component {
     var answersDiv;
     // console.log('qacombo in render method', this.props.qACombo)
 
-    if (this.newAnswerAdded) {
+    if (this.newAnswerAdded || this.answerMarkedHelpful) {
       this.newAnswerAdded = false;
+      this.answerMarkedHelpful = false;
       var sorted = this.sortAnswers(this.state.updatedAnswersList);
 
       answersDiv = sorted.map(a =>
         <div key={a.answer_id}>
         A: {a.body}
         <br></br>
-        <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u onClick={ () => { this.reportAnswer(a.answer_id) }}>Report</u></p>
+        <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u onClick={() => { this.markAnswerHelpful(a.answer_id) }}> Yes</u> ({a.helpfulness}) | <u onClick={ () => { this.reportAnswer(a.answer_id) }}>Report</u></p>
       </div>
       )
     } else {
