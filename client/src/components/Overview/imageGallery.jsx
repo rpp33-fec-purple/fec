@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 const MainImageContainer = styled.div`
   height: 300px;
   width: 300px;
@@ -13,16 +14,22 @@ class ImageGallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentIndex: 0, //
+      currentIndex: 0,
       expanded: false
     }
   }
 
   render() {
-    var mainImage =
-      <MainImageContainer>
-        <MainImage src={this.props.styleInfo[this.props.currentStyleIndex].photos[0].url}/>
-      </MainImageContainer>;
+    var mainImage;
+    if (this.state.expanded) {
+
+    } else {
+      mainImage =
+        <MainImageContainer>
+          <MainImage src={this.props.styleInfo[this.props.currentStyleIndex].photos[0].url}/>
+        </MainImageContainer>;
+
+    }
     return (
       <div className='imageGallery'>
         {mainImage}
