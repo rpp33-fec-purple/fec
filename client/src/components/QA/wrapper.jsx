@@ -25,7 +25,7 @@ class QAndA extends React.Component {
       data: {
         product_id: this.props.product.id,
         page: 1,
-        count: 50
+        count: 100
       },
       method: 'GET',
       success: (data) => {
@@ -41,7 +41,6 @@ class QAndA extends React.Component {
 
   sortQuestions(data) {
     var sorted = data.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
-    // cb(sorted);
     return sorted;
   }
 

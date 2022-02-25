@@ -14,7 +14,7 @@ class ListView extends React.Component {
 
   seeMoreQuestions() {
     var totalNumOfQs = this.props.qAndAList.length;
-    console.log('list', this.props.qAndAList)
+    // console.log('list', this.props.qAndAList)
 
     if (totalNumOfQs > this.state.inDisplay){
       if (this.state.inDisplay + 2 >= totalNumOfQs) {

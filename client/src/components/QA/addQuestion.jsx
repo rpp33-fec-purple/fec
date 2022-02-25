@@ -1,7 +1,6 @@
 import React from 'react';
 import QuestionModal from './Modals/addQuestionModal.jsx';
 import styled from 'styled-components';
-// import GlobalStyle from './globalStyles/globalStyles.jsx'
 
 const Container = styled.div`
   display: flex;
@@ -63,15 +62,10 @@ class AddQuestion extends React.Component {
         url: `http://localhost:3000/reviews/${reviewID}/helpful`,
         data: {
           review_id: 1116182
-          // 'body': question,
-          // 'name': nickname,
-          // 'email': email
-          // 'product_id': 64620
-          // sku_id: 2313078
         },
         method: 'PUT',
         success: (data) => {
-          // this.props.changeModalState()
+
         },
         error: (err) => {
           console.log('Error with POST request:', err);

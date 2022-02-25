@@ -29,6 +29,8 @@ class QuestionListEntry extends React.Component {
     this.changeModalVisibilityState = this.changeModalVisibilityState.bind(this);
     this.markQuestionHelpful = this.markQuestionHelpful.bind(this);
     this.reportQuestion = this.reportQuestion.bind(this);
+    this.markAnswerHelpful = this.markAnswerHelpful.bind(this);
+    this.reportAnswer = this.reportAnswer.bind(this);
   }
 
   changeModalVisibilityState() {
@@ -105,12 +107,45 @@ class QuestionListEntry extends React.Component {
     })
   }
 
-
   reportQuestion(questionID) {
     $.ajax({
       url: `http://localhost:3000/qa/questions/${questionID}/report`,
       data: {
         question_id: questionID
+      },
+      method: 'PUT',
+      success: (data) => {
+        // this.props.changeModalState()
+      },
+      error: (err) => {
+        console.log('Error with POST request:', err);
+        this.props.changeModalState()
+      }
+    })
+  }
+
+  markAnswerHelpful(answerID) {
+    $.ajax({
+      url: `http://localhost:3000/qa/answers/${answerID}/helpful`,
+      data: {
+        answer_id: answerID
+      },
+      method: 'PUT',
+      success: (data) => {
+        // this.props.changeModalState()
+      },
+      error: (err) => {
+        console.log('Error with POST request:', err);
+        this.props.changeModalState()
+      }
+    })
+  }
+
+  reportAnswer(answerID) {
+    $.ajax({
+      url: `http://localhost:3000/qa/answers/${answerID}/report`,
+      data: {
+        answer_id: answerID
       },
       method: 'PUT',
       success: (data) => {
@@ -136,7 +171,8 @@ class QuestionListEntry extends React.Component {
     var answersDiv = sorted.map(a =>
       <div key={a.id}>
         A: {a.body}
-        <br></br> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? Yes ({a.helpfulness}) | Report
+        <br></br>
+        <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
       </div>
     )
     const answersInView = answersDiv.slice(0, this.state.answersInDisplay);
@@ -148,10 +184,7 @@ class QuestionListEntry extends React.Component {
 
     return (
       <div key={QandA.question_id}>
-        Q: {QandA.question_body}
-          <p onClick={() => { this.markQuestionHelpful(QandA.question_id) }}><u>Helpful?</u></p>  Yes ({QandA.question_helpfulness})  |
-          <p onClick={() => { this.reportQuestion(QandA.question_id) }}><u>Report |</u></p>
-          <p onClick={this.changeModalVisibilityState}><u>Add Answer</u></p>
+        Q: {QandA.question_body} Helpful? <u onClick={() => { this.markQuestionHelpful(QandA.question_id) }}> Yes</u> ({QandA.question_helpfulness})  | <u onClick={() => { this.reportQuestion(QandA.question_id) }}>Report</u> | <u onClick={this.changeModalVisibilityState}>Add Answer</u>
           <Container>
             <AnswerModal questionID={QandA.question_id} question={QandA.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
             {/* <GlobalStyle/> */}
@@ -160,6 +193,7 @@ class QuestionListEntry extends React.Component {
           {answersInView}
           {moreAnswersButton}
         </div>
+        <div>--------------</div>
       </div>
 
     )
