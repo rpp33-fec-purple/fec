@@ -44,7 +44,7 @@ class QuestionListEntry extends React.Component {
     this.markAnswerHelpful = this.markAnswerHelpful.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
 
-    var newQuestionAdded = false;
+    var newAnswerAdded = false;
   }
 
   changeModalVisibilityState(answerAdded) {
@@ -59,7 +59,7 @@ class QuestionListEntry extends React.Component {
         },
         method: 'GET',
         success: (data) => {
-          this.newQuestionAdded = true;
+          this.newAnswerAdded = true;
 
           this.setState({
             isModalShowing: !this.state.isModalShowing,
@@ -147,11 +147,29 @@ class QuestionListEntry extends React.Component {
       },
       method: 'PUT',
       success: (data) => {
-        // this.props.changeModalState()
+        this.props.rerenderQandAs()
+        //fix this, i should be getting questions not answers so make ajax call from component higher up
+        // $.ajax({
+        //   url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+        //   data: {
+        //     question_id: this.props.qACombo.question_id,
+        //     page: 1,
+        //     count: 100
+        //   },
+        //   method: 'GET',
+        //   success: (data) => {
+        //     this.questionMarkedHelpful = true;
+        //     this.setState({
+        //       updatedAnswersList: data.results
+        //     })
+        //   },
+        //   error: (err) => {
+        //     console.log('Error with POST request:', err);
+        //   }
+        // })
       },
       error: (err) => {
         console.log('Error with POST request:', err);
-        this.props.changeModalState()
       }
     })
   }
@@ -210,10 +228,10 @@ class QuestionListEntry extends React.Component {
   render(){
     var answers = [];
     var answersDiv;
-    console.log('qacombo in render method', this.props.qACombo)
+    // console.log('qacombo in render method', this.props.qACombo)
 
-    if (this.newQuestionAdded) {
-      this.newQuestionAdded = false;
+    if (this.newAnswerAdded) {
+      this.newAnswerAdded = false;
       var sorted = this.sortAnswers(this.state.updatedAnswersList);
 
       answersDiv = sorted.map(a =>

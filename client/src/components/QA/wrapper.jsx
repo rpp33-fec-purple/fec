@@ -14,7 +14,7 @@ class QAndA extends React.Component {
     }
     this.sortQuestions = this.sortQuestions.bind(this);
     this.updateStateCauseFilter = this.updateStateCauseFilter.bind(this);
-    this.questionAdded = this.questionAdded.bind(this);
+    this.rerenderQandAs = this.rerenderQandAs.bind(this);
     var filterApplies = false;
   }
 
@@ -39,7 +39,7 @@ class QAndA extends React.Component {
     });
   }
 
-  questionAdded() {
+  rerenderQandAs() {
     $.ajax({
       url: `http://localhost:3000/qa/questions`,
       data: {
@@ -83,10 +83,10 @@ class QAndA extends React.Component {
 
     var productName = this.props.product.name;
     if (this.filterApplies) {
-      var listDiv = this.state.filteredAndSorted ? <ListView qAndAList={this.state.filteredAndSorted} productName={productName} productID={this.props.product.id}/> : <div/>
+      var listDiv = this.state.filteredAndSorted ? <ListView rerenderQandAs={this.rerenderQandAs} qAndAList={this.state.filteredAndSorted} productName={productName} productID={this.props.product.id}/> : <div/>
     } else {
       // console.log('product name in QA', this.props.product.name)
-      var listDiv = this.state.sortedQuestions ? <ListView qAndAList={this.state.sortedQuestions} productName={productName}/> : <div/>
+      var listDiv = this.state.sortedQuestions ? <ListView rerenderQandAs={this.rerenderQandAs} qAndAList={this.state.sortedQuestions} productName={productName}/> : <div/>
     }
 
     return (
@@ -94,7 +94,7 @@ class QAndA extends React.Component {
         <h2>Questions and Answers</h2>
         <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter}/>
         <div>{listDiv}</div>
-        <AddQuestion questionAdded={this.questionAdded} productName={this.props.product.name} productID={this.props.product.id}/>
+        <AddQuestion questionAdded={this.rerenderQandAs} productName={this.props.product.name} productID={this.props.product.id}/>
       </div>
     )
   }

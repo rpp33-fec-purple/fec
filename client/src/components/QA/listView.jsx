@@ -63,7 +63,7 @@ class ListView extends React.Component {
 
       return (
         <div key={qa.question_id}>
-          <QuestionListEntry qACombo={qa} productName={this.props.productName}/>
+          <QuestionListEntry rerenderQandAs={this.props.rerenderQandAs} qACombo={qa} productName={this.props.productName}/>
         </div>
       )
     })
