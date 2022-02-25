@@ -14,6 +14,7 @@ class QAndA extends React.Component {
     }
     this.sortQuestions = this.sortQuestions.bind(this);
     this.updateStateCauseFilter = this.updateStateCauseFilter.bind(this);
+    this.questionAdded = this.questionAdded.bind(this);
     var filterApplies = false;
   }
 
@@ -36,7 +37,25 @@ class QAndA extends React.Component {
         console.log('Error with GET request:', err);
       }
     });
+  }
 
+  questionAdded() {
+    $.ajax({
+      url: `http://localhost:3000/qa/questions`,
+      data: {
+        product_id: this.props.product.id,
+        page: 1,
+        count: 100
+      },
+      method: 'GET',
+      success: (data) => {
+        console.log('data in client', data);
+        this.setState({sortedQuestions: data.results});
+      },
+      error: (err) => {
+        console.log('Error with GET request:', err);
+      }
+    });
   }
 
   sortQuestions(data) {
@@ -75,7 +94,7 @@ class QAndA extends React.Component {
         <h2>Questions and Answers</h2>
         <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter}/>
         <div>{listDiv}</div>
-        <AddQuestion productName={this.props.product.name} productID={this.props.product.id}/>
+        <AddQuestion questionAdded={this.questionAdded} productName={this.props.product.name} productID={this.props.product.id}/>
       </div>
     )
   }

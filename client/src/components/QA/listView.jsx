@@ -18,6 +18,7 @@ const Container = styled.div`
 const ScrollableList = styled.div`
       margin: 0 auto;
       // height: 250px;
+      min-height: 100px;
       max-height: 550px;
       // max-height:75%;
       width: 800px;
