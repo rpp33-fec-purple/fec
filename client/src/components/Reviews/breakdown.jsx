@@ -54,14 +54,14 @@ class Breakdown extends React.Component {
 
       view =
       <>
-        <h3>{avgRating}</h3>
+        <h2>{avgRating}</h2>
         <h4>Rating Breakdown</h4>
         <Wrapper>
-          <span>5 Star</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <span>4 Star</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[4] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <span>3 Star</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[3] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <span>2 Star</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[2] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <span>1 Star</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[1] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span>5 Star</span><span>({ratings[5]})</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span>4 Star</span><span>({ratings[4]})</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[4] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span>3 Star</span><span>({ratings[3]})</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[3] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span>2 Star</span><span>({ratings[2]})</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[2] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span>1 Star</span><span>({ratings[1]})</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[1] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
         </Wrapper>
       </>
     }
