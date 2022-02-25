@@ -31,7 +31,8 @@ class QuestionListEntry extends React.Component {
     this.state= {
       answersInDisplay: 2,
       displayingAll: false,
-      isModalShowing: false
+      isModalShowing: false,
+      updatedAnswersList: []
     }
     this.seeMoreAnswers = this.seeMoreAnswers.bind(this);
     this.collapseAnswers = this.collapseAnswers.bind(this);
@@ -42,14 +43,44 @@ class QuestionListEntry extends React.Component {
     this.reportQuestion = this.reportQuestion.bind(this);
     this.markAnswerHelpful = this.markAnswerHelpful.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
+
+    var newQuestionAdded = false;
   }
 
-  changeModalVisibilityState() {
+  changeModalVisibilityState(answerAdded) {
+
+    if (answerAdded) {
+      $.ajax({
+        url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+        data: {
+          question_id: this.props.qACombo.question_id,
+          page: 1,
+          count: 100
+        },
+        method: 'GET',
+        success: (data) => {
+          this.newQuestionAdded = true;
+
+          this.setState({
+            isModalShowing: !this.state.isModalShowing,
+            updatedAnswersList: data.results
+          })
+        },
+        error: (err) => {
+          console.log('Error with POST request:', err);
+          this.setState({
+            isModalShowing: !this.state.isModalShowing
+          })
+        }
+      })
+    } else {
     this.setState({
       isModalShowing: !this.state.isModalShowing
     }, ()=> {
       console.log('is modal showing in changestate func', this.state.isModalShowing)
     })
+
+    }
   }
 
   collapseAnswers() {
@@ -178,21 +209,34 @@ class QuestionListEntry extends React.Component {
 
   render(){
     var answers = [];
-    var QandA = this.props.qACombo;
-    for (var key in QandA.answers) {
-      answers.push(QandA.answers[key])
-    }
+    var answersDiv;
+    console.log('qacombo in render method', this.props.qACombo)
 
-    var sorted = this.sortAnswers(answers);
+    if (this.newQuestionAdded) {
+      this.newQuestionAdded = false;
+      var sorted = this.sortAnswers(this.state.updatedAnswersList);
 
-
-    var answersDiv = sorted.map(a =>
-      <div key={a.id}>
+      answersDiv = sorted.map(a =>
+        <div key={a.answer_id}>
         A: {a.body}
         <br></br>
-        <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
+        <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u onClick={ () => { this.reportAnswer(a.answer_id) }}>Report</u></p>
       </div>
-    )
+      )
+    } else {
+      var QandA = this.props.qACombo;
+      for (var key in QandA.answers) {
+        answers.push(QandA.answers[key])
+      }
+      var sorted = this.sortAnswers(answers);
+      answersDiv = sorted.map(a =>
+        <div key={a.id}>
+          A: {a.body}
+          <br></br>
+          <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
+        </div>
+      )
+    }
 
     if (this.state.displayingAll) {
       var answersInView = <ScrollableList>{answersDiv.slice(0, this.state.answersInDisplay)}</ScrollableList>
@@ -200,7 +244,6 @@ class QuestionListEntry extends React.Component {
       var answersInView = answersDiv.slice(0, this.state.answersInDisplay);
     }
 
-    // const answersInView = answersDiv.slice(0, this.state.answersInDisplay);
     if (answersDiv.length > 2) {
       var moreAnswersButton = this.state.displayingAll ? <button onClick={this.collapseAnswers}>Collapse Answers</button> : <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
     } else {
@@ -208,10 +251,10 @@ class QuestionListEntry extends React.Component {
     }
 
     return (
-      <div key={QandA.question_id}>
-        Q: {QandA.question_body} Helpful? <u onClick={() => { this.markQuestionHelpful(QandA.question_id) }}> Yes</u> ({QandA.question_helpfulness})  | <u onClick={() => { this.reportQuestion(QandA.question_id) }}>Report</u> | <u onClick={this.changeModalVisibilityState}>Add Answer</u>
+      <div key={this.props.qACombo.question_id}>
+        Q: {this.props.qACombo.question_body} Helpful? <u onClick={() => { this.markQuestionHelpful(this.props.qACombo.question_id) }}> Yes</u> ({this.props.qACombo.question_helpfulness})  | <u onClick={() => { this.reportQuestion(this.props.qACombo.question_id) }}>Report</u> | <u onClick={() => { this.changeModalVisibilityState(false) }}>Add Answer</u>
           <Container>
-            <AnswerModal questionID={QandA.question_id} question={QandA.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
+            <AnswerModal questionID={this.props.qACombo.question_id} question={this.props.qACombo.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
             {/* <GlobalStyle/> */}
           </Container>
         <div>

@@ -107,12 +107,11 @@ class AnswerModal extends React.Component {
         },
         method: 'POST',
         success: (data) => {
-          this.props.changeModalState()
+          this.props.changeModalState(true)
         },
         error: (err) => {
           console.log('Error with POST request:', err);
           this.props.changeModalState()
-
         }
       })
     }
@@ -139,7 +138,7 @@ class AnswerModal extends React.Component {
                   <button aria-label='Close modal' onClick={this.handleSubmit}>Submit question</button>
                 </form>
               </ModalContent>
-              <CloseModalButton aria-label='Close modal' onClick={this.props.changeModalState} />
+              <CloseModalButton aria-label='Close modal' onClick={()=> {this.props.changeModalState(false)}} />
             </ModalWrapper>
         </Background>
         ) : null
