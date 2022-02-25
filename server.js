@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/client/dist'));
 
 app.get('/*', (req, res) => {
   var path = req.originalUrl;
-  console.log('PATH ->', path);
+  // console.log('PATH ->', path);
   return axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${path}`, {
     headers: {
       'Authorization': config.TOKEN

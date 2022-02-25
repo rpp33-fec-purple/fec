@@ -31,7 +31,6 @@ class Reviews extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('PREVIOUS STATE', prevState);
     if (prevProps.productID !== this.props.productID || prevState.sortBy !== this.state.sortBy) {
       $.ajax({
         url: `http://localhost:3000/reviews/`,

@@ -47,10 +47,6 @@ class Breakdown extends React.Component {
       for (var key in this.props.meta.ratings) {
         numOfRatings += parseInt(this.props.meta.ratings[key]);
       }
-      console.log('ratings of 5', ratings[5]);
-      console.log('num of ratings', numOfRatings);
-      console.log('5 star percent', (ratings[5] / numOfRatings) * 100);
-
 
       view =
       <>

@@ -30,9 +30,9 @@ class Overview extends React.Component {
 
       method: 'GET',
       success: (data) => {
-        console.log('data in client', data);
+        // console.log('data in client', data);
         this.setState({styleInfo: data.results});
-        console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
+        // console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
       },
       error: (err) => {
         console.log('Error with GET request:', err);
