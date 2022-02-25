@@ -1,6 +1,18 @@
 import React from 'react';
 import $ from 'jquery';
-import QuestionListEntry from './questionListEntry.jsx'
+import QuestionListEntry from './questionListEntry.jsx';
+import styled from 'styled-components';
+
+const ScrollableList = styled.div`
+      margin: 0 auto;
+      height: 250px;
+      width: 800px;
+      overflow: auto;
+      border: 1px solid black;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+  `;
 
 class ListView extends React.Component {
   constructor(props) {
@@ -31,6 +43,7 @@ class ListView extends React.Component {
   }
 
   render () {
+
     const questionsList = this.props.qAndAList.map(qa => {
 
       return (
@@ -39,12 +52,14 @@ class ListView extends React.Component {
         </div>
       )
     })
+
     const questionsInView = questionsList.slice(0, this.state.inDisplay);
     let moreQuestionsButton = this.state.noMoreToDisplay ? <div/> : <button onClick={this.seeMoreQuestions.bind(this)}>MORE ANSWERED QUESTIONS</button>
 
     return(
       <div id='qaView'>
-        <div>{questionsInView}</div>
+        {/* <div>{questionsInView}</div> */}
+        <ScrollableList>{questionsInView}</ScrollableList>
         <div>{moreQuestionsButton}</div>
       </div>
     )

@@ -60,13 +60,13 @@ class QAndA extends React.Component {
   }
 
   render() {
-    console.log('product name line 64', this.props)
+    // console.log('product name line 64', this.props)
 
     var productName = this.props.product.name;
     if (this.filterApplies) {
       var listDiv = this.state.filteredAndSorted ? <ListView qAndAList={this.state.filteredAndSorted} productName={productName} productID={this.props.product.id}/> : <div/>
     } else {
-      console.log('product name in QA', this.props.product.name)
+      // console.log('product name in QA', this.props.product.name)
       var listDiv = this.state.sortedQuestions ? <ListView qAndAList={this.state.sortedQuestions} productName={productName}/> : <div/>
     }
 
