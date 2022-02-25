@@ -69,7 +69,6 @@ class Tile extends React.Component {
 
   render() {
     let view;
-    let testString = `Relevant - Relevance will be determined by a combination of both the date that the review was submitted as well as ‘helpfulness’ feedback received.  This combination should weigh the two characteristics such that recent reviews appear near the top, but do not outweigh reviews that have been found helpful.  Similarly, reviews that have been helpful should appear near the top, but should yield to more recent reviews if they are older.`
     if (this.props.reviews.results) {
       let currentReview = this.props.reviews.results[this.props.reviewIndex];
       const checkMark = <FontAwesomeIcon icon={faCheck} />
@@ -84,7 +83,7 @@ class Tile extends React.Component {
         {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
         <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
         <div><b>{currentReview.summary}</b></div>
-        {this.shorten(testString, 250, currentReview.id)}
+        {this.shorten(currentReview.body, 250, currentReview.id)}
         {photos}
         {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
         {currentReview.response ? <div>Response: {currentReview.response}</div>: null}
