@@ -3,15 +3,29 @@ import $ from 'jquery';
 import QuestionListEntry from './questionListEntry.jsx';
 import styled from 'styled-components';
 
+
+const Container = styled.div`
+  display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // height: 70%;
+  // box-sizing: border-box;
+  // margin: 0;
+  // padding: 0;
+  // font-family: 'Arial', sans-serif;
+`
+
 const ScrollableList = styled.div`
       margin: 0 auto;
-      height: 250px;
+      // height: 250px;
+      max-height: 550px;
+      // max-height:75%;
       width: 800px;
       overflow: auto;
       border: 1px solid black;
       // display: flex;
       // justify-content: center;
-      // align-items: center;
+      align-items: center;
   `;
 
 class ListView extends React.Component {
@@ -58,8 +72,9 @@ class ListView extends React.Component {
 
     return(
       <div id='qaView'>
-        {/* <div>{questionsInView}</div> */}
-        <ScrollableList>{questionsInView}</ScrollableList>
+        <Container>
+          <ScrollableList>{questionsInView}</ScrollableList>
+        </Container>
         <div>{moreQuestionsButton}</div>
       </div>
     )

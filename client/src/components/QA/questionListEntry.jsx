@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 import styled from 'styled-components';
-// import GlobalStyle from './globalStyles/globalStyles.jsx';
 import AnswerModal from './Modals/addAnswerModal.jsx';
 
 const Container = styled.div`
@@ -15,6 +14,17 @@ const Container = styled.div`
   // font-family: 'Arial', sans-serif;
 `
 
+const ScrollableList = styled.div`
+      margin: 0 auto;
+      max-height: 150px;
+      width: 100%;
+      overflow: auto;
+      border: 1px solid black;
+      // display: flex;
+      // justify-content: center;
+      align-items: center;
+  `;
+
 class QuestionListEntry extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +34,7 @@ class QuestionListEntry extends React.Component {
       isModalShowing: false
     }
     this.seeMoreAnswers = this.seeMoreAnswers.bind(this);
+    this.collapseAnswers = this.collapseAnswers.bind(this);
     this.sortAnswers = this.sortAnswers.bind(this);
     this.formatDate = this.formatDate.bind(this);
     this.changeModalVisibilityState = this.changeModalVisibilityState.bind(this);
@@ -38,6 +49,13 @@ class QuestionListEntry extends React.Component {
       isModalShowing: !this.state.isModalShowing
     }, ()=> {
       console.log('is modal showing in changestate func', this.state.isModalShowing)
+    })
+  }
+
+  collapseAnswers() {
+    this.setState({
+      answersInDisplay: 2,
+      displayingAll: false
     })
   }
 
@@ -175,9 +193,16 @@ class QuestionListEntry extends React.Component {
         <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
       </div>
     )
-    const answersInView = answersDiv.slice(0, this.state.answersInDisplay);
+
+    if (this.state.displayingAll) {
+      var answersInView = <ScrollableList>{answersDiv.slice(0, this.state.answersInDisplay)}</ScrollableList>
+    } else {
+      var answersInView = answersDiv.slice(0, this.state.answersInDisplay);
+    }
+
+    // const answersInView = answersDiv.slice(0, this.state.answersInDisplay);
     if (answersDiv.length > 2) {
-      var moreAnswersButton = this.state.displayingAll ? <div/> : <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
+      var moreAnswersButton = this.state.displayingAll ? <button onClick={this.collapseAnswers}>Collapse Answers</button> : <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
     } else {
       var moreAnswersButton = <div/>
     }
