@@ -21,7 +21,7 @@ const ProgressBarFill = styled.span`
   height: 10px;
   background-color: #8db600;
   border-radius: 3px;
-  width: 70%;
+  width: 0%;
 
   transition: width 500ms ease-in-out;
 `;
@@ -38,22 +38,30 @@ class Breakdown extends React.Component {
     if (this.props.reviews.results && this.props.meta.ratings) {
       let reviewCount = this.props.reviews.results.length;
       let totalRating = 0;
-      console.log(this.props.meta.ratings)
+      let ratings = this.props.meta.ratings;
       for (let key in this.props.meta.ratings) {
         totalRating += (parseInt(key) * this.props.meta.ratings[key]);
       }
       avgRating = (totalRating / reviewCount).toFixed(1);
+      let numOfRatings = 0;
+      for (var key in this.props.meta.ratings) {
+        numOfRatings += parseInt(this.props.meta.ratings[key]);
+      }
+      console.log('ratings of 5', ratings[5]);
+      console.log('num of ratings', numOfRatings);
+      console.log('5 star percent', (ratings[5] / numOfRatings) * 100);
+
 
       view =
       <>
         <h3>{avgRating}</h3>
         <h4>Rating Breakdown</h4>
         <Wrapper>
-          <ProgressBar><ProgressBarFill></ProgressBarFill></ProgressBar>
-          <ProgressBar><ProgressBarFill></ProgressBarFill></ProgressBar>
-          <ProgressBar><ProgressBarFill></ProgressBarFill></ProgressBar>
-          <ProgressBar><ProgressBarFill></ProgressBarFill></ProgressBar>
-          <ProgressBar><ProgressBarFill></ProgressBarFill></ProgressBar>
+          <span>5 Star</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span>4 Star</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[4] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span>3 Star</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[3] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span>2 Star</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[2] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span>1 Star</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[1] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
         </Wrapper>
       </>
     }
