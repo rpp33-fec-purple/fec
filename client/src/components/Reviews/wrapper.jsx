@@ -11,21 +11,46 @@ class Reviews extends React.Component {
     this.state = {
       reviews: {},
       meta: {},
-      sortBy: 'relevant'
+      sortBy: 'relevant',
+      filteredReviews: {}
     }
     this.handleSortChange = this.handleSortChange.bind(this);
+    this.filterStarRatings = this.filterStarRatings.bind(this);
   }
 
   handleSortChange = (newSortByValue) => {
     this.setState({sortBy: newSortByValue});
   };
 
+  filterStarRatings = (ratings) => {
+    var filteredReviews = {product: this.state.reviews.product, results: []};
+    var filterSelected = false;
+    for (var i = 0; i < Object.keys(ratings).length; i++) {
+      console.log(i);
+      if (ratings[i + 1]) {
+        filterSelected = true;
+        break;
+      }
+    }
+    if (!filterSelected) {
+      this.setState({filteredReviews: this.state.reviews});
+      return;
+    }
+    for (var i = 0; i < this.state.reviews.results.length; i++) {
+      if (ratings[this.state.reviews.results[i].rating]) {
+        filteredReviews.results.push(this.state.reviews.results[i]);
+      }
+    }
+
+    this.setState({filteredReviews: filteredReviews})
+  };
+
   render() {
     return (
       <div>
         <h4 className='Review'>RATINGS & REVIEWS</h4>
-        <List productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta} sortBy={this.state.sortBy} updateSort={this.handleSortChange}/>
-        <Breakdown productID={this.props.productID} reviews={this.state.reviews} meta={this.state.meta}/>
+        <List productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} sortBy={this.state.sortBy} updateSort={this.handleSortChange}/>
+        <Breakdown productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} updateRatingsToFilter={this.filterStarRatings}/>
       </div>
     )
   }
@@ -43,7 +68,7 @@ class Reviews extends React.Component {
         method: 'GET',
         success: (data) => {
           console.log('REVIEWS', data);
-          this.setState({reviews: data});
+          this.setState({reviews: data, filteredReviews: data});
         },
         error: (err) => {
           console.log('Error with GET request:', err);

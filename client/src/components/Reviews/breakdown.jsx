@@ -30,6 +30,27 @@ const ProgressBarFill = styled.span`
 class Breakdown extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      ratingsSelected: {
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        5: false
+      }
+    };
+    this.handleRatingClick = this.handleRatingClick.bind(this);
+  }
+
+  handleRatingClick = (event) => {
+    let rating = event.target.attributes.value.value;
+    console.log(rating);
+    let ratingsCopy = this.state.ratingsSelected;
+    ratingsCopy[rating] = !ratingsCopy[rating];
+    this.setState({
+      ratingsSelected: ratingsCopy
+    });
+    this.props.updateRatingsToFilter(ratingsCopy);
   }
 
   render() {
@@ -53,11 +74,11 @@ class Breakdown extends React.Component {
         <h2>{avgRating}</h2>
         <h4>Rating Breakdown</h4>
         <Wrapper>
-          <span>5 Star</span><span>({ratings[5]})</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <span>4 Star</span><span>({ratings[4]})</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[4] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <span>3 Star</span><span>({ratings[3]})</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[3] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <span>2 Star</span><span>({ratings[2]})</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[2] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <span>1 Star</span><span>({ratings[1]})</span><ProgressBar><ProgressBarFill style={{width: `${(ratings[1] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span value={5} onClick={this.handleRatingClick}>5 Star</span><span>({ratings[5]})</span><ProgressBar value={5} onClick={this.handleRatingClick}><ProgressBarFill  value={5} onClick={this.handleRatingClick} style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span value={4} onClick={this.handleRatingClick}>4 Star</span><span>({ratings[4]})</span><ProgressBar value={4} onClick={this.handleRatingClick}><ProgressBarFill style={{width: `${(ratings[4] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span value={3} onClick={this.handleRatingClick}>3 Star</span><span>({ratings[3]})</span><ProgressBar value={3} onClick={this.handleRatingClick}><ProgressBarFill style={{width: `${(ratings[3] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span value={2} onClick={this.handleRatingClick}>2 Star</span><span>({ratings[2]})</span><ProgressBar value={2} onClick={this.handleRatingClick}><ProgressBarFill style={{width: `${(ratings[2] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <span value={1} onClick={this.handleRatingClick}>1 Star</span><span>({ratings[1]})</span><ProgressBar value={1} onClick={this.handleRatingClick}><ProgressBarFill style={{width: `${(ratings[1] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
         </Wrapper>
       </>
     }
