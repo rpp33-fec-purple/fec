@@ -32,11 +32,11 @@ class Breakdown extends React.Component {
     super(props);
     this.state = {
       ratingsSelected: {
-        1: false,
-        2: false,
-        3: false,
+        5: false,
         4: false,
-        5: false
+        3: false,
+        2: false,
+        1: false
       }
     };
     this.handleRatingClick = this.handleRatingClick.bind(this);
@@ -44,7 +44,6 @@ class Breakdown extends React.Component {
 
   handleRatingClick = (event) => {
     let rating = event.target.attributes.value.value;
-    console.log(rating);
     let ratingsCopy = this.state.ratingsSelected;
     ratingsCopy[rating] = !ratingsCopy[rating];
     this.setState({
@@ -69,10 +68,27 @@ class Breakdown extends React.Component {
         numOfRatings += parseInt(this.props.meta.ratings[key]);
       }
 
+      let ratingFilterLabels = [];
+      for (let key in this.state.ratingsSelected) {
+        if (this.state.ratingsSelected[key]) {
+          ratingFilterLabels.push(key);
+        }
+      }
+      let ratingFilterView;
+      if (ratingFilterLabels.length) {
+        ratingFilterView =
+        <div>Ratings filtered by star(s): {ratingFilterLabels.map((label) => {
+          return (`${label} `)
+        })}</div>
+      } else {
+        ratingFilterView = null
+      }
+
       view =
       <>
         <h2>{avgRating}</h2>
         <h4>Rating Breakdown</h4>
+        <>{ratingFilterView}</>
         <Wrapper>
           <span value={5} onClick={this.handleRatingClick}>5 Star</span><span>({ratings[5]})</span><ProgressBar value={5} onClick={this.handleRatingClick}><ProgressBarFill  value={5} onClick={this.handleRatingClick} style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
           <span value={4} onClick={this.handleRatingClick}>4 Star</span><span>({ratings[4]})</span><ProgressBar value={4} onClick={this.handleRatingClick}><ProgressBarFill style={{width: `${(ratings[4] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>

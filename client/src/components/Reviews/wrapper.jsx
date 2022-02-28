@@ -26,7 +26,6 @@ class Reviews extends React.Component {
     var filteredReviews = {product: this.state.reviews.product, results: []};
     var filterSelected = false;
     for (var i = 0; i < Object.keys(ratings).length; i++) {
-      console.log(i);
       if (ratings[i + 1]) {
         filterSelected = true;
         break;
@@ -46,11 +45,23 @@ class Reviews extends React.Component {
   };
 
   render() {
+    let avgRating;
+    if (this.state.reviews.results) {
+      let reviewCount = this.state.reviews.results.length;
+      let totalRating = 0;
+      for (let key in this.state.meta.ratings) {
+        totalRating += (parseInt(key) * this.state.meta.ratings[key]);
+      }
+      avgRating = (totalRating / reviewCount).toFixed(1);
+      console.log(avgRating)
+    }
+
+
     return (
       <div>
         <h4 className='Review'>RATINGS & REVIEWS</h4>
         <List productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} sortBy={this.state.sortBy} updateSort={this.handleSortChange}/>
-        <Breakdown productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} updateRatingsToFilter={this.filterStarRatings}/>
+        <Breakdown productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} rating={avgRating} updateRatingsToFilter={this.filterStarRatings}/>
       </div>
     )
   }
