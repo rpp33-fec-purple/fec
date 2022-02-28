@@ -40,6 +40,7 @@ class Breakdown extends React.Component {
       }
     };
     this.handleRatingClick = this.handleRatingClick.bind(this);
+    this.handleRemoveAllStarFilterClick = this.handleRemoveAllStarFilterClick.bind(this);
   }
 
   handleRatingClick = (event) => {
@@ -52,6 +53,23 @@ class Breakdown extends React.Component {
     this.props.updateRatingsToFilter(ratingsCopy);
   }
 
+  handleRemoveAllStarFilterClick = (event) => {
+    this.setState({ratingsSelected: {
+      5: false,
+      4: false,
+      3: false,
+      2: false,
+      1: false
+    }});
+    this.props.updateRatingsToFilter({
+      5: false,
+      4: false,
+      3: false,
+      2: false,
+      1: false
+    })
+  };
+
   render() {
     let view;
     let avgRating;
@@ -62,7 +80,10 @@ class Breakdown extends React.Component {
       for (let key in this.props.meta.ratings) {
         totalRating += (parseInt(key) * this.props.meta.ratings[key]);
       }
-      avgRating = (totalRating / reviewCount).toFixed(1);
+      // avgRating = (totalRating / reviewCount).toFixed(1);
+      if (this.props.rating) {
+        avgRating = this.props.rating;
+      }
       let numOfRatings = 0;
       for (var key in this.props.meta.ratings) {
         numOfRatings += parseInt(this.props.meta.ratings[key]);
@@ -82,7 +103,8 @@ class Breakdown extends React.Component {
         ratingFilterView =
         <div>Ratings filtered by star(s): {ratingFilterLabels.map((label) => {
           return (`${label} `)
-        })}</div>
+        })} <div onClick={this.handleRemoveAllStarFilterClick}>Remove all</div>
+        </div>
       } else {
         ratingFilterView = null
       }
