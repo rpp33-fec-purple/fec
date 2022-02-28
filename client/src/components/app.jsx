@@ -16,7 +16,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     $.ajax({
-      url: 'http://localhost:3000/products/64635',
+      url: 'http://localhost:3000/products/64622',
       // data: {
       //   page: 1,
       //   count: 5

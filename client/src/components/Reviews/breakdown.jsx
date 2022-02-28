@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretUp } from '@fortawesome/free-solid-svg-icons'
 
 const Wrapper = styled.div`
+  margin-top: 10px;
   width: 250px;
 `;
 
@@ -60,6 +61,15 @@ const RecommendMetricsDisplay = styled.div`
   justify-content: space-between;
 `;
 
+const recommendChars = {
+  Size: ['too small', 'perfect', 'too big'],
+  Width: ['too narrow', 'perfect', 'too wide'],
+  Comfort: ['uncomfortable', 'ok', 'perfect'],
+  Quality: ['poor', 'what I expected', 'perfect'],
+  Length: ['runs short', 'perfect', 'runs long'],
+  Fit: ['runs tight', 'perfect', 'runs loose']
+}
+
 
 class Breakdown extends React.Component {
   constructor(props) {
@@ -102,6 +112,7 @@ class Breakdown extends React.Component {
   render() {
     let breakdownView;
     let avgRating;
+
 
     //Configure view if we have a current product from app component
     if (this.props.reviews.results && this.props.meta.ratings) {
@@ -147,6 +158,28 @@ class Breakdown extends React.Component {
       const dontRecommend = parseInt(meta.recommended.false);
       let recommendedPercent = Math.trunc((recommend / (dontRecommend + recommend)) * 100)
 
+      //calculate recommendation characteristics display
+      let recommendDisplay
+      let productChars = [];
+      for (var key in meta.characteristics) {
+        productChars.push(key);
+      }
+      recommendDisplay = productChars.map((char) => {
+        let charPercent = `${(parseInt(meta.characteristics[char].value) / 5) * 100}%`;
+        return (
+          <Wrapper key={meta.characteristics[char].id}>
+            <div>{char}</div>
+            <RecommendBar><RecommendBarPercent style={{width: charPercent}}><FontAwesomeIcon icon={faCaretUp} style={{position: "absolute", right: "0", top: "0"}}/></RecommendBarPercent></RecommendBar>
+            <RecommendMetricsDisplay>
+              <div>{recommendChars[char][0]}</div>
+              <div>{recommendChars[char][1]}</div>
+              <div>{recommendChars[char][2]}</div>
+            </RecommendMetricsDisplay>
+          </Wrapper>
+        )
+      })
+
+
       breakdownView =
       <>
         <h2>{avgRating}</h2>
@@ -159,14 +192,7 @@ class Breakdown extends React.Component {
           <ActionDiv value={2} onClick={this.handleRatingClick}>2 Star</ActionDiv><span>({ratings[2]})</span><RatingBar value={2} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[2] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
           <ActionDiv value={1} onClick={this.handleRatingClick}>1 Star</ActionDiv><span>({ratings[1]})</span><RatingBar value={1} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[1] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
         </Wrapper>
-        <Wrapper>
-          <RecommendBar><RecommendBarPercent style={{width: "50%"}}><FontAwesomeIcon icon={faCaretUp} style={{position: "absolute", right: "0", top: "0"}}/></RecommendBarPercent></RecommendBar>
-          <RecommendMetricsDisplay>
-            <div>metric1</div>
-            <div>metric2</div>
-            <div>metric3</div>
-          </RecommendMetricsDisplay>
-        </Wrapper>
+        <div>{recommendDisplay}</div>
         <p>{recommendedPercent}% of reviews recommend this product</p>
       </>
     }
