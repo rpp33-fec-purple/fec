@@ -2,16 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import {formatDate, shorten} from '../../utils.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCaretUp } from '@fortawesome/free-solid-svg-icons'
 
 const Wrapper = styled.div`
   width: 250px;
 `;
 
-const ProgressBar = styled.div`
+const RatingBar = styled.div`
   width: 100%;
   background-color: #e0e0e0;
-  padding: 3px;
+  padding: 1px;
   border-radius: 3px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
   &:hover {
@@ -20,14 +20,12 @@ const ProgressBar = styled.div`
   }
 `;
 
-const ProgressBarFill = styled.span`
+const RatingBarFill = styled.span`
   display: block;
-  height: 10px;
+  height: 8px;
   background-color: #8db600;
   border-radius: 3px;
   width: 0%;
-
-  transition: width 500ms ease-in-out;
 `;
 
 const ActionDiv = styled.div`
@@ -36,6 +34,30 @@ const ActionDiv = styled.div`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const RecommendBar = styled.div`
+  width: 100%;
+  background-color: #e0e0e0;
+  height: 8px;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+`;
+
+const RecommendBarPercent = styled.span`
+  display: block;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+  width: 0%;
+  position: relative;
+`;
+
+const RecommendMetricsDisplay = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 `;
 
 
@@ -131,11 +153,19 @@ class Breakdown extends React.Component {
         <h4>Rating Breakdown</h4>
         <>{ratingFilterView}</>
         <Wrapper>
-          <ActionDiv value={5} onClick={this.handleRatingClick}>5 Star</ActionDiv><span>({ratings[5]})</span><ProgressBar value={5} onClick={this.handleRatingClick}><ProgressBarFill style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <ActionDiv value={4} onClick={this.handleRatingClick}>4 Star</ActionDiv><span>({ratings[4]})</span><ProgressBar value={4} onClick={this.handleRatingClick}><ProgressBarFill style={{width: `${(ratings[4] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <ActionDiv value={3} onClick={this.handleRatingClick}>3 Star</ActionDiv><span>({ratings[3]})</span><ProgressBar value={3} onClick={this.handleRatingClick}><ProgressBarFill style={{width: `${(ratings[3] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <ActionDiv value={2} onClick={this.handleRatingClick}>2 Star</ActionDiv><span>({ratings[2]})</span><ProgressBar value={2} onClick={this.handleRatingClick}><ProgressBarFill style={{width: `${(ratings[2] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
-          <ActionDiv value={1} onClick={this.handleRatingClick}>1 Star</ActionDiv><span>({ratings[1]})</span><ProgressBar value={1} onClick={this.handleRatingClick}><ProgressBarFill style={{width: `${(ratings[1] / numOfRatings) * 100}%`}}></ProgressBarFill></ProgressBar>
+          <ActionDiv value={5} onClick={this.handleRatingClick}>5 Star</ActionDiv><span>({ratings[5]})</span><RatingBar value={5} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
+          <ActionDiv value={4} onClick={this.handleRatingClick}>4 Star</ActionDiv><span>({ratings[4]})</span><RatingBar value={4} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[4] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
+          <ActionDiv value={3} onClick={this.handleRatingClick}>3 Star</ActionDiv><span>({ratings[3]})</span><RatingBar value={3} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[3] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
+          <ActionDiv value={2} onClick={this.handleRatingClick}>2 Star</ActionDiv><span>({ratings[2]})</span><RatingBar value={2} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[2] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
+          <ActionDiv value={1} onClick={this.handleRatingClick}>1 Star</ActionDiv><span>({ratings[1]})</span><RatingBar value={1} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[1] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
+        </Wrapper>
+        <Wrapper>
+          <RecommendBar><RecommendBarPercent style={{width: "50%"}}><FontAwesomeIcon icon={faCaretUp} style={{position: "absolute", right: "0", top: "0"}}/></RecommendBarPercent></RecommendBar>
+          <RecommendMetricsDisplay>
+            <div>metric1</div>
+            <div>metric2</div>
+            <div>metric3</div>
+          </RecommendMetricsDisplay>
         </Wrapper>
         <p>{recommendedPercent}% of reviews recommend this product</p>
       </>
