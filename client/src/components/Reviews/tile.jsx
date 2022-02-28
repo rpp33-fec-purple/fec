@@ -10,6 +10,14 @@ width: 100px;
 height: 100px;
 `;
 
+const ActionDiv = styled.div`
+  display: inline;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 
 
 class Tile extends React.Component {
@@ -40,10 +48,10 @@ class Tile extends React.Component {
 
       return (
         <div className="reviewBody">
-          <p>{withinLimit}
+          <div>{withinLimit}
             <span style={{display: this.state.isBodyExpanded ?  'inline' : 'none'}}>{overLimit}</span>
-            <button className="showMore" onClick={this.handleShowMore} style={{display: this.state.isBodyExpanded ?  'block' : 'inline'}}>Show More</button>
-          </p>
+            <ActionDiv onClick={this.handleShowMore} style={{display: this.state.isBodyExpanded ?  'block' : 'inline'}}>...Show More</ActionDiv>
+          </div>
         </div>
       )
     }
@@ -54,7 +62,7 @@ class Tile extends React.Component {
       if (this.state.isBodyExpanded) {
         e.target.innerHTML = 'Show Less'
       } else {
-        e.target.innerHTML = 'Show More'
+        e.target.innerHTML = '...Show More'
       }
     });
   }
