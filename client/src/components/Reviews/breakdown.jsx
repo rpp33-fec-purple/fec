@@ -71,11 +71,14 @@ class Breakdown extends React.Component {
       let ratingFilterLabels = [];
       for (let key in this.state.ratingsSelected) {
         if (this.state.ratingsSelected[key]) {
-          ratingFilterLabels.push(key);
+          ratingFilterLabels.push(key)
         }
       }
       let ratingFilterView;
       if (ratingFilterLabels.length) {
+        ratingFilterLabels.sort(function(a, b) {
+          return b - a;
+        });
         ratingFilterView =
         <div>Ratings filtered by star(s): {ratingFilterLabels.map((label) => {
           return (`${label} `)
