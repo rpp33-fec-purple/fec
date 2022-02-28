@@ -43,6 +43,7 @@ class QuestionListEntry extends React.Component {
     this.reportQuestion = this.reportQuestion.bind(this);
     this.markAnswerHelpful = this.markAnswerHelpful.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
+    this.disableButton = this.disableButton.bind(this);
 
     var newAnswerAdded = false;
     var answerMarkedHelpful = false;
@@ -141,6 +142,9 @@ class QuestionListEntry extends React.Component {
   }
 
   markQuestionHelpful(questionID) {
+    console.log('event target id', event.target)
+    this.disableButton(event.target.id);
+
     $.ajax({
       url: `http://localhost:3000/qa/questions/${questionID}/helpful`,
       data: {
@@ -157,6 +161,9 @@ class QuestionListEntry extends React.Component {
   }
 
   reportQuestion(questionID) {
+    console.log('event target id', event.target)
+    this.disableButton(event.target.id);
+
     $.ajax({
       url: `http://localhost:3000/qa/questions/${questionID}/report`,
       data: {
@@ -173,6 +180,9 @@ class QuestionListEntry extends React.Component {
   }
 
   markAnswerHelpful(answerID) {
+    console.log('event target id', event.target)
+    this.disableButton(event.target.id);
+
     $.ajax({
       url: `http://localhost:3000/qa/answers/${answerID}/helpful`,
       data: {
@@ -207,6 +217,10 @@ class QuestionListEntry extends React.Component {
   }
 
   reportAnswer(answerID) {
+    console.log('event target id', event.target)
+
+    this.disableButton(event.target.id);
+
     $.ajax({
       url: `http://localhost:3000/qa/answers/${answerID}/report`,
       data: {
@@ -222,10 +236,13 @@ class QuestionListEntry extends React.Component {
     })
   }
 
+  disableButton(buttonID) {
+    document.getElementById(buttonID).style.pointerEvents = 'none';
+  }
+
   render(){
     var answers = [];
     var answersDiv;
-    // console.log('qacombo in render method', this.props.qACombo)
 
     if (this.newAnswerAdded || this.answerMarkedHelpful) {
       this.newAnswerAdded = false;
@@ -236,7 +253,7 @@ class QuestionListEntry extends React.Component {
         <div key={a.answer_id}>
         A: {a.body}
         <br></br>
-        <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u onClick={() => { this.markAnswerHelpful(a.answer_id) }}> Yes</u> ({a.helpfulness}) | <u onClick={ () => { this.reportAnswer(a.answer_id) }}>Report</u></p>
+        <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.answer_id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.answer_id) }}>Report</u></p>
       </div>
       )
     } else {
@@ -249,7 +266,7 @@ class QuestionListEntry extends React.Component {
         <div key={a.id}>
           A: {a.body}
           <br></br>
-          <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
+          <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
         </div>
       )
     }
@@ -268,10 +285,9 @@ class QuestionListEntry extends React.Component {
 
     return (
       <div key={this.props.qACombo.question_id}>
-        Q: {this.props.qACombo.question_body} Helpful? <u onClick={() => { this.markQuestionHelpful(this.props.qACombo.question_id) }}> Yes</u> ({this.props.qACombo.question_helpfulness})  | <u onClick={() => { this.reportQuestion(this.props.qACombo.question_id) }}>Report</u> | <u onClick={() => { this.changeModalVisibilityState(false) }}>Add Answer</u>
+        Q: {this.props.qACombo.question_body} Helpful? <u id={this.props.qACombo.question_id + 'helpful'} onClick={ () => { this.markQuestionHelpful(this.props.qACombo.question_id) } }> Yes</u> ({this.props.qACombo.question_helpfulness})  | <u id={this.props.qACombo.question_id + 'report'} onClick={() => { this.reportQuestion(this.props.qACombo.question_id) }}>Report</u> | <u onClick={() => { this.changeModalVisibilityState(false) }}>Add Answer</u>
           <Container>
             <AnswerModal questionID={this.props.qACombo.question_id} question={this.props.qACombo.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
-            {/* <GlobalStyle/> */}
           </Container>
         <div>
           {answersInView}
