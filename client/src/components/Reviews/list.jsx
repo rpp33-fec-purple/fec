@@ -1,6 +1,7 @@
 import React from 'react';
 import Tile from './tile.jsx';
 import styled from 'styled-components';
+import NewReview from './newReview.jsx';
 
 
 const ScrollableList = styled.div`
@@ -16,10 +17,12 @@ class List extends React.Component {
 
     this.state = {
       reviewsToDisplay: 2,
+      displayReviewForm: false
     }
 
     this.handleMoreButtonClick = this.handleMoreButtonClick.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
+    this.addNewReview = this.addNewReview.bind(this);
   }
 
   handleMoreButtonClick = () => {
@@ -30,6 +33,11 @@ class List extends React.Component {
     this.props.updateSort(event.target.value);
     this.setState({reviewsToDisplay: 2});
   };
+
+  addNewReview = () => {
+    console.log('time to add a review');
+    this.setState({displayReviewForm: true});
+  }
 
   render() {
     let view;
@@ -71,10 +79,18 @@ class List extends React.Component {
       view = null;
     }
 
+    let newReviewForm;
+    if (this.state.displayReviewForm) {
+      newReviewForm = <NewReview/>
+    } else {
+      newReviewForm = null
+    }
+
     return (
       <>
         {view}
-        <button>ADD A REVIEW +</button>
+        <button onClick={this.addNewReview}>ADD A REVIEW +</button>
+        <div>{newReviewForm}</div>
       </>
     )
   }

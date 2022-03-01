@@ -126,7 +126,6 @@ class Tile extends React.Component {
     let view;
     if (this.props.reviews.results) {
       let currentReview = this.props.reviews.results[this.props.reviewIndex];
-      console.log('current review', currentReview);
       const checkMark = <FontAwesomeIcon icon={faCheck}/>
       let photos;
       if (currentReview.photos) {
@@ -134,29 +133,29 @@ class Tile extends React.Component {
           return <Thumbnail src={photo.url} key={photo.id} onClick={this.expandImg}></Thumbnail>
         })
       }
+
+
       view =
-      <div>
-        {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
-        <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
-        <div><b>{currentReview.summary}</b></div>
-        {this.shorten(currentReview.body, 250, currentReview.id)}
-        {photos}
-        {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
-        {currentReview.response ? <div>Response: {currentReview.response}</div>: null}
-        <div>Helpful? <ActionDiv id={currentReview.review_id} onClick={this.handleHelpfulClick}>Yes</ActionDiv>({currentReview.helpfulness})  |  <ActionDiv id={currentReview.review_id} onClick={this.handleReportClick}>Report</ActionDiv></div>
-      </div>
+      <>
+        <div>
+          {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
+          <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
+          <div><b>{currentReview.summary}</b></div>
+          {this.shorten(currentReview.body, 250, currentReview.id)}
+          {photos}
+          {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
+          {currentReview.response ? <div>Response: {currentReview.response}</div>: null}
+          <div>Helpful? <ActionDiv id={currentReview.review_id} onClick={this.handleHelpfulClick}>Yes</ActionDiv>({currentReview.helpfulness})  |  <ActionDiv id={currentReview.review_id} onClick={this.handleReportClick}>Report</ActionDiv></div>
+        </div>
+        <hr></hr>
+      </>
     } else {
       view = <div>No Reviews Yet</div>
     }
+
     return (<div>{view}</div>)
   }
 
-  componentDidUpdate(prevProps) {
-
-  }
 }
 
 export default Tile;
-
-
-{/* <FontAwesomeIcon icon={faCheck} /> */}
