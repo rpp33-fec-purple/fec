@@ -32,6 +32,7 @@ class Tile extends React.Component {
   this.closeImgModal = this.closeImgModal.bind(this);
   this.shorten = this.shorten.bind(this);
   this.handleShowMore = this.handleShowMore.bind(this);
+  this.handleHelpfulClick = this.handleHelpfulClick.bind(this);
   }
 
 
@@ -67,6 +68,23 @@ class Tile extends React.Component {
     });
   }
 
+  handleHelpfulClick = (e) => {
+    $.ajax({
+      url: `http://localhost:3000/reviews/${e.target.id}/helpful`,
+      data: {
+        review_id: e.target.id
+      },
+      method: 'PUT',
+      success: (data) => {
+        console.log('Successfully voted helpul');
+        this.setState({meta: data});
+      },
+      error: (err) => {
+        console.log('Error with helpful PUT request:', err);
+      }
+    });
+  }
+
   expandImg = (e) => {
     this.setState({isImageExpanded: true, expandedImageURL: e.target.src});
   }
@@ -79,7 +97,8 @@ class Tile extends React.Component {
     let view;
     if (this.props.reviews.results) {
       let currentReview = this.props.reviews.results[this.props.reviewIndex];
-      const checkMark = <FontAwesomeIcon icon={faCheck} />
+      console.log('current review', currentReview);
+      const checkMark = <FontAwesomeIcon icon={faCheck}/>
       let photos;
       if (currentReview.photos) {
         photos = currentReview.photos.map((photo) => {
@@ -95,7 +114,7 @@ class Tile extends React.Component {
         {photos}
         {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
         {currentReview.response ? <div>Response: {currentReview.response}</div>: null}
-        <div>Helpful? Yes({currentReview.helpfulness})  |  Report</div>
+        <div>Helpful? <ActionDiv id={currentReview.review_id} onClick={this.handleHelpfulClick}>Yes</ActionDiv>({currentReview.helpfulness})  |  <ActionDiv>Report</ActionDiv></div>
       </div>
     } else {
       view = <div>No Reviews Yet</div>
