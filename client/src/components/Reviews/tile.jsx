@@ -26,7 +26,9 @@ class Tile extends React.Component {
     this.state = {
       isImageExpanded: false,
       expandedImageURL: null,
-      isBodyExpanded: false
+      isBodyExpanded: false,
+      isHelpfulLinkActive: true,
+      isReportLinkActive: true
     }
   this.expandImg = this.expandImg.bind(this);
   this.closeImgModal = this.closeImgModal.bind(this);
@@ -69,37 +71,47 @@ class Tile extends React.Component {
   }
 
   handleHelpfulClick = (e) => {
-    $.ajax({
-      url: `http://localhost:3000/reviews/${e.target.id}/helpful`,
-      data: {
-        review_id: e.target.id
-      },
-      method: 'PUT',
-      success: (data) => {
-        console.log('Successfully voted helpul');
-        this.setState({meta: data});
-      },
-      error: (err) => {
-        console.log('Error with helpful PUT request:', err);
-      }
-    });
+    if (this.state.isHelpfulLinkActive) {
+      $.ajax({
+        url: `http://localhost:3000/reviews/${e.target.id}/helpful`,
+        data: {
+          review_id: e.target.id
+        },
+        method: 'PUT',
+        success: (data) => {
+          console.log('Successfully voted helpul');
+          this.setState({meta: data});
+        },
+        error: (err) => {
+          console.log('Error with helpful PUT request:', err);
+        }
+      });
+      this.setState({isHelpfulLinkActive: false})
+    } else {
+      return
+    }
   }
 
   handleReportClick = (e) => {
-    $.ajax({
-      url: `http://localhost:3000/reviews/${e.target.id}/report`,
-      data: {
-        review_id: e.target.id
-      },
-      method: 'PUT',
-      success: (data) => {
-        console.log('Successfully reported review');
-        this.setState({meta: data});
-      },
-      error: (err) => {
-        console.log('Error with reporting review:', err);
-      }
-    });
+    if (this.state.isReportLinkActive) {
+      $.ajax({
+        url: `http://localhost:3000/reviews/${e.target.id}/report`,
+        data: {
+          review_id: e.target.id
+        },
+        method: 'PUT',
+        success: (data) => {
+          console.log('Successfully reported review');
+          this.setState({meta: data});
+        },
+        error: (err) => {
+          console.log('Error with reporting review:', err);
+        }
+      });
+      this.setState({isReportLinkActive: false})
+    } else {
+      return
+    }
   }
 
   expandImg = (e) => {
