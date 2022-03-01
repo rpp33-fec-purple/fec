@@ -15,7 +15,9 @@ class QAndA extends React.Component {
     this.sortQuestions = this.sortQuestions.bind(this);
     this.updateStateCauseFilter = this.updateStateCauseFilter.bind(this);
     this.rerenderQandAs = this.rerenderQandAs.bind(this);
+    this.filterAndSortHere = this.filterAndSortHere.bind(this);
     var filterApplies = false;
+    var unofficialSearchTerm = '';
   }
 
   componentDidMount() {
@@ -40,7 +42,6 @@ class QAndA extends React.Component {
   }
 
   rerenderQandAs(qandAs) {
-    console.log('should be passing through here')
     if (qandAs) {
       this.setState({sortedQuestions: qandAs});
     } else {
@@ -54,7 +55,11 @@ class QAndA extends React.Component {
         method: 'GET',
         success: (data) => {
           console.log('data in client', data);
-          this.setState({sortedQuestions: data.results});
+          if (this.filterApplies) {
+            this.filterAndSortHere(data.results)
+          } else {
+            this.setState({sortedQuestions: data.results});
+          }
         },
         error: (err) => {
           console.log('Error with GET request:', err);
@@ -63,12 +68,31 @@ class QAndA extends React.Component {
     }
   }
 
+  filterAndSortHere(qas) {
+    var term = this.unofficialSearchTerm;
+    var filteredList = qas.filter((val) => {
+      if (term === '') {
+        return val;
+      } else if (val.question_body.toLowerCase().includes(term.toLowerCase())) {
+        return val;
+      }
+    })
+    console.log('filtered list', filteredList)
+    if (term === '') {
+      this.updateStateCauseFilter(filteredList, false, term)
+    } else {
+      this.updateStateCauseFilter(filteredList, true, term)
+    }
+  }
+
+
   sortQuestions(data) {
     var sorted = data.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
     return sorted;
   }
 
-  updateStateCauseFilter(filteredList, bool) {
+  updateStateCauseFilter(filteredList, bool, searchTerm) {
+    this.unofficialSearchTerm = searchTerm;
     if (bool) {
       var sortedAndFiltered = this.sortQuestions(filteredList);
       this.filterApplies = true;
@@ -95,7 +119,7 @@ class QAndA extends React.Component {
     return (
       <div>
         <h2>Questions and Answers</h2>
-        <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter}/>
+        <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter} productID={this.props.product.id}/>
         <div>{listDiv}</div>
         <AddQuestion questionAdded={this.rerenderQandAs} productName={this.props.product.name} productID={this.props.product.id}/>
       </div>

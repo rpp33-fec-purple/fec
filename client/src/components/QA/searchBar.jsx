@@ -5,7 +5,6 @@ class SearchBar extends React.Component {
     super(props);
     this.state= {
       searchTerm: ''
-
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,19 +32,49 @@ class SearchBar extends React.Component {
 
   sortWithFilter() {
     var term = this.state.searchTerm;
-    var filteredList = this.props.qAndAList.filter((val) => {
-      if (term === '') {
-        return val;
-      } else if (val.question_body.toLowerCase().includes(term.toLowerCase())) {
-        return val;
+    $.ajax({
+      url: `http://localhost:3000/qa/questions`,
+      data: {
+        product_id: this.props.productID,
+        page: 1,
+        count: 100
+      },
+      method: 'GET',
+      success: (data) => {
+        console.log('data in client', data);
+        var filteredList = data.results.filter((val) => {
+          if (term === '') {
+            return val;
+          } else if (val.question_body.toLowerCase().includes(term.toLowerCase())) {
+            return val;
+          }
+        })
+        console.log('filtered list', filteredList)
+        if (term === '') {
+          this.props.updateStateCauseFilter(filteredList, false, term)
+        } else {
+          this.props.updateStateCauseFilter(filteredList, true, term)
+        }
+      },
+      error: (err) => {
+        console.log('Error with GET request in filter:', err);
       }
-    })
-    console.log('filtered list', filteredList)
-    if (term === '') {
-      this.props.updateStateCauseFilter(filteredList, false)
-    } else {
-      this.props.updateStateCauseFilter(filteredList, true)
-    }
+    });
+
+    // var term = this.state.searchTerm;
+    // var filteredList = this.props.qAndAList.filter((val) => {
+    //   if (term === '') {
+    //     return val;
+    //   } else if (val.question_body.toLowerCase().includes(term.toLowerCase())) {
+    //     return val;
+    //   }
+    // })
+    // console.log('filtered list', filteredList)
+    // if (term === '') {
+    //   this.props.updateStateCauseFilter(filteredList, false, term)
+    // } else {
+    //   this.props.updateStateCauseFilter(filteredList, true, term)
+    // }
   }
 
   render() {
