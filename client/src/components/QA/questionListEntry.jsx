@@ -163,6 +163,7 @@ class QuestionListEntry extends React.Component {
   reportQuestion(questionID) {
     console.log('event target id', event.target)
     this.disableButton(event.target.id);
+    var buttonID = event.target.id;
 
     $.ajax({
       url: `http://localhost:3000/qa/questions/${questionID}/report`,
@@ -171,7 +172,7 @@ class QuestionListEntry extends React.Component {
       },
       method: 'PUT',
       success: (data) => {
-        // this.props.changeModalState()
+        $(`#${buttonID}`).html('Reported');
       },
       error: (err) => {
         console.log('Error with POST request:', err);
@@ -220,6 +221,7 @@ class QuestionListEntry extends React.Component {
     console.log('event target id', event.target)
 
     this.disableButton(event.target.id);
+    var buttonID = event.target.id;
 
     $.ajax({
       url: `http://localhost:3000/qa/answers/${answerID}/report`,
@@ -228,7 +230,7 @@ class QuestionListEntry extends React.Component {
       },
       method: 'PUT',
       success: (data) => {
-        // this.props.changeModalState()
+        $(`#${buttonID}`).html('Reported');
       },
       error: (err) => {
         console.log('Error with POST request:', err);
@@ -253,7 +255,7 @@ class QuestionListEntry extends React.Component {
         <div key={a.answer_id}>
         A: {a.body}
         <br></br>
-        <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.answer_id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.answer_id) }}>Report</u></p>
+        <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.answer_id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.answer_id) }}> Report</u></p>
       </div>
       )
     } else {
