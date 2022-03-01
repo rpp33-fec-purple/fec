@@ -34,39 +34,88 @@ class ListView extends React.Component {
     super(props);
     this.state= {
       inDisplay: 2,
-      noMoreToDisplay: false
+      noMoreToDisplay: false,
+      updatedQandAList: []
     }
     this.seeMoreQuestions = this.seeMoreQuestions.bind(this);
   }
 
   seeMoreQuestions() {
-    var totalNumOfQs = this.props.qAndAList.length;
-    // console.log('list', this.props.qAndAList)
+    $.ajax({
+      url: `http://localhost:3000/qa/questions`,
+      data: {
+        product_id: this.props.productID,
+        page: 1,
+        count: 100
+      },
+      method: 'GET',
+      success: (data) => {
+        console.log('data in client', data);
 
-    if (totalNumOfQs > this.state.inDisplay){
-      if (this.state.inDisplay + 2 >= totalNumOfQs) {
-        this.setState({
-          inDisplay: this.state.inDisplay + 2,
-          noMoreToDisplay: true
-        })
-      } else {
-        this.setState({
-          inDisplay: this.state.inDisplay + 2
-        })
+        var totalNumOfQs = data.results.length;
+
+        if (totalNumOfQs > this.state.inDisplay){
+          if (this.state.inDisplay + 2 >= totalNumOfQs) {
+            this.setState({
+              inDisplay: this.state.inDisplay + 2,
+              noMoreToDisplay: true,
+              updatedQandAList: data.results
+            })
+          } else {
+            this.setState({
+              inDisplay: this.state.inDisplay + 2,
+              updatedQandAList: data.results
+            })
+          }
+        }
+
+      },
+      error: (err) => {
+        console.log('Error with GET request:', err);
       }
-    }
+    });
+
+
+    // var totalNumOfQs = this.props.qAndAList.length;
+
+    // if (totalNumOfQs > this.state.inDisplay){
+    //   if (this.state.inDisplay + 2 >= totalNumOfQs) {
+    //     this.setState({
+    //       inDisplay: this.state.inDisplay + 2,
+    //       noMoreToDisplay: true
+    //     })
+    //   } else {
+    //     this.setState({
+    //       inDisplay: this.state.inDisplay + 2
+    //     })
+    //   }
+    // }
+
   }
 
   render () {
 
-    const questionsList = this.props.qAndAList.map(qa => {
+    if (this.state.updatedQandAList.length > 0) {
+      var questionsList = this.state.updatedQandAList.map(qa => {
 
-      return (
-        <div key={qa.question_id}>
-          <QuestionListEntry rerenderQandAs={this.props.rerenderQandAs} qACombo={qa} productName={this.props.productName}/>
-        </div>
-      )
-    })
+        return (
+          <div key={qa.question_id}>
+            <QuestionListEntry rerenderQandAs={this.props.rerenderQandAs} qACombo={qa} productName={this.props.productName}/>
+          </div>
+        )
+      })
+
+    } else {
+      var questionsList = this.props.qAndAList.map(qa => {
+
+        return (
+          <div key={qa.question_id}>
+            <QuestionListEntry rerenderQandAs={this.props.rerenderQandAs} qACombo={qa} productName={this.props.productName}/>
+          </div>
+        )
+      })
+    }
+
 
     const questionsInView = questionsList.slice(0, this.state.inDisplay);
     let moreQuestionsButton = this.state.noMoreToDisplay ? <div/> : <button onClick={this.seeMoreQuestions.bind(this)}>MORE ANSWERED QUESTIONS</button>

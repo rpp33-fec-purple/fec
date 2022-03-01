@@ -47,6 +47,8 @@ class QuestionListEntry extends React.Component {
 
     var newAnswerAdded = false;
     var answerMarkedHelpful = false;
+    var seeMoreAnswersClicked = false;
+    var collapseAnswersClicked = false;
   }
 
   changeModalVisibilityState(answerAdded) {
@@ -86,23 +88,55 @@ class QuestionListEntry extends React.Component {
   }
 
   collapseAnswers() {
-    this.setState({
-      answersInDisplay: 2,
-      displayingAll: false
+    $.ajax({
+      url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+      data: {
+        question_id: this.props.qACombo.question_id,
+        page: 1,
+        count: 100
+      },
+      method: 'GET',
+      success: (data) => {
+        var totalNumOfAs = data.results.length;
+        this.collapseAnswersClicked = true;
+        this.setState({
+          answersInDisplay: 2,
+          displayingAll: false,
+          updatedAnswersList: data.results
+        })
+      },
+      error: (err) => {
+        console.log('Error with GET request:', err);
+      }
     })
   }
 
   seeMoreAnswers() {
-    console.log('qa combo', this.props.qACombo.answers)
-    var totalNumOfAs = Object.keys(this.props.qACombo.answers).length;
-    console.log('total number of questions', totalNumOfAs)
-    if (totalNumOfAs > this.state.answersInDisplay) {
-      this.setState({
-        answersInDisplay: totalNumOfAs,
-        displayingAll: true
-      })
-    }
+    $.ajax({
+      url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+      data: {
+        question_id: this.props.qACombo.question_id,
+        page: 1,
+        count: 100
+      },
+      method: 'GET',
+      success: (data) => {
+        var totalNumOfAs = data.results.length;
+        this.seeMoreAnswersClicked = true;
+        if (totalNumOfAs > this.state.answersInDisplay) {
+          this.setState({
+            answersInDisplay: totalNumOfAs,
+            displayingAll: true,
+            updatedAnswersList: data.results
+          })
+        }
+      },
+      error: (err) => {
+        console.log('Error with GET request:', err);
+      }
+    })
   }
+
 
   sortAnswers(answers) {
     var sorted = answers.sort((a, b) => b.helpfulness - a.helpfulness);
@@ -182,7 +216,7 @@ class QuestionListEntry extends React.Component {
 
   markAnswerHelpful(answerID) {
     console.log('event target id', event.target)
-    this.disableButton(event.target.id);
+    var buttonID = event.target.id;
 
     $.ajax({
       url: `http://localhost:3000/qa/answers/${answerID}/helpful`,
@@ -201,6 +235,7 @@ class QuestionListEntry extends React.Component {
           method: 'GET',
           success: (data) => {
             this.answerMarkedHelpful = true;
+            this.disableButton(buttonID);
             console.log('Successfully marking answer as helpful')
             this.setState({
               updatedAnswersList: data.results
@@ -246,17 +281,25 @@ class QuestionListEntry extends React.Component {
     var answers = [];
     var answersDiv;
 
-    if (this.newAnswerAdded || this.answerMarkedHelpful) {
+    if (this.newAnswerAdded || this.answerMarkedHelpful || this.seeMoreAnswersClicked || this.collapseAnswersClicked) {
       this.newAnswerAdded = false;
       this.answerMarkedHelpful = false;
+      this.seeMoreAnswersClicked = false;
+      this.collapseAnswersClicked = false;
       var sorted = this.sortAnswers(this.state.updatedAnswersList);
 
-      answersDiv = sorted.map(a =>
-        <div key={a.answer_id}>
-        A: {a.body}
-        <br></br>
-        <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.answer_id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.answer_id) }}> Report</u></p>
-      </div>
+      answersDiv = sorted.map(a => {
+        if (a.answerer_name === 'Seller') {
+          var seller = <strong>{a.answerer_name}</strong>
+        }
+        return (
+          <div key={a.answer_id}>
+          A: {a.body}
+          <br></br>
+          <p> by {seller || a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.answer_id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.answer_id) }}> Report</u></p>
+        </div>
+        )
+      }
       )
     } else {
       var QandA = this.props.qACombo;
@@ -264,12 +307,18 @@ class QuestionListEntry extends React.Component {
         answers.push(QandA.answers[key])
       }
       var sorted = this.sortAnswers(answers);
-      answersDiv = sorted.map(a =>
-        <div key={a.id}>
-          A: {a.body}
-          <br></br>
-          <p> by {a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
-        </div>
+      answersDiv = sorted.map(a => {
+        if (a.answerer_name === 'Seller') {
+          var seller = <strong>{a.answerer_name}</strong>
+        }
+        return (
+          <div key={a.id}>
+            A: {a.body}
+            <br></br>
+            <p> by {seller || a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
+          </div>
+        )
+      }
       )
     }
 
