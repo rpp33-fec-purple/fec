@@ -39,23 +39,28 @@ class QAndA extends React.Component {
     });
   }
 
-  rerenderQandAs() {
-    $.ajax({
-      url: `http://localhost:3000/qa/questions`,
-      data: {
-        product_id: this.props.product.id,
-        page: 1,
-        count: 100
-      },
-      method: 'GET',
-      success: (data) => {
-        console.log('data in client', data);
-        this.setState({sortedQuestions: data.results});
-      },
-      error: (err) => {
-        console.log('Error with GET request:', err);
-      }
-    });
+  rerenderQandAs(qandAs) {
+    console.log('should be passing through here')
+    if (qandAs) {
+      this.setState({sortedQuestions: qandAs});
+    } else {
+      $.ajax({
+        url: `http://localhost:3000/qa/questions`,
+        data: {
+          product_id: this.props.product.id,
+          page: 1,
+          count: 100
+        },
+        method: 'GET',
+        success: (data) => {
+          console.log('data in client', data);
+          this.setState({sortedQuestions: data.results});
+        },
+        error: (err) => {
+          console.log('Error with GET request:', err);
+        }
+      });
+    }
   }
 
   sortQuestions(data) {
@@ -79,14 +84,12 @@ class QAndA extends React.Component {
   }
 
   render() {
-    // console.log('product name line 64', this.props)
 
     var productName = this.props.product.name;
     if (this.filterApplies) {
       var listDiv = this.state.filteredAndSorted ? <ListView rerenderQandAs={this.rerenderQandAs} qAndAList={this.state.filteredAndSorted} productName={productName} productID={this.props.product.id}/> : <div/>
     } else {
-      // console.log('product name in QA', this.props.product.name)
-      var listDiv = this.state.sortedQuestions ? <ListView rerenderQandAs={this.rerenderQandAs} qAndAList={this.state.sortedQuestions} productName={productName}/> : <div/>
+      var listDiv = this.state.sortedQuestions ? <ListView rerenderQandAs={this.rerenderQandAs} qAndAList={this.state.sortedQuestions} productName={productName} productID={this.props.product.id}/> : <div/>
     }
 
     return (

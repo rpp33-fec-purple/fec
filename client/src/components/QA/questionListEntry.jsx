@@ -49,6 +49,7 @@ class QuestionListEntry extends React.Component {
     var answerMarkedHelpful = false;
     var seeMoreAnswersClicked = false;
     var collapseAnswersClicked = false;
+    var questionMarkedHelpful = false;
   }
 
   changeModalVisibilityState(answerAdded) {
@@ -178,6 +179,7 @@ class QuestionListEntry extends React.Component {
   markQuestionHelpful(questionID) {
     console.log('event target id', event.target)
     this.disableButton(event.target.id);
+    var buttonID = event.target.id;
 
     $.ajax({
       url: `http://localhost:3000/qa/questions/${questionID}/helpful`,
@@ -187,6 +189,7 @@ class QuestionListEntry extends React.Component {
       method: 'PUT',
       success: (data) => {
         this.props.rerenderQandAs()
+
       },
       error: (err) => {
         console.log('Error with POST request:', err);
