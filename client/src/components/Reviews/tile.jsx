@@ -85,6 +85,23 @@ class Tile extends React.Component {
     });
   }
 
+  handleReportClick = (e) => {
+    $.ajax({
+      url: `http://localhost:3000/reviews/${e.target.id}/report`,
+      data: {
+        review_id: e.target.id
+      },
+      method: 'PUT',
+      success: (data) => {
+        console.log('Successfully reported review');
+        this.setState({meta: data});
+      },
+      error: (err) => {
+        console.log('Error with reporting review:', err);
+      }
+    });
+  }
+
   expandImg = (e) => {
     this.setState({isImageExpanded: true, expandedImageURL: e.target.src});
   }
@@ -114,7 +131,7 @@ class Tile extends React.Component {
         {photos}
         {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
         {currentReview.response ? <div>Response: {currentReview.response}</div>: null}
-        <div>Helpful? <ActionDiv id={currentReview.review_id} onClick={this.handleHelpfulClick}>Yes</ActionDiv>({currentReview.helpfulness})  |  <ActionDiv>Report</ActionDiv></div>
+        <div>Helpful? <ActionDiv id={currentReview.review_id} onClick={this.handleHelpfulClick}>Yes</ActionDiv>({currentReview.helpfulness})  |  <ActionDiv id={currentReview.review_id} onClick={this.handleReportClick}>Report</ActionDiv></div>
       </div>
     } else {
       view = <div>No Reviews Yet</div>
