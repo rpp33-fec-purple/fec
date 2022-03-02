@@ -1,0 +1,9 @@
+.star {
+  --star-active: #fece3c;
+  --star-inactive: #6c6962;
+  fill: var(--star-inactive);
+}
+
+.star.active {
+  fill: var(--star-active);
+}
