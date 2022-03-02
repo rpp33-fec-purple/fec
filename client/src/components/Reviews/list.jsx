@@ -81,7 +81,7 @@ class List extends React.Component {
 
     let newReviewForm;
     if (this.state.displayReviewForm) {
-      newReviewForm = <NewReview/>
+      newReviewForm = <NewReview meta={this.props.meta}/>
     } else {
       newReviewForm = null
     }

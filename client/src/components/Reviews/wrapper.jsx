@@ -58,7 +58,7 @@ class Reviews extends React.Component {
 
 
     return (
-      <div>
+      <div className="ratingsAndReviews">
         <h4 className='Review'>RATINGS & REVIEWS</h4>
         <List productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} sortBy={this.state.sortBy} updateSort={this.handleSortChange}/>
         <Breakdown productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} rating={avgRating} updateRatingsToFilter={this.filterStarRatings}/>
