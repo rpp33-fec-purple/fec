@@ -11,7 +11,7 @@ class NewReview extends React.Component {
       recommend: null,
       name: null,
       email: null,
-      photos: null,
+      photos: [],
       characteristics:{}
     };
 
@@ -73,27 +73,27 @@ class NewReview extends React.Component {
     console.log('Submitted!', this.state);
     event.preventDefault();
 
-    // $.ajax({
-    //   url: `http://localhost:3000/reviews/`,
-    //   data: {
-    //     product_id: this.props.productID,
-    //     rating: this.state.rating,
-    //     summary: this.state.summary,
-    //     body: this.state.body,
-    //     recommend: this.state.recommend,
-    //     name: this.state.name,
-    //     email: this.state.email,
-    //     photos: null,
-    //     characteristics: this.state.characteristics
-    //   },
-    //   method: 'POST',
-    //   success: (data) => {
-    //     console.log('SUBMITTED A REVIEW!!', data);
-    //   },
-    //   error: (err) => {
-    //     console.log('ERROR SUBMITTING REVIEW: ', err);
-    //   }
-    // });
+    $.ajax({
+      url: `http://localhost:3000/reviews/`,
+      data: {
+        product_id: this.props.productID,
+        rating: this.state.rating,
+        summary: this.state.summary,
+        body: this.state.body,
+        recommend: this.state.recommend,
+        name: this.state.name,
+        email: this.state.email,
+        photos: null,
+        characteristics: this.state.characteristics
+      },
+      method: 'POST',
+      success: (data) => {
+        console.log('SUBMITTED A REVIEW!!', data);
+      },
+      error: (err) => {
+        console.log('ERROR SUBMITTING REVIEW: ', err);
+      }
+    });
   }
 
   handleRecommendationChange = (event) => {

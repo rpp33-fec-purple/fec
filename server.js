@@ -32,6 +32,43 @@ app.get('/*', (req, res) => {
     })
 });
 
+app.post('/reviews', (req, res) => {
+  var params = {};
+  console.log(req.body);
+  params.product_id = parseInt(req.body.product_id);
+  params.rating = parseInt(req.body.rating);
+  params.summary = req.body.summary
+  params.body = req.body.body;
+  params.recommend = (req.body.recommend === 'true');
+  params.name = req.body.name;
+  params.email = req.body.email;
+  if (req.body.photos.length) {
+    params.photos = req.body.photos;
+  } else {
+    params.photos = [];
+  }
+  let characteristics = {};
+  for (var key in req.body.characteristics) {
+    characteristics[key] = parseInt(req.body.characteristics[key]);
+  }
+  params.characteristics = characteristics;
+  console.log(params);
+
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews`, params, {
+    headers: {
+      'Authorization': config.TOKEN
+    }
+  })
+  .then(response => {
+    console.log("RESPONSE FROM REVIEW POST API: ", response.data);
+    res.status(200).json('');
+  })
+  .catch(error => {
+    console.log('ERROR FROM REVIEWS API POST REQUEST: ', error);
+    res.status(500);
+ })
+
+})
 
 app.post('/*', (req, res) => {
   var url = req.url;
