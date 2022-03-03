@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render the component Reviews the component should match the saved snapshot 1`] = `
+<div
+  className="ratingsAndReviews"
+>
+  <h4
+    className="sc-hGPBjI huxpbn"
+  >
+    RATINGS & REVIEWS
+  </h4>
+  <div
+    className="sc-dJjYzT bnMCNC"
+  >
+    <div />
+    <div>
+      <button
+        className="sc-egiyK boQJXe"
+        onClick={[Function]}
+      >
+        ADD A REVIEW +
+      </button>
+    </div>
+  </div>
+</div>
+`;

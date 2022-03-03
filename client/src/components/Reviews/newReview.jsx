@@ -1,6 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const Button = styled.button`
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.2em solid #a070a1;
+    margin:0 0.3em 0.3em 0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-weight:300;
+    color:#FFFFFF;
+    background-color: #a070a1;
+    text-align:center;
+    transition: all 0.2s;
+    min-width: 10ch;
+    min-height: 30px;
+
+
+    &:hover {
+      color:#000000;
+      background-color:#FFFFFF;
+    }
+`;
+
 class NewReview extends React.Component {
   constructor(props) {
     super(props);
@@ -217,7 +240,7 @@ class NewReview extends React.Component {
             <label htmlFor="email">For authentication reasons, you will not be emailed</label>
           </li>
           <li>
-            <input type="submit" id="submit" name=""/>
+            <Button type="submit" id="submit" name="">Submit</Button>
           </li>
         </ul>
       </form>
