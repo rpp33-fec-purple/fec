@@ -12,7 +12,7 @@
 
 .stars-outer::before {
   content: "\f006";
-  color: var(--dark-purple);
+  color: var(--light-purple);
 }
 
 
@@ -158,6 +158,79 @@
 }
 
 .review-stars-inner5::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+
+
+/* NEW REVIEW RATING STARS */
+.rating-stars-inner1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.rating-stars-inner1::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.rating-stars-inner2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.rating-stars-inner2::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.rating-stars-inner3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.rating-stars-inner3::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.rating-stars-inner4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.rating-stars-inner4::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.rating-stars-inner5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.rating-stars-inner5::before {
   content: "\f005";
   color: var(--light-purple);
 }

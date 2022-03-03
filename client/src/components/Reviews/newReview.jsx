@@ -5,7 +5,7 @@ class NewReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rating: 5,
+      rating: 1,
       summary: null,
       body: null,
       recommend: null,
@@ -22,6 +22,7 @@ class NewReview extends React.Component {
     this.handleBodyChange = this.handleBodyChange.bind(this);
     this.handleNicknameChange = this.handleNicknameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleStarClick = this.handleStarClick.bind(this);
   }
 
   characteristicOptions = {
@@ -127,6 +128,11 @@ class NewReview extends React.Component {
     this.setState({email: event.target.value})
   }
 
+  handleStarClick = (event, star) => {
+    console.log('A STAR WAS CLICKED', event.target.id);
+    this.setState({rating: event.target.id})
+  }
+
 
   render() {
     //build characteristics rating radio inputs based on current product characteristics
@@ -153,6 +159,24 @@ class NewReview extends React.Component {
       )
     })
 
+    //configure current review star rating display
+    let stars = [1, 2, 3, 4, 5];
+    let starRatingComponent = stars.map((star) => {
+      if (star <= this.state.rating) {
+        return (
+          <div id={star} onClick={this.handleStarClick} className="stars-outer">
+            <div id={star} className={"rating-stars-inner" + star} style={{width: "100%"}}></div>
+          </div>
+        )
+      } else {
+        return (
+          <div id={star} onClick={this.handleStarClick} className="stars-outer">
+            <div id={star} className={"rating-stars-inner" + star}></div>
+          </div>
+        )
+      }
+    })
+
 
     return(
       <form onSubmit={this.handleSubmit}>
@@ -161,21 +185,7 @@ class NewReview extends React.Component {
         <ul>
           <li>
             <label htmlFor="rating">Overall Rating*</label>
-            <div className="stars-outer _1">
-               <div className="stars-inner _1"></div>
-            </div>
-            <div className="stars-outer _2">
-               <div className="stars-inner _2"></div>
-            </div>
-            <div className="stars-outer _3">
-               <div className="stars-inner _3"></div>
-            </div>
-            <div className="stars-outer _4">
-               <div className="stars-inner _4"></div>
-            </div>
-            <div className="stars-outer _5">
-               <div className="stars-inner _5"></div>
-            </div>
+            {starRatingComponent}
           </li>
           <li onChange={this.handleRecommendationChange}>
             <label htmlFor="">Do you recommend this product?*</label>
