@@ -134,11 +134,31 @@ class Tile extends React.Component {
         })
       }
 
+      //configure current review star rating display
+      let stars = [1, 2, 3, 4, 5];
+      let currentReviewStarRating = stars.map((star) => {
+        if (star <= currentReview.rating) {
+          return (
+            <div className="stars-outer">
+              <div className={'review-stars-inner' + star} style={{width: "100%"}}></div>
+            </div>
+          )
+        } else {
+          return (
+            <div className="stars-outer">
+              <div className={'review-stars-inner' + star}></div>
+            </div>
+          )
+        }
+      })
+
+
 
       view =
       <>
         <div>
           {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
+          {currentReviewStarRating}
           <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
           <div><b>{currentReview.summary}</b></div>
           {this.shorten(currentReview.body, 250, currentReview.id)}
