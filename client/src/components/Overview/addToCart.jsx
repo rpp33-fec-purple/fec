@@ -2,27 +2,44 @@ import React from 'react';
 import styled from 'styled-components';
 import _ from 'underscore';
 
-const DropDownRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 5px;
-  height: 45px;
-  width: 200px;
+const AddToCartContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeats(10, 1fr);
+  gap: 1em;
 `;
-
-const DropDownCol = styled.div`
-  display: flex;
-  flex-direction: column;
+const QuantityDropDown = styled.select`
+  grid-row: 1;
+  grid-column: 8/10;
+  gap: 3em;
+  background-color: #141414;
+  color: #fff;
+  padding: 16px 32px;
 `;
-const DropDown = styled.select`
-  background-color: grey;
-  height: 45px;
-  width: 200px;
+const SizeDropDown = styled.select`
+  grid-row: 1;
+  grid-column: 1/7;
+  background-color: #141414;
+  color: #fff;
+  padding: 16px 32px;
 `;
 const AddToCartButton = styled.button`
-  background-color: grey;
-  height: 45px;
-  width: 200px;
+  grid-row: 2;
+  border-radius: 4px;
+  border: none;
+  background: #141414;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+`;
+const AddToCartButtonHidden = styled.button`
+  grid-row: 2;
+  border-radius: 4px;
+  border: none;
+  background: #141414;
+  visibility: hidden;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
 `;
 
 class AddToCart extends React.Component {
@@ -31,71 +48,74 @@ class AddToCart extends React.Component {
   }
 
   addToCart(event) {
-    //
     if (this.props.currentSize ) {
 
     }
   }
   render() {
+    var addToCart;
 
     var sizeDropDown;
     // Creates size dropdown based on sizes available
     if(Object.keys(this.props.styleInfo[this.props.currentStyleIndex].skus)[0] === 'null') {
+      addToCart = <AddToCartButtonHidden>ADD TO BAG    +</AddToCartButtonHidden>
       sizeDropDown =
-      <DropDown>
+      <SizeDropDown id='selectedSize'>
         <option disabled>OUT OF STOCK</option>
-      </DropDown>;
+      </SizeDropDown>;
     } else {
-
+      addToCart = <AddToCartButton onClick={this.addToCart.bind(this)}>ADD TO BAG    +</AddToCartButton>
       sizeDropDown =
-      <DropDown onChange={this.props.renderQuantityDropDown}>
+      <SizeDropDown id='selectedSize' onChange={this.props.renderQuantityDropDown}>
         <option value='DEFAULT'>SELECT SIZE</option>
         {_.map(Object.keys(this.props.styleInfo[this.props.currentStyleIndex].skus), (item, index) => {
-          return <option key={index}>{this.props.styleInfo[this.props.currentStyleIndex].skus[item].size}</option>
+          if (this.props.styleInfo[this.props.currentStyleIndex].skus[item].quantity !== 0) {
+            return <option key={index}>{this.props.styleInfo[this.props.currentStyleIndex].skus[item].size}</option>
+          }
+          return;
         })}
-      </DropDown>
+      </SizeDropDown>
     }
 
     // Creates quantity dropdown based on selected size
     var quantityDropDown;
     if (!this.props.currentQuantity) {
       quantityDropDown =
-      <DropDown disabled>
+      <QuantityDropDown id='selectedQuantity' disabled>
         <option disabled> - </option>
-      </DropDown>;
+      </QuantityDropDown>;
     } else if (this.props.currentQuantity < 15) {
       var quantityCount = [];
       for (var i = 1; i <= this.props.currentQuantity; i++) {
         quantityCount.push(i);
       }
       quantityDropDown =
-        <DropDown>
+        <QuantityDropDown id='selectedQuantity'>
           <option value='DEFAULT' disabled> - </option>
           {_.map(quantityCount, (count, index) => {
             return <option key={index}>{count}</option>
           })}
-        </DropDown>;
+        </QuantityDropDown>;
     } else {
       var quantityCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
       quantityDropDown =
-        <DropDown>
+        <QuantityDropDown id='selectedQuantity'>
           <option value='DEFAULT' disabled> - </option>
           {_.map(quantityCount , (count, index) => {
             return <option key={index}>{count}</option>
           })}
-        </DropDown>;
+        </QuantityDropDown>;
     }
+
 
     return (
       <div className='addToCart'>
         <form>
-          <DropDownCol>
-            <DropDownRow>
-              {sizeDropDown}
-              {quantityDropDown}
-            </DropDownRow>
-            <AddToCartButton onClick={this.addToCart}>ADD TO BAG    +</AddToCartButton>
-          </DropDownCol>
+          <AddToCartContainer>
+            {sizeDropDown}
+            {quantityDropDown}
+            {addToCart}
+          </AddToCartContainer>
         </form>
       </div>
     );
