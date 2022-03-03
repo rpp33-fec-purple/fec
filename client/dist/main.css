@@ -1,9 +1,26 @@
-.star {
-  --star-active: #fece3c;
-  --star-inactive: #6c6962;
-  fill: var(--star-inactive);
+
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
 }
 
-.star.active {
-  fill: var(--star-active);
+.stars-outer::before {
+  content: "\f006 \f006 \f006 \f006 \f006";
+  color: #724060;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 70%;
+  font-family: FontAwesome;
+}
+
+.stars-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  color: #a070a1;
 }
