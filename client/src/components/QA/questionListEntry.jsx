@@ -5,13 +5,15 @@ import AnswerModal from './Modals/addAnswerModal.jsx';
 
 const Container = styled.div`
   display: flex;
-  // justify-content: center;
+  justify-content: left;
   // align-items: center;
   // height: 10vh;
   // box-sizing: border-box;
   // margin: 0;
-  // padding: 0;
-  // font-family: 'Arial', sans-serif;
+  padding: 8px;
+
+
+  position: inherit;
 `
 
 const ScrollableList = styled.div`
@@ -25,6 +27,17 @@ const ScrollableList = styled.div`
       align-items: center;
   `;
 
+
+  const ImageThumbnail = styled.img`
+    border: 2px solid #C0C0C0;
+    padding: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+
+  `;
+
 class QuestionListEntry extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +45,8 @@ class QuestionListEntry extends React.Component {
       answersInDisplay: 2,
       displayingAll: false,
       isModalShowing: false,
-      updatedAnswersList: []
+      updatedAnswersList: [],
+      answersMarkedHelpful: []
     }
     this.seeMoreAnswers = this.seeMoreAnswers.bind(this);
     this.collapseAnswers = this.collapseAnswers.bind(this);
@@ -122,6 +136,7 @@ class QuestionListEntry extends React.Component {
       },
       method: 'GET',
       success: (data) => {
+        console.log('these are the answers', data.results)
         var totalNumOfAs = data.results.length;
         this.seeMoreAnswersClicked = true;
         if (totalNumOfAs > this.state.answersInDisplay) {
@@ -239,6 +254,7 @@ class QuestionListEntry extends React.Component {
           success: (data) => {
             this.answerMarkedHelpful = true;
             this.disableButton(buttonID);
+            // var buttonsMarkedHelpful = this.state.answersMarkedHelpful.push(buttonID);
             console.log('Successfully marking answer as helpful')
             this.setState({
               updatedAnswersList: data.results
@@ -295,10 +311,23 @@ class QuestionListEntry extends React.Component {
         if (a.answerer_name === 'Seller') {
           var seller = <strong>{a.answerer_name}</strong>
         }
+
+        if (a.photos.length === 0) {
+          var photosDiv = <></>;
+        } else {
+          var photosDiv = a.photos.map(photo => {
+            return (
+              <ImageThumbnail key={photo.url} src={photo.url} width='200'></ImageThumbnail>
+            )
+          })
+        }
+
         return (
           <div key={a.answer_id}>
           A: {a.body}
           <br></br>
+          <>{photosDiv}</>
+
           <p> by {seller || a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.answer_id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.answer_id) }}> Report</u></p>
         </div>
         )
@@ -310,14 +339,28 @@ class QuestionListEntry extends React.Component {
         answers.push(QandA.answers[key])
       }
       var sorted = this.sortAnswers(answers);
+
       answersDiv = sorted.map(a => {
         if (a.answerer_name === 'Seller') {
           var seller = <strong>{a.answerer_name}</strong>
         }
+
+
+        if (a.photos.length === 0) {
+          var photosDiv = <></>;
+        } else {
+          var photosDiv = a.photos.map(photo => {
+            return (
+              <ImageThumbnail key={photo.url} src={photo.url} width='2000'></ImageThumbnail>
+            )
+          })
+        }
+
         return (
           <div key={a.id}>
             A: {a.body}
             <br></br>
+            <>{photosDiv}</>
             <p> by {seller || a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
           </div>
         )
@@ -338,17 +381,19 @@ class QuestionListEntry extends React.Component {
     }
 
     return (
-      <div key={this.props.qACombo.question_id}>
-        Q: {this.props.qACombo.question_body} Helpful? <u id={this.props.qACombo.question_id + 'helpful'} onClick={ () => { this.markQuestionHelpful(this.props.qACombo.question_id) } }> Yes</u> ({this.props.qACombo.question_helpfulness})  | <u id={this.props.qACombo.question_id + 'report'} onClick={() => { this.reportQuestion(this.props.qACombo.question_id) }}>Report</u> | <u onClick={() => { this.changeModalVisibilityState(false) }}>Add Answer</u>
-          <Container>
-            <AnswerModal questionID={this.props.qACombo.question_id} question={this.props.qACombo.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
-          </Container>
-        <div>
-          {answersInView}
-          {moreAnswersButton}
+      <Container>
+
+        <div key={this.props.qACombo.question_id}>
+          Q: {this.props.qACombo.question_body} Helpful? <u id={this.props.qACombo.question_id + 'helpful'} onClick={ () => { this.markQuestionHelpful(this.props.qACombo.question_id) } }> Yes</u> ({this.props.qACombo.question_helpfulness})  | <u id={this.props.qACombo.question_id + 'report'} onClick={() => { this.reportQuestion(this.props.qACombo.question_id) }}>Report</u> | <u onClick={() => { this.changeModalVisibilityState(false) }}>Add Answer</u>
+            {/* <Container> */}
+              <AnswerModal questionID={this.props.qACombo.question_id} question={this.props.qACombo.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
+            {/* </Container> */}
+          <div>
+            {answersInView}
+            {moreAnswersButton}
+          </div>
         </div>
-        <div>--------------</div>
-      </div>
+      </Container>
 
     )
   }

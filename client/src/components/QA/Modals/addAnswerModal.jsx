@@ -3,15 +3,40 @@ import {useSpring, animated} from 'react-spring';
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
 
-const Background = styled.div`
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  position: absolute;
-  // position: fixed;
+const Container = styled.div`
   display: flex;
+  justify-content: left;
+  // align-items: center;
+  // height: 10vh;
+  // box-sizing: border-box;
+  // margin: 0;
+  // padding: 8px;
+
+  // font-family: 'Arial', sans-serif;
+`
+
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  background: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
+
+
+
+  // width: 100%;
+  // height: 100%;
+  // background: rgba(0, 0, 0, 0.8);
+  // position: absolute;
+  // // position: inherit;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
 `;
 const ModalWrapper = styled.div`
   width: 600px;
@@ -121,26 +146,26 @@ class AnswerModal extends React.Component {
 
     return (
       <>{this.props.isModalShowing ? (
-        <Background>
-            <ModalWrapper isModalShowing={this.props.isModalShowing}>
-              <ModalContent>
-                <h1>Submit your Answer</h1>
-                <h2>{this.props.productName}: {this.props.question}</h2>
-                <form>
-                  <label htmlFor='answer'>Your Answer *</label><br></br>
-                  <textarea id='answer' name='answer' maxLength='1000' rows="4" cols="50" onChange={this.handleChange}></textarea><br></br>
-                  <label htmlFor='nickname'>What is your nickname *</label><br></br>
-                  <input id='nickname' name='nickname' placeholder="Example: jack543!" maxLength='60' onChange={this.handleChange}></input><br></br>
-                  <>For privacy reasons, do not use your full name or email address</><br></br>
-                  <label htmlFor='email'>Your email *</label><br></br>
-                  <input id='email' name='email' maxLength='60' onChange={this.handleChange} placeholder="Example: jack@email.com"></input><br></br>
-                  <>For authentication reasons, you will not be emailed</><br></br>
-                  <button aria-label='Close modal' onClick={this.handleSubmit}>Submit question</button>
-                </form>
-              </ModalContent>
-              <CloseModalButton aria-label='Close modal' onClick={()=> {this.props.changeModalState(false)}} />
-            </ModalWrapper>
-        </Background>
+          <Background>
+              <ModalWrapper isModalShowing={this.props.isModalShowing}>
+                <ModalContent>
+                  <h1>Submit your Answer</h1>
+                  <h2>{this.props.productName}: {this.props.question}</h2>
+                  <form>
+                    <label htmlFor='answer'>Your Answer *</label><br></br>
+                    <textarea id='answer' name='answer' maxLength='1000' rows="4" cols="50" onChange={this.handleChange}></textarea><br></br>
+                    <label htmlFor='nickname'>What is your nickname *</label><br></br>
+                    <input id='nickname' name='nickname' placeholder="Example: jack543!" maxLength='60' onChange={this.handleChange}></input><br></br>
+                    <>For privacy reasons, do not use your full name or email address</><br></br>
+                    <label htmlFor='email'>Your email *</label><br></br>
+                    <input id='email' name='email' maxLength='60' onChange={this.handleChange} placeholder="Example: jack@email.com"></input><br></br>
+                    <>For authentication reasons, you will not be emailed</><br></br>
+                    <button aria-label='Close modal' onClick={this.handleSubmit}>Submit question</button>
+                  </form>
+                </ModalContent>
+                <CloseModalButton aria-label='Close modal' onClick={()=> {this.props.changeModalState(false)}} />
+              </ModalWrapper>
+          </Background>
         ) : null
       } </>
     )

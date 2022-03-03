@@ -3,6 +3,22 @@ import SearchBar from './searchBar.jsx';
 import ListView from './listView.jsx';
 import AddQuestion from './addQuestion.jsx';
 import sampleProductQuestions from './sampleData.js';
+import styled from 'styled-components';
+
+
+const Container = styled.div`
+  display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // height: 70%;
+  // box-sizing: border-box;
+  // margin: 0;
+  // padding: 0;
+  // font-family: 'Arial', sans-serif;
+
+  // position: inherit;
+`
+
 
 class QAndA extends React.Component {
   constructor(props) {
@@ -117,12 +133,12 @@ class QAndA extends React.Component {
     }
 
     return (
-      <div>
-        <h2>Questions and Answers</h2>
-        <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter} productID={this.props.product.id}/>
-        <div>{listDiv}</div>
-        <AddQuestion questionAdded={this.rerenderQandAs} productName={this.props.product.name} productID={this.props.product.id}/>
-      </div>
+        <div>
+          <h2>Questions and Answers</h2>
+          <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter} productID={this.props.product.id}/>
+          <div>{listDiv}</div>
+          <AddQuestion questionAdded={this.rerenderQandAs} productName={this.props.product.name} productID={this.props.product.id}/>
+        </div>
     )
   }
 }
