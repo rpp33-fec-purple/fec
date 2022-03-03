@@ -6,21 +6,77 @@
 }
 
 .stars-outer::before {
-  content: "\f006 \f006 \f006 \f006 \f006";
+  content: "\f006";
   color: #724060;
 }
 
-.stars-inner {
+.stars-inner1 {
   position: absolute;
   top: 0;
   left: 0;
   white-space: nowrap;
   overflow: hidden;
-  width: 70%;
+  width: 0;
   font-family: FontAwesome;
 }
 
-.stars-inner::before {
-  content: "\f005 \f005 \f005 \f005 \f005";
+.stars-inner1::before {
+  content: "\f005";
+  color: #a070a1;
+}
+.stars-inner2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.stars-inner2::before {
+  content: "\f005";
+  color: #a070a1;
+}
+.stars-inner3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.stars-inner3::before {
+  content: "\f005";
+  color: #a070a1;
+}
+.stars-inner4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.stars-inner4::before {
+  content: "\f005";
+  color: #a070a1;
+}
+.stars-inner5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.stars-inner5::before {
+  content: "\f005";
   color: #a070a1;
 }

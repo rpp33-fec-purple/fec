@@ -128,7 +128,7 @@ class NewReview extends React.Component {
 
 
   render() {
-    //build characteristics rating radio inputs
+    //build characteristics rating radio inputs based on current product characteristics
     let characteristics = [];
     for (var key in this.props.meta.characteristics) {
       characteristics.push(key);
@@ -160,8 +160,20 @@ class NewReview extends React.Component {
         <ul>
           <li>
             <label htmlFor="rating">Overall Rating*</label>
-            <div className="stars-outer">
-               <div className="stars-inner"></div>
+            <div className="stars-outer _1">
+               <div className="stars-inner _1"></div>
+            </div>
+            <div className="stars-outer _2">
+               <div className="stars-inner _2"></div>
+            </div>
+            <div className="stars-outer _3">
+               <div className="stars-inner _3"></div>
+            </div>
+            <div className="stars-outer _4">
+               <div className="stars-inner _4"></div>
+            </div>
+            <div className="stars-outer _5">
+               <div className="stars-inner _5"></div>
             </div>
           </li>
           <li onChange={this.handleRecommendationChange}>
