@@ -129,7 +129,6 @@ class NewReview extends React.Component {
   }
 
   handleStarClick = (event, star) => {
-    console.log('A STAR WAS CLICKED', event.target.id);
     this.setState({rating: event.target.id})
   }
 
@@ -164,13 +163,13 @@ class NewReview extends React.Component {
     let starRatingComponent = stars.map((star) => {
       if (star <= this.state.rating) {
         return (
-          <div id={star} onClick={this.handleStarClick} className="stars-outer">
+          <div id={star} onClick={this.handleStarClick} className="rating-stars-outer">
             <div id={star} className={"rating-stars-inner" + star} style={{width: "100%"}}></div>
           </div>
         )
       } else {
         return (
-          <div id={star} onClick={this.handleStarClick} className="stars-outer">
+          <div id={star} onClick={this.handleStarClick} className="rating-stars-outer">
             <div id={star} className={"rating-stars-inner" + star}></div>
           </div>
         )

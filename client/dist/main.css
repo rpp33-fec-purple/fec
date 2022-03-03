@@ -4,16 +4,32 @@
   --light-purple: #a070a1;
 }
 
+/* EMPTY STARS FOR DISPLAY */
 .stars-outer {
   display: inline-block;
   position: relative;
   font-family: FontAwesome;
+  font-size: .6em;
 }
 
 .stars-outer::before {
   content: "\f006";
   color: var(--light-purple);
 }
+
+/* EMPTY STARS IN NEW REVIEW FORM */
+.rating-stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+}
+
+.rating-stars-outer::before {
+  content: "\f006";
+  color: var(--light-purple);
+}
+
+
 
 
 /* BREAKDOWN STAR DISPLAY */
