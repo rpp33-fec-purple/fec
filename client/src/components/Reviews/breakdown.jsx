@@ -24,7 +24,7 @@ const RatingBar = styled.div`
 const RatingBarFill = styled.span`
   display: block;
   height: 8px;
-  background-color: #8db600;
+  background-color: #a070a1;
   border-radius: 3px;
   width: 0%;
 `;
