@@ -185,43 +185,24 @@ class Breakdown extends React.Component {
         if (star <= avgRating) {
           return (
             <div className="stars-outer">
-              <div className={'stars-inner' + star} style={{width: "100%"}}></div>
+              <div className={'breakdown-stars-inner' + star} style={{width: "100%"}}></div>
             </div>
           )
         } else if (star - avgRating < 1) {
           let starPercent = `${((avgRating % 1).toFixed(2)) * 100}%`;
           return (
             <div className="stars-outer">
-              <div className={'stars-inner' + star} style={{width: starPercent}}></div>
+              <div className={'breakdown-stars-inner' + star} style={{width: starPercent}}></div>
             </div>
           )
         } else {
           return (
             <div className="stars-outer">
-              <div className={'stars-inner' + star}></div>
+              <div className={'breakdown-stars-inner' + star}></div>
             </div>
           )
         }
       })
-
-      // let starRatingDisplay =
-      // <>
-      //   <div className="stars-outer _1">
-      //       <div className="stars-inner1"></div>
-      //   </div>
-      //   <div className="stars-outer _2">
-      //       <div className="stars-inner2"></div>
-      //   </div>
-      //   <div className="stars-outer _3">
-      //       <div className="stars-inner3"></div>
-      //   </div>
-      //   <div className="stars-outer _4">
-      //       <div className="stars-inner4"></div>
-      //   </div>
-      //   <div className="stars-outer _5">
-      //       <div className="stars-inner5"></div>
-      //   </div>
-      // </>
 
 
       breakdownView =
