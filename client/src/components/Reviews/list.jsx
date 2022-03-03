@@ -7,11 +7,34 @@ import ReviewModal from './reviewModal.jsx';
 
 
 const ScrollableList = styled.div`
-      margin: 0 auto;
-      height: 250px;
-      width: 800px;
-      overflow: auto;
-  `;
+  margin: 0 auto;
+  height: 400px;
+  width: auto;
+  overflow: auto;
+`;
+
+const Button = styled.button`
+display:inline-block;
+padding:0.35em 1.2em;
+border:0.2em solid #a070a1;
+margin:0 0.3em 0.3em 0;
+border-radius: 5px;
+box-sizing: border-box;
+text-decoration:none;
+font-weight:300;
+color:#FFFFFF;
+background-color: #a070a1;
+text-align:center;
+transition: all 0.2s;
+min-width: 10ch;
+min-height: 44px;
+
+
+&:hover {
+  color:#000000;
+  background-color:#FFFFFF;
+}
+`;
 
 class List extends React.Component {
   constructor(props) {
@@ -39,7 +62,6 @@ class List extends React.Component {
   };
 
   addNewReview = () => {
-    console.log('time to add a review');
     this.setState({displayReviewForm: true});
   }
 
@@ -60,6 +82,7 @@ class List extends React.Component {
       //If there are reviews for the item
       if (reviews.results.length > 0) {
         view =
+        <>
         <div>
           <label>{reviews.results.length} reviews, sorted by </label>
           <select name="sort" id="sort" value={this.props.sortBy} onChange={this.handleSortChange}>
@@ -78,8 +101,9 @@ class List extends React.Component {
                 }
               })}
           </ScrollableList>
-          <button style={{display: reviews.results.length > reviewsDisplayed ?  'inline' : 'none'}}onClick={this.handleMoreButtonClick}>MORE REVIEWS</button>
         </div>
+        <Button style={{display: reviews.results.length > reviewsDisplayed ?  'inline' : 'none'}}onClick={this.handleMoreButtonClick}>MORE REVIEWS</Button>
+        </>
       //there are no reviews yet
       } else {
         view = null;
@@ -97,11 +121,11 @@ class List extends React.Component {
     }
 
     return (
-      <>
+      <div>
         {view}
-        <button onClick={this.addNewReview}>ADD A REVIEW +</button>
+        <Button onClick={this.addNewReview}>ADD A REVIEW +</Button>
         {this.state.displayReviewForm ? <ReviewModal form={newReviewForm} closeReviewModal={this.closeReview}></ReviewModal> : null}
-      </>
+      </div>
     )
   }
 }

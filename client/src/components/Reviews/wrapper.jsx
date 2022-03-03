@@ -2,7 +2,17 @@ import React from 'react';
 import List from './list.jsx';
 import Tile from './tile.jsx';
 import Breakdown from './breakdown.jsx';
+import styled from 'styled-components';
 import { GlobalStyle } from './GlobalStyles.js';
+
+const Container = styled.div`
+display: grid;
+grid-template-columns: 1fr 2fr;
+`;
+
+const Header = styled.h4`
+  margin: 5px 0;
+`;
 
 class Reviews extends React.Component {
   constructor(props) {
@@ -59,9 +69,11 @@ class Reviews extends React.Component {
 
     return (
       <div className="ratingsAndReviews">
-        <h4 className='Review'>RATINGS & REVIEWS</h4>
-        <List productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} sortBy={this.state.sortBy} updateSort={this.handleSortChange}/>
-        <Breakdown productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} rating={avgRating} updateRatingsToFilter={this.filterStarRatings}/>
+        <Header>RATINGS & REVIEWS</Header>
+        <Container>
+          <Breakdown productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} rating={avgRating} updateRatingsToFilter={this.filterStarRatings}/>
+          <List productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} sortBy={this.state.sortBy} updateSort={this.handleSortChange}/>
+        </Container>
       </div>
     )
   }

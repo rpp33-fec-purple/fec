@@ -1,4 +1,9 @@
 
+:root {
+  --dark-purple: #724060;
+  --light-purple: #a070a1;
+}
+
 .stars-outer {
   display: inline-block;
   position: relative;
@@ -7,7 +12,7 @@
 
 .stars-outer::before {
   content: "\f006";
-  color: #724060;
+  color: var(--dark-purple);
 }
 
 
@@ -24,7 +29,7 @@
 
 .breakdown-stars-inner1::before {
   content: "\f005";
-  color: #a070a1;
+  color: var(--light-purple);
 }
 .breakdown-stars-inner2 {
   position: absolute;
@@ -38,7 +43,7 @@
 
 .breakdown-stars-inner2::before {
   content: "\f005";
-  color: #a070a1;
+  color: var(--light-purple);
 }
 .breakdown-stars-inner3 {
   position: absolute;
@@ -52,7 +57,7 @@
 
 .breakdown-stars-inner3::before {
   content: "\f005";
-  color: #a070a1;
+  color: var(--light-purple);
 }
 .breakdown-stars-inner4 {
   position: absolute;
@@ -66,7 +71,7 @@
 
 .breakdown-stars-inner4::before {
   content: "\f005";
-  color: #a070a1;
+  color: var(--light-purple);
 }
 .breakdown-stars-inner5 {
   position: absolute;
@@ -80,7 +85,7 @@
 
 .breakdown-stars-inner5::before {
   content: "\f005";
-  color: #a070a1;
+  color: var(--light-purple);
 }
 
 
@@ -98,7 +103,7 @@
 
 .review-stars-inner1::before {
   content: "\f005";
-  color: #a070a1;
+  color: var(--light-purple);
 }
 .review-stars-inner2 {
   position: absolute;
@@ -112,7 +117,7 @@
 
 .review-stars-inner2::before {
   content: "\f005";
-  color: #a070a1;
+  color: var(--light-purple);
 }
 .review-stars-inner3 {
   position: absolute;
@@ -126,7 +131,7 @@
 
 .review-stars-inner3::before {
   content: "\f005";
-  color: #a070a1;
+  color: var(--light-purple);
 }
 .review-stars-inner4 {
   position: absolute;
@@ -140,7 +145,7 @@
 
 .review-stars-inner4::before {
   content: "\f005";
-  color: #a070a1;
+  color: var(--light-purple);
 }
 .review-stars-inner5 {
   position: absolute;
@@ -154,5 +159,5 @@
 
 .review-stars-inner5::before {
   content: "\f005";
-  color: #a070a1;
+  color: var(--light-purple);
 }
