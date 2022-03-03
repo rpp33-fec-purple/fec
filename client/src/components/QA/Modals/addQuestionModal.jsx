@@ -28,9 +28,9 @@ const Background = styled.div`
 `;
 const ModalWrapper = styled.div`
   width: 600px;
-  height: 300px;
+  height: 350px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  background: lavender;
+  background: #fdf3f3;
   color: #000;
   display: grid;
   // grid-template-columns: 1fr 1fr;
@@ -47,7 +47,7 @@ const ModalContent = styled.div`
   align-items: center;
   line-height: 1.8;
   color: #141414;
-  font-size: 10px;
+  font-size: 12px;
 
   p {
     margin-bottom: 1rem;
@@ -60,6 +60,11 @@ const ModalContent = styled.div`
     border: none;
   }
 `;
+
+const TextArea = styled.textarea`
+  resize: none;
+`;
+
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
   position: absolute;
@@ -69,7 +74,7 @@ const CloseModalButton = styled(MdClose)`
   height: 32px;
   padding: 0;
   z-index: 10;
-`
+`;
 
 class QuestionModal extends React.Component {
   constructor(props) {
@@ -145,12 +150,12 @@ class QuestionModal extends React.Component {
                 <h2>About the {this.props.productName}</h2>
                 <form>
                   <label htmlFor='question'>Your Question *</label><br></br>
-                  <textarea id='question' name='question' maxLength='1000' rows="4" cols="50" onChange={this.handleChange}></textarea><br></br>
+                  <TextArea id='question' name='question' maxLength='1000' rows="4" cols="50" onChange={this.handleChange}></TextArea><br></br>
                   <label htmlFor='nickname'>What is your nickname *</label><br></br>
                   <input id='nickname' name='nickname' placeholder="Example: jackson11!" maxLength='60' onChange={this.handleChange}></input><br></br>
                   <>For privacy reasons, do not use your full name or email address</><br></br>
                   <label htmlFor='email'>Your email *</label><br></br>
-                  <input id='email' name='email' maxLength='60' onChange={this.handleChange} placeholder="Example: jack@email.com"></input><br></br>
+                  <input id='email' name='email' maxLength='60' size="28" onChange={this.handleChange} placeholder="Example: jack@email.com"></input><br></br>
                   <>For authentication reasons, you will not be emailed</><br></br>
                   <button aria-label='Close modal' onClick={this.handleSubmit}>Submit question</button>
                 </form>

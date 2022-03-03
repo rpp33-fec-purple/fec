@@ -11,10 +11,11 @@ const Container = styled.div`
   // box-sizing: border-box;
   // margin: 0;
   padding: 8px;
+  width: 800px;
 
 
   position: inherit;
-`
+`;
 
 const ScrollableList = styled.div`
       margin: 0 auto;
@@ -36,6 +37,91 @@ const ScrollableList = styled.div`
     margin-top: 2.5px;
     margin-bottom: 2.5px;
 
+  `;
+
+  const QuestionBox = styled.div`
+    .questionBox {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      width: 780px;
+
+    }
+    .push {
+        margin-left: auto;
+        // padding-left: 140px;
+        justify-content: right;
+        font-size: 14px;
+        font-color: #36454F;
+    }
+    .question {
+      width: 28.12em;
+      flex-wrap: wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .report {
+      padding-left: 3px;
+      padding-right: 3px;
+    }
+    .answer {
+      padding-left: 3px;
+    }
+  `;
+
+  const AnswersButton = styled.button`
+  .button-48 {
+    appearance: none;
+    background-color: #FFFFFF;
+    border-width: 0;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Clarkson,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: .7em;
+    opacity: 1;
+    outline: 0;
+    padding: .8em 1.6em;
+    position: relative;
+    text-align: center;
+    text-rendering: geometricprecision;
+    transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1),background-color 100ms cubic-bezier(.694, 0, 0.335, 1),color 100ms cubic-bezier(.694, 0, 0.335, 1);
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+  }
+
+  .button-48:before {
+    animation: opacityFallbackOut .5s step-end forwards;
+    backface-visibility: hidden;
+    background-color: #EBEBEB;
+    clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: translateZ(0);
+    transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+    width: 100%;
+  }
+
+  .button-48:hover:before {
+    animation: opacityFallbackIn 0s step-start forwards;
+    clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+  }
+
+  .button-48:after {
+    background-color: #FFFFFF;
+  }
+
+  .button-48 span {
+    z-index: 1;
+    position: relative;
+  }
   `;
 
 class QuestionListEntry extends React.Component {
@@ -309,7 +395,7 @@ class QuestionListEntry extends React.Component {
 
       answersDiv = sorted.map(a => {
         if (a.answerer_name === 'Seller') {
-          var seller = <strong>{a.answerer_name}</strong>
+          var seller = <strong key={a.answerer_name}>{a.answerer_name}</strong>
         }
 
         if (a.photos.length === 0) {
@@ -324,7 +410,7 @@ class QuestionListEntry extends React.Component {
 
         return (
           <div key={a.answer_id}>
-          A: {a.body}
+            {a.body}
           <br></br>
           <>{photosDiv}</>
 
@@ -342,7 +428,7 @@ class QuestionListEntry extends React.Component {
 
       answersDiv = sorted.map(a => {
         if (a.answerer_name === 'Seller') {
-          var seller = <strong>{a.answerer_name}</strong>
+          var seller = <strong key={a.answerer_name}>{a.answerer_name}</strong>
         }
 
 
@@ -358,7 +444,7 @@ class QuestionListEntry extends React.Component {
 
         return (
           <div key={a.id}>
-            A: {a.body}
+            {a.body}
             <br></br>
             <>{photosDiv}</>
             <p> by {seller || a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
@@ -375,22 +461,41 @@ class QuestionListEntry extends React.Component {
     }
 
     if (answersDiv.length > 2) {
-      var moreAnswersButton = this.state.displayingAll ? <button onClick={this.collapseAnswers}>Collapse Answers</button> : <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
+      // var moreAnswersButton = this.state.displayingAll ? <button onClick={this.collapseAnswers}>Collapse Answers</button> : <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
+      var moreAnswersButton = this.state.displayingAll ? <AnswersButton><button onClick={this.collapseAnswers} class="button-48" role="button"><span class="text">COLLAPSE ANSWERS</span></button></AnswersButton> : <AnswersButton><button onClick={this.seeMoreAnswers.bind(this)} class="button-48" role="button"><span class="text">SEE MORE ANSWERS</span></button> </AnswersButton>
+
     } else {
       var moreAnswersButton = <div/>
     }
 
+    var answersTitle = answersDiv.length > 0 ? <strong>A:</strong> : <></>
+
     return (
       <Container>
 
-        <div key={this.props.qACombo.question_id}>
-          Q: {this.props.qACombo.question_body} Helpful? <u id={this.props.qACombo.question_id + 'helpful'} onClick={ () => { this.markQuestionHelpful(this.props.qACombo.question_id) } }> Yes</u> ({this.props.qACombo.question_helpfulness})  | <u id={this.props.qACombo.question_id + 'report'} onClick={() => { this.reportQuestion(this.props.qACombo.question_id) }}>Report</u> | <u onClick={() => { this.changeModalVisibilityState(false) }}>Add Answer</u>
-            {/* <Container> */}
-              <AnswerModal questionID={this.props.qACombo.question_id} question={this.props.qACombo.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
+        <div key={this.props.qACombo.question_id} >
+          <QuestionBox className='questionBox'>
+            <div className='questionBox'>
+              <div className='question'>
+                <strong>Q: {this.props.qACombo.question_body}</strong>
+              </div>
+              <div className='push'>
+                Helpful? <u id={this.props.qACombo.question_id + 'helpful'} onClick={ () => { this.markQuestionHelpful(this.props.qACombo.question_id) } }> Yes </u> ({this.props.qACombo.question_helpfulness})
+                |  <u className='report' id={this.props.qACombo.question_id + 'report'} onClick={() => { this.reportQuestion(this.props.qACombo.question_id) }}> Report </u>  |  <u className='answer' onClick={() => { this.changeModalVisibilityState(false) }}> Add Answer</u>
+              </div>
+            </div>
+          </QuestionBox>
+          <div>
+           {/* <Container> */}
+           <AnswerModal questionID={this.props.qACombo.question_id} question={this.props.qACombo.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
             {/* </Container> */}
           <div>
+          {/* <strong>A:</strong> */}
+            {answersTitle}
             {answersInView}
             {moreAnswersButton}
+          </div>
+
           </div>
         </div>
       </Container>
@@ -401,3 +506,5 @@ class QuestionListEntry extends React.Component {
 }
 
 export default QuestionListEntry;
+
+
