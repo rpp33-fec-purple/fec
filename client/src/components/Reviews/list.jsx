@@ -2,6 +2,8 @@ import React from 'react';
 import Tile from './tile.jsx';
 import styled from 'styled-components';
 import NewReview from './newReview.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReviewModal from './reviewModal.jsx';
 
 
 const ScrollableList = styled.div`
@@ -17,12 +19,14 @@ class List extends React.Component {
 
     this.state = {
       reviewsToDisplay: 2,
-      displayReviewForm: false
+      displayReviewForm: false,
+      isReviewExpanded: false
     }
 
     this.handleMoreButtonClick = this.handleMoreButtonClick.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
     this.addNewReview = this.addNewReview.bind(this);
+    this.closeReview = this.closeReview.bind(this);
   }
 
   handleMoreButtonClick = () => {
@@ -38,6 +42,12 @@ class List extends React.Component {
     console.log('time to add a review');
     this.setState({displayReviewForm: true});
   }
+
+  closeReview = () => {
+    this.setState({displayReviewForm: false})
+  }
+
+
 
   render() {
     let view;
@@ -81,7 +91,7 @@ class List extends React.Component {
 
     let newReviewForm;
     if (this.state.displayReviewForm) {
-      newReviewForm = <NewReview meta={this.props.meta} productID={this.props.productID}/>
+      newReviewForm = <NewReview meta={this.props.meta} productID={this.props.productID} close={this.closeReview}/>
     } else {
       newReviewForm = null
     }
@@ -90,7 +100,7 @@ class List extends React.Component {
       <>
         {view}
         <button onClick={this.addNewReview}>ADD A REVIEW +</button>
-        <div>{newReviewForm}</div>
+        {this.state.displayReviewForm ? <ReviewModal form={newReviewForm} closeReviewModal={this.closeReview}></ReviewModal> : null}
       </>
     )
   }
