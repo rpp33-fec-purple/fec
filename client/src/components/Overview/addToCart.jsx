@@ -85,62 +85,26 @@ class AddToCart extends React.Component {
 
   }
   // addToCart() {
-  //   const OpenSelectMenu = (element, maxSize) => {
-  //     const preventDefault = (event) => {
-  //       event.preventDefault();
-  //       event.stopPropagation();
-  //     };
+  //   var selectedSize = document.getElementById('selectedSize').value;
+  //   var selectedQuantity = document.getElementById('selectedQuantity').value;
+  //   if (selectedSize !== 'DEFAULT') {
+  //     if (selectedQuantity !== 'DEFAULT') {
+  //       this.props.onAddToCart(skuId, selectedSize, selectedQuantity, () => {
+  //         let productName = document.getElementsByClassName('productName')[0].innerText;
+  //         let style = this.props.styleNames[this.props.currentStyleIndex];
+  //         this.openSuccessModal(productName, style, selectedSize, selectedQuantity);
+  //       });
+  //     }
+  //   }
+  //   if (selectedSize === 'DEFAULT' && selectedQuantity === 'DEFAULT') {
+  //     OpenSelectMenu(document.getElementById('selectedSize'), 3).open();
+  //     const tooltip = document.getElementById('sizeTooltipText');
+  //     tooltip.style.visibility = 'visible';
 
-  //     let isOpen = false;
-
-  //     const open = function() {
-  //       if (!isOpen) {
-  // //        element.size = maxSize;
-  // //        element.removeEventListener('mousedown', preventDefault);
-  //         element.focus();
-  //         isOpen = true;
-  //       }
-  //     };
-
-  //     const close = () => {
-  //       if (isOpen) {
-  //         element.size = 1;
-  //         element.addEventListener('mousedown', preventDefault);
-  //         isOpen = false;
-  //       }
-  //     };
-  //     element.addEventListener('mousedown', preventDefault);
-  //     element.addEventListener('blur', close);
-  //     element.addEventListener('click', () => {
-  //       if (isOpen) {
-  //         close();
-  //       } else {
-  //         open();
-  //       }
-  //     });
-  //     return { open: open, close: close };
-  //   };
-
-    var selectedSize = document.getElementById('selectedSize').value;
-    var selectedQuantity = document.getElementById('selectedQuantity').value;
-    if (selectedSize !== 'DEFAULT') {
-      if (selectedQuantity !== 'DEFAULT') {
-        this.props.onAddToCart(skuId, selectedSize, selectedQuantity, () => {
-          let productName = document.getElementsByClassName('productName')[0].innerText;
-          let style = this.props.styleNames[this.props.currentStyleIndex];
-          this.openSuccessModal(productName, style, selectedSize, selectedQuantity);
-        });
-      }
-    }
-    if (selectedSize === 'DEFAULT' && selectedQuantity === 'DEFAULT') {
-      OpenSelectMenu(document.getElementById('selectedSize'), 3).open();
-      const tooltip = document.getElementById('sizeTooltipText');
-      tooltip.style.visibility = 'visible';
-
-      const tooltip2 = document.getElementById('quantityTooltipText');
-      tooltip2.style.visibility = 'visible';
-    }
-  }
+  //     const tooltip2 = document.getElementById('quantityTooltipText');
+  //     tooltip2.style.visibility = 'visible';
+  //   }
+  // }
   render() {
     var addToCart;
     var favoriteButton;
