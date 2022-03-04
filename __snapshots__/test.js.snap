@@ -7,3 +7,11 @@ exports[`render the component Q&A 1`] = `
   Questions and Answers Component
 </h2>
 `;
+
+exports[`render the component RelatedItems the component should match the saved snapshot 1`] = `
+<h2
+  className="Related Items"
+>
+  Related Items and Outfit Component
+</h2>
+`;

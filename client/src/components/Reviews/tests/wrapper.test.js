@@ -18,13 +18,15 @@
 // })
 
 // })
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Wrapper from '../wrapper.jsx';
+import '@testing-library/jest-dom';
 
 test('should render a div with className ratingsAndReviews', () => {
-  render(<Wrapper/>)
+  const {container, getByText} = render(<Wrapper/>)
 
-  screen.debug();
+  expect(getByText('RATINGS & REVIEWS')).toBeInTheDocument()
 })
 
