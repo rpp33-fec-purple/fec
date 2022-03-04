@@ -14,11 +14,14 @@ const Container = styled.div`
 `;
 
 const Background = styled.div`
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
   position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
   display: flex;
+  background: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
 `;
@@ -62,7 +65,7 @@ class ImgModal extends React.Component {
       <Container>
         <Background>
           <ModalWrapper>
-            <CloseModalButton onClick={this.props.closeImgModal}><FontAwesomeIcon icon={faXmark} /></CloseModalButton>
+            <CloseModalButton onClick={this.props.closeImgModal}><FontAwesomeIcon size="2x" icon={faXmark} /></CloseModalButton>
             <ModalImg src={this.props.url}/>
           </ModalWrapper>
         </Background>

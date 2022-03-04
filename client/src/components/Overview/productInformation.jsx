@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import StarRating from './starRating.jsx';
+
+const ProductInformationContainer = styled.span`
+  display: flex;
+  flex-flow: column;
+  gap: .5em;
+`;
 const Strikethrough = styled.span`
   text-decoration: line-through;
 `;
@@ -8,12 +14,17 @@ const Underline = styled.span`
   text-decoration: underline;
   &:hover {
     background-color: lightblue;
+    cursor: pointer;
   }
 `;
 
 class ProductInformation extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  moveToReviews() {
+    document.getElementsByClassName('ratingsAndReviews')[0].scrollIntoView();
   }
 
   render() {
@@ -31,21 +42,15 @@ class ProductInformation extends React.Component {
         </div>;
     }
     return (
-      <div className='productInformation'>
-        <div className='reviewRating'>
-        <span/>* * * * *<span/> {/* shared folder? Pass in review data. Get svg for stars */}
-        <Underline> Read all reviews</Underline>
+      <ProductInformationContainer>
+        <div>
+          <span/>* * * * *<span/>
+          <Underline onClick={this.moveToReviews.bind(this)}> Read all reviews</Underline>
         </div>
-        <div className='productCategory'>
-          <span>Category > {this.props.productInfo.category}</span>
-        </div>
-
-        <div className='productTitle'>
-          <h1>{this.props.productInfo.name}</h1>
-        </div>
-
-        {price} {/* strike original price if discounted */}
-      </div>
+        <span>Category > {this.props.productInfo.category}</span>
+        <h1>{this.props.productInfo.name}</h1>
+        {price}
+        </ProductInformationContainer>
     );
   }
 }

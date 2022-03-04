@@ -16,16 +16,12 @@ class App extends React.Component {
   }
   componentDidMount() {
     $.ajax({
-      url: 'http://localhost:3000/products/64620',
-      // data: {
-      //   page: 1,
-      //   count: 5
-      // },
+      url: 'http://localhost:3000/products/64627',
       method: 'GET',
       success: (data) => {
-        console.log('data in client', data);
+        // console.log('data in client', data);
         this.setState({basicProductInfo: data});
-        console.log('GET request to http://localhost:3000/products/64620 successful!');
+        console.log('GET request to http://localhost:3000/products/64627 successful!');
       },
       error: (err) => {
         console.log('Error with GET request:', err);
@@ -36,14 +32,14 @@ class App extends React.Component {
     let qaDiv = this.state.basicProductInfo.id ? <QA product={this.state.basicProductInfo}/> : <div/>
     let overviewDiv = this.state.basicProductInfo.id ? <Overview basicProductInfo={this.state.basicProductInfo}/> : <div/>;
     return (
-      <div>
+      <React.Fragment>
         <h1 className= 'App'>Product Detail Page</h1>
         {overviewDiv}
         <RelatedItems productID = {this.state.basicProductInfo.id}/>
         <div>{qaDiv}</div>
         <Reviews productID={this.state.basicProductInfo.id}/>
         <GlobalStyle/>
-      </div>
+      </React.Fragment>
     )
   }
 }

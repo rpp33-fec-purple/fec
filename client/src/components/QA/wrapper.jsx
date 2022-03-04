@@ -3,6 +3,28 @@ import SearchBar from './searchBar.jsx';
 import ListView from './listView.jsx';
 import AddQuestion from './addQuestion.jsx';
 import sampleProductQuestions from './sampleData.js';
+import styled from 'styled-components';
+
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  // height: 70%;
+  // box-sizing: border-box;
+  // margin: 0;
+  // padding: 0;
+  // font-family: 'Arial', sans-serif;
+  // position: inherit;
+  height: 100%;
+
+  .qaTitle {
+    font-size: 20px;
+    padding: 10px 32px;
+
+  }
+`
+
 
 class QAndA extends React.Component {
   constructor(props) {
@@ -14,38 +36,85 @@ class QAndA extends React.Component {
     }
     this.sortQuestions = this.sortQuestions.bind(this);
     this.updateStateCauseFilter = this.updateStateCauseFilter.bind(this);
-    const filterApplies = false;
+    this.rerenderQandAs = this.rerenderQandAs.bind(this);
+    this.filterAndSortHere = this.filterAndSortHere.bind(this);
+    var filterApplies = false;
+    var unofficialSearchTerm = '';
   }
 
   componentDidMount() {
-    console.log('product id in wrapper', this.props)
+    // console.log('product id in wrapper', this.props)
 
     $.ajax({
       url: `http://localhost:3000/qa/questions`,
       data: {
         product_id: this.props.product.id,
         page: 1,
-        count: 50
+        count: 100
       },
       method: 'GET',
       success: (data) => {
-        console.log('data in client', data);
+        // console.log('data in client', data);
         this.setState({sortedQuestions: data.results});
       },
       error: (err) => {
         console.log('Error with GET request:', err);
       }
     });
-
   }
+
+  rerenderQandAs(qandAs) {
+    if (qandAs) {
+      this.setState({sortedQuestions: qandAs});
+    } else {
+      $.ajax({
+        url: `http://localhost:3000/qa/questions`,
+        data: {
+          product_id: this.props.product.id,
+          page: 1,
+          count: 100
+        },
+        method: 'GET',
+        success: (data) => {
+          console.log('data in client', data);
+          if (this.filterApplies) {
+            this.filterAndSortHere(data.results)
+          } else {
+            this.setState({sortedQuestions: data.results});
+          }
+        },
+        error: (err) => {
+          console.log('Error with GET request:', err);
+        }
+      });
+    }
+  }
+
+  filterAndSortHere(qas) {
+    var term = this.unofficialSearchTerm;
+    var filteredList = qas.filter((val) => {
+      if (term === '') {
+        return val;
+      } else if (val.question_body.toLowerCase().includes(term.toLowerCase())) {
+        return val;
+      }
+    })
+    console.log('filtered list', filteredList)
+    if (term === '') {
+      this.updateStateCauseFilter(filteredList, false, term)
+    } else {
+      this.updateStateCauseFilter(filteredList, true, term)
+    }
+  }
+
 
   sortQuestions(data) {
     var sorted = data.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
-    // cb(sorted);
     return sorted;
   }
 
-  updateStateCauseFilter(filteredList, bool) {
+  updateStateCauseFilter(filteredList, bool, searchTerm) {
+    this.unofficialSearchTerm = searchTerm;
     if (bool) {
       var sortedAndFiltered = this.sortQuestions(filteredList);
       this.filterApplies = true;
@@ -61,19 +130,24 @@ class QAndA extends React.Component {
   }
 
   render() {
+
+    var productName = this.props.product.name;
     if (this.filterApplies) {
-      var listDiv = this.state.filteredAndSorted ? <ListView qAndAList={this.state.filteredAndSorted} productName={this.props.product.name}/> : <div/>
+      var listDiv = this.state.filteredAndSorted ? <ListView rerenderQandAs={this.rerenderQandAs} qAndAList={this.state.filteredAndSorted} productName={productName} productID={this.props.product.id}/> : <div/>
     } else {
-      var listDiv = this.state.sortedQuestions ? <ListView qAndAList={this.state.sortedQuestions} productName={this.props.product.name}/> : <div/>
+      var listDiv = this.state.sortedQuestions ? <ListView rerenderQandAs={this.rerenderQandAs} qAndAList={this.state.sortedQuestions} productName={productName} productID={this.props.product.id}/> : <div/>
     }
 
     return (
-      <div>
-        <h2>Questions and Answers</h2>
-        <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter}/>
-        <div>{listDiv}</div>
-        <AddQuestion productName={this.props.product.name}/>
-      </div>
+      <Container>
+        <div>
+          <h2 className='qaTitle'>Questions and Answers</h2>
+          <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter} productID={this.props.product.id}/>
+          <div>{listDiv}</div>
+          <AddQuestion questionAdded={this.rerenderQandAs} productName={this.props.product.name} productID={this.props.product.id}/>
+        </div>
+
+      </Container>
     )
   }
 }
