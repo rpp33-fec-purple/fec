@@ -550,7 +550,7 @@ class QuestionListEntry extends React.Component {
 
     if (answersDiv.length > 2) {
       // var moreAnswersButton = this.state.displayingAll ? <button onClick={this.collapseAnswers}>Collapse Answers</button> : <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
-      var moreAnswersButton = this.state.displayingAll ? <AnswersButton><button onClick={this.collapseAnswers} className="button-forAnswers" role="button"><span className="text">COLLAPSE ANSWERS</span></button></AnswersButton> : <AnswersButton><button onClick={this.seeMoreAnswers.bind(this)} class="button-forAnswers" role="button"><span className="text">SEE MORE ANSWERS</span></button> </AnswersButton>
+      var moreAnswersButton = this.state.displayingAll ? <AnswersButton><button onClick={this.collapseAnswers} className="button-forAnswers" role="button"><span className="text">COLLAPSE ANSWERS</span></button></AnswersButton> : <AnswersButton><button onClick={this.seeMoreAnswers.bind(this)} className="button-forAnswers" role="button"><span className="text">SEE MORE ANSWERS</span></button> </AnswersButton>
 
     } else {
       var moreAnswersButton = <div/>
