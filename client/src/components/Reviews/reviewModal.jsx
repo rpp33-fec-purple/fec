@@ -37,11 +37,11 @@ const ModalWrapper = styled.div`
   border-radius: 10px;
 `;
 
-const ModalImg = styled.img`
+const ModalReview = styled.div`
   width: 100%;
   height: 100%;
-  border-radius: 10px 0 0 10px;
-  background: #000;
+  border-radius: 5px;
+  background: #fff;
 `;
 
 const CloseModalButton = styled.div`
@@ -55,7 +55,7 @@ const CloseModalButton = styled.div`
   z-index: 10;
 `;
 
-class ImgModal extends React.Component {
+class ReviewModal extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -65,8 +65,10 @@ class ImgModal extends React.Component {
       <Container>
         <Background>
           <ModalWrapper>
-            <CloseModalButton onClick={this.props.closeImgModal}><FontAwesomeIcon size="2x" icon={faXmark} /></CloseModalButton>
-            <ModalImg src={this.props.url}/>
+            <CloseModalButton onClick={this.props.closeReviewModal}><FontAwesomeIcon size="2x" icon={faXmark} /></CloseModalButton>
+            <ModalReview>
+              {this.props.form}
+            </ModalReview>
           </ModalWrapper>
         </Background>
       </Container>
@@ -74,4 +76,4 @@ class ImgModal extends React.Component {
   }
 }
 
-export default ImgModal;
+export default ReviewModal;

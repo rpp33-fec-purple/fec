@@ -1,0 +1,252 @@
+
+:root {
+  --dark-purple: #724060;
+  --light-purple: #a070a1;
+}
+
+/* EMPTY STARS FOR DISPLAY */
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+  font-size: .6em;
+}
+
+.stars-outer::before {
+  content: "\f006";
+  color: var(--light-purple);
+}
+
+/* EMPTY STARS IN NEW REVIEW FORM */
+.rating-stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+}
+
+.rating-stars-outer::before {
+  content: "\f006";
+  color: var(--light-purple);
+}
+
+
+
+
+/* BREAKDOWN STAR DISPLAY */
+.breakdown-stars-inner1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.breakdown-stars-inner1::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.breakdown-stars-inner2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.breakdown-stars-inner2::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.breakdown-stars-inner3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.breakdown-stars-inner3::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.breakdown-stars-inner4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.breakdown-stars-inner4::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.breakdown-stars-inner5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.breakdown-stars-inner5::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+
+
+
+/* INDIVIDUAL REVIEW STAR RATING DISPLAY */
+.review-stars-inner1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.review-stars-inner1::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.review-stars-inner2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.review-stars-inner2::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.review-stars-inner3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.review-stars-inner3::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.review-stars-inner4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.review-stars-inner4::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.review-stars-inner5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.review-stars-inner5::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+
+
+/* NEW REVIEW RATING STARS */
+.rating-stars-inner1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.rating-stars-inner1::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.rating-stars-inner2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.rating-stars-inner2::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.rating-stars-inner3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.rating-stars-inner3::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.rating-stars-inner4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.rating-stars-inner4::before {
+  content: "\f005";
+  color: var(--light-purple);
+}
+.rating-stars-inner5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  font-family: FontAwesome;
+}
+
+.rating-stars-inner5::before {
+  content: "\f005";
+  color: var(--light-purple);
+}

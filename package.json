@@ -18,6 +18,7 @@
     "url": "https://github.com/rpp33-fec-purple/fec/issues"
   },
   "jest": {
+    "testEnvironment": "jest-environment-jsdom",
     "setupFiles": [
       "./test-env.js"
     ]
@@ -46,6 +47,7 @@
     "@babel/plugin-syntax-jsx": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.2",
     "babel-loader": "^8.2.3",
     "jest": "^27.5.1",
     "webpack": "^5.68.0",

@@ -43,7 +43,7 @@ class QAndA extends React.Component {
   }
 
   componentDidMount() {
-    console.log('product id in wrapper', this.props)
+    // console.log('product id in wrapper', this.props)
 
     $.ajax({
       url: `http://localhost:3000/qa/questions`,
@@ -54,7 +54,7 @@ class QAndA extends React.Component {
       },
       method: 'GET',
       success: (data) => {
-        console.log('data in client', data);
+        // console.log('data in client', data);
         this.setState({sortedQuestions: data.results});
       },
       error: (err) => {

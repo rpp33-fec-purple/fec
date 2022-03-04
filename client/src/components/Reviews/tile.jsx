@@ -10,6 +10,14 @@ width: 100px;
 height: 100px;
 `;
 
+const ActionDiv = styled.div`
+  display: inline;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 
 
 class Tile extends React.Component {
@@ -18,12 +26,15 @@ class Tile extends React.Component {
     this.state = {
       isImageExpanded: false,
       expandedImageURL: null,
-      isBodyExpanded: false
+      isBodyExpanded: false,
+      isHelpfulLinkActive: true,
+      isReportLinkActive: true
     }
   this.expandImg = this.expandImg.bind(this);
   this.closeImgModal = this.closeImgModal.bind(this);
   this.shorten = this.shorten.bind(this);
   this.handleShowMore = this.handleShowMore.bind(this);
+  this.handleHelpfulClick = this.handleHelpfulClick.bind(this);
   }
 
 
@@ -40,10 +51,10 @@ class Tile extends React.Component {
 
       return (
         <div className="reviewBody">
-          <p>{withinLimit}
+          <div>{withinLimit}
             <span style={{display: this.state.isBodyExpanded ?  'inline' : 'none'}}>{overLimit}</span>
-            <button className="showMore" onClick={this.handleShowMore} style={{display: this.state.isBodyExpanded ?  'block' : 'inline'}}>Show More</button>
-          </p>
+            <ActionDiv onClick={this.handleShowMore} style={{display: this.state.isBodyExpanded ?  'block' : 'inline'}}>...Show More</ActionDiv>
+          </div>
         </div>
       )
     }
@@ -54,9 +65,53 @@ class Tile extends React.Component {
       if (this.state.isBodyExpanded) {
         e.target.innerHTML = 'Show Less'
       } else {
-        e.target.innerHTML = 'Show More'
+        e.target.innerHTML = '...Show More'
       }
     });
+  }
+
+  handleHelpfulClick = (e) => {
+    if (this.state.isHelpfulLinkActive) {
+      $.ajax({
+        url: `http://localhost:3000/reviews/${e.target.id}/helpful`,
+        data: {
+          review_id: e.target.id
+        },
+        method: 'PUT',
+        success: (data) => {
+          console.log('Successfully voted helpul');
+          this.setState({meta: data});
+        },
+        error: (err) => {
+          console.log('Error with helpful PUT request:', err);
+        }
+      });
+      this.setState({isHelpfulLinkActive: false})
+    } else {
+      return
+    }
+  }
+
+  handleReportClick = (e) => {
+    if (this.state.isReportLinkActive) {
+      $.ajax({
+        url: `http://localhost:3000/reviews/${e.target.id}/report`,
+        data: {
+          review_id: e.target.id
+        },
+        method: 'PUT',
+        success: (data) => {
+          console.log('Successfully reported review');
+          this.setState({meta: data});
+        },
+        error: (err) => {
+          console.log('Error with reporting review:', err);
+        }
+      });
+      this.setState({isReportLinkActive: false})
+    } else {
+      return
+    }
   }
 
   expandImg = (e) => {
@@ -70,69 +125,58 @@ class Tile extends React.Component {
   render() {
     return ''; // Added because reading undefined for 'reviewer_name' when switching to productId 64627 - Jakob
     let view;
-    let testString = `Relevant - Relevance will be determined by a combination of both the date that the review was submitted as well as ‘helpfulness’ feedback received.  This combination should weigh the two characteristics such that recent reviews appear near the top, but do not outweigh reviews that have been found helpful.  Similarly, reviews that have been helpful should appear near the top, but should yield to more recent reviews if they are older.`
     if (this.props.reviews.results) {
-      let currentReview = this.props.reviews.results[2];
-      const checkMark = <FontAwesomeIcon icon={faCheck} />
+      let currentReview = this.props.reviews.results[this.props.reviewIndex];
+      const checkMark = <FontAwesomeIcon icon={faCheck}/>
       let photos;
       if (currentReview.photos) {
         photos = currentReview.photos.map((photo) => {
           return <Thumbnail src={photo.url} key={photo.id} onClick={this.expandImg}></Thumbnail>
         })
       }
-      view =
-      <div>
-        {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
-        <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
-        <div><b>{currentReview.summary}</b></div>
-        {this.shorten(testString, 250, currentReview.id)}
-        {photos}
-        {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
-        {currentReview.response ? <div>Response: {currentReview.response}</div>: null}
-        <div>Helpful? Yes({currentReview.helpfulness})  |  Report</div>
-      </div>
 
-      // let currentReview = this.props.reviews.results[1];
-      // const checkMark = <FontAwesomeIcon icon={faCheck} />
-      // // let photos;
-      // // if (currentReview.photos) {
-      // //   photos = currentReview.photos.map((photo) => {
-      // //     return <Thumbnail src={photo.url} key={photo.id} onClick={this.expandImg}></Thumbnail>
-      // //   })
-      // // }
-      // view =
-      // this.props.reviews.results.map((review) => {
-      //   let photos;
-      //   if (review.photos) {
-      //     photos = review.photos.map((photo) => {
-      //     return <Thumbnail src={photo.url} key={photo.id} onClick={this.expandImg}></Thumbnail>
-      //   })
-      // }
-      //   return (
-      //    <div>
-      //     {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
-      //     <div>{review.reviewer_name}, {formatDate(review.date)}</div>
-      //     <div><b>{review.summary}</b></div>
-      //     <div className="more">{review.body}</div>
-      //     {photos}
-      //     {review.recommend ? <div>{checkMark} I recommend this product</div> : null}
-      //     {review.response ? <div>Response: {review.response}</div>: null}
-      //     <div>Helpful? Yes({review.helpfulness})  |  Report</div>
-      //   </div>
-      //   )
-      // })
+      //configure current review star rating display
+      let stars = [1, 2, 3, 4, 5];
+      let currentReviewStarRating = stars.map((star) => {
+        if (star <= currentReview.rating) {
+          return (
+            <div className="stars-outer">
+              <div className={'review-stars-inner' + star} style={{width: "100%"}}></div>
+            </div>
+          )
+        } else {
+          return (
+            <div className="stars-outer">
+              <div className={'review-stars-inner' + star}></div>
+            </div>
+          )
+        }
+      })
+
+
+
+      view =
+      <>
+        <div>
+          {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
+          {currentReviewStarRating}
+          <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
+          <div><b>{currentReview.summary}</b></div>
+          {this.shorten(currentReview.body, 250, currentReview.id)}
+          {photos}
+          {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
+          {currentReview.response ? <div>Response: {currentReview.response}</div>: null}
+          <div>Helpful? <ActionDiv id={currentReview.review_id} onClick={this.handleHelpfulClick}>Yes</ActionDiv>({currentReview.helpfulness})  |  <ActionDiv id={currentReview.review_id} onClick={this.handleReportClick}>Report</ActionDiv></div>
+        </div>
+        <hr></hr>
+      </>
     } else {
       view = <div>No Reviews Yet</div>
     }
+
     return (<div>{view}</div>)
   }
 
-  componentDidUpdate(prevProps) {
-
-  }
 }
 
 export default Tile;
-
-
-{/* <FontAwesomeIcon icon={faCheck} /> */}
