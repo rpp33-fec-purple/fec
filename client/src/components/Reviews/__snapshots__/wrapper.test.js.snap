@@ -2,18 +2,25 @@
 
 exports[`render the component Reviews the component should match the saved snapshot 1`] = `
 <div>
-  <h2
+  <h4
     className="Review"
   >
-    Review Component
-  </h2>
+    RATINGS & REVIEWS
+  </h4>
   <div>
-    Reviews List
+    <div />
+    <button>
+      MORE REVIEWS
+    </button>
+    <button>
+      ADD A REVIEW +
+    </button>
   </div>
   <div>
     <div>
       No Reviews Yet
     </div>
   </div>
+  <div />
 </div>
 `;
