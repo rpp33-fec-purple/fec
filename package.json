@@ -18,7 +18,10 @@
     "url": "https://github.com/rpp33-fec-purple/fec/issues"
   },
   "jest": {
-    "testEnvironment": "jest-environment-jsdom"
+    "testEnvironment": "jest-environment-jsdom",
+    "setupFiles": [
+      "./test-env.js"
+    ]
   },
   "homepage": "https://github.com/rpp33-fec-purple/fec#readme",
   "dependencies": {

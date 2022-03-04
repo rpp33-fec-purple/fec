@@ -3,20 +3,46 @@ import {useSpring, animated} from 'react-spring';
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
 
-const Background = styled.div`
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  position: fixed;
+const Container = styled.div`
   display: flex;
+  justify-content: left;
+  // align-items: center;
+  // height: 10vh;
+  // box-sizing: border-box;
+  // margin: 0;
+  // padding: 8px;
+
+  // font-family: 'Arial', sans-serif;
+`
+
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  background: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
+
+
+
+  // width: 100%;
+  // height: 100%;
+  // background: rgba(0, 0, 0, 0.8);
+  // position: absolute;
+  // // position: inherit;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
 `;
 const ModalWrapper = styled.div`
   width: 600px;
-  height: 300px;
+  height: 350px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  background: lavender;
+  background: #fdf3f3;
   color: #000;
   display: grid;
   // grid-template-columns: 1fr 1fr;
@@ -32,7 +58,7 @@ const ModalContent = styled.div`
   align-items: center;
   line-height: 1.8;
   color: #141414;
-  font-size: 10px;
+  font-size: 12px;
 
   p {
     margin-bottom: 1rem;
@@ -45,6 +71,11 @@ const ModalContent = styled.div`
     border: none;
   }
 `;
+
+const TextArea = styled.textarea`
+  resize: none;
+`;
+
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
   position: absolute;
@@ -54,7 +85,7 @@ const CloseModalButton = styled(MdClose)`
   height: 32px;
   padding: 0;
   z-index: 10;
-`
+`;
 
 class AnswerModal extends React.Component {
   constructor(props) {
@@ -88,7 +119,7 @@ class AnswerModal extends React.Component {
     var nickname = this.state.nickname;
     var email = this.state.email;
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (question.length === 0) {
+    if (answer.length === 0) {
       alert('You must enter the following: Answer')
     } else if (nickname.length === 0) {
       alert('You must enter the following: Nickname')
@@ -97,7 +128,22 @@ class AnswerModal extends React.Component {
     } else if (!email.match(validRegex)) {
       alert('The email address provided is not in correct email format')
     } else {
-      this.props.changeModalState()
+      $.ajax({
+        url: `http://localhost:3000/qa/questions/${this.props.questionID}/answers`,
+        data: {
+          body: answer,
+          name: nickname,
+          email: email,
+        },
+        method: 'POST',
+        success: (data) => {
+          this.props.changeModalState(true)
+        },
+        error: (err) => {
+          console.log('Error with POST request:', err);
+          this.props.changeModalState()
+        }
+      })
     }
   }
 
@@ -105,26 +151,26 @@ class AnswerModal extends React.Component {
 
     return (
       <>{this.props.isModalShowing ? (
-        <Background>
-            <ModalWrapper isModalShowing={this.props.isModalShowing}>
-              <ModalContent>
-                <h1>Submit your Answer</h1>
-                <h2>{this.props.productName}: {this.props.question}</h2>
-                <form>
-                  <label htmlFor='answer'>Your Answer *</label><br></br>
-                  <textarea id='answer' name='answer' maxLength='1000' rows="4" cols="50" onChange={this.handleChange}></textarea><br></br>
-                  <label htmlFor='nickname'>What is your nickname *</label><br></br>
-                  <input id='nickname' name='nickname' placeholder="Example: jack543!" maxLength='60' onChange={this.handleChange}></input><br></br>
-                  <>For privacy reasons, do not use your full name or email address</><br></br>
-                  <label htmlFor='email'>Your email *</label><br></br>
-                  <input id='email' name='email' maxLength='60' onChange={this.handleChange} placeholder="Example: jack@email.com"></input><br></br>
-                  <>For authentication reasons, you will not be emailed</><br></br>
-                  <button aria-label='Close modal' onClick={this.handleSubmit}>Submit question</button>
-                </form>
-              </ModalContent>
-              <CloseModalButton aria-label='Close modal' onClick={this.props.changeModalState} />
-            </ModalWrapper>
-        </Background>
+          <Background>
+              <ModalWrapper isModalShowing={this.props.isModalShowing}>
+                <ModalContent>
+                  <h1>Submit your Answer</h1>
+                  <h2>{this.props.productName}: {this.props.question}</h2>
+                  <form>
+                    <label htmlFor='answer'>Your Answer *</label><br></br>
+                    <TextArea id='answer' name='answer' maxLength='1000' rows="4" cols="50" onChange={this.handleChange}></TextArea><br></br>
+                    <label htmlFor='nickname'>What is your nickname *</label><br></br>
+                    <input id='nickname' name='nickname' placeholder="Example: jack543!" maxLength='60' onChange={this.handleChange}></input><br></br>
+                    <>For privacy reasons, do not use your full name or email address</><br></br>
+                    <label htmlFor='email'>Your email *</label><br></br>
+                    <input id='email' name='email' maxLength='60' size='28' onChange={this.handleChange} placeholder="Example: jack@email.com"></input><br></br>
+                    <>For authentication reasons, you will not be emailed</><br></br>
+                    <button aria-label='Close modal' onClick={this.handleSubmit}>Submit question</button>
+                  </form>
+                </ModalContent>
+                <CloseModalButton aria-label='Close modal' onClick={()=> {this.props.changeModalState(false)}} />
+              </ModalWrapper>
+          </Background>
         ) : null
       } </>
     )

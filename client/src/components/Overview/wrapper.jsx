@@ -4,9 +4,22 @@ import ProductInformation from './productInformation.jsx';
 import ImageGallery from './imageGallery.jsx';
 import StyleSelector from './styleSelector.jsx';
 import AddToCart from './addToCart.jsx';
-import sampleData from './sampleData.js'
-
-
+import ProductFeatures from './productFeatures.jsx';
+import sampleData from './sampleData.js';
+const OverviewWrapper = styled.div`
+  display: flex;
+  height: 48em;
+  width: 70em;
+  flex-flow: row wrap;
+`;
+const VerticalContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  margin-left: 1.5em;
+  height: 30em;
+  width: 20em;
+  gap: 1em;
+`;
 class Overview extends React.Component {
   constructor(props) {
     super(props);
@@ -66,12 +79,15 @@ class Overview extends React.Component {
   render() {
 
     return (
-      <div className='Overview'>
-        <ProductInformation productInfo={this.state.productInfo} currentStyleIndex={this.state.currentStyleIndex} styleInfo={this.state.styleInfo}/>
-        <ImageGallery currentStyleIndex={this.state.currentStyleIndex} styleInfo={this.state.styleInfo}/>
-        <StyleSelector styleInfo={this.state.styleInfo} currentStyleId={this.state.currentStyleId} currentStyleIndex={this.state.currentStyleIndex} updateStyleId={this.updateStyleId.bind(this)}/>
-        <AddToCart currentStyleIndex={this.state.currentStyleIndex} currentStyleId={this.state.currentStyleId} styleInfo={this.state.styleInfo} currentQuantity={this.state.currentQuantity} currentSize={this.state.currentSize} renderQuantityDropDown={this.renderQuantityDropDown.bind(this)}/>
-      </div>
+      <OverviewWrapper>
+          <ImageGallery productId={this.state.productInfo.id} currentStyleIndex={this.state.currentStyleIndex} styleInfo={this.state.styleInfo}/>
+          <VerticalContainer>
+            <ProductInformation productInfo={this.state.productInfo} currentStyleIndex={this.state.currentStyleIndex} styleInfo={this.state.styleInfo}/>
+            <StyleSelector styleInfo={this.state.styleInfo} currentStyleId={this.state.currentStyleId} currentStyleIndex={this.state.currentStyleIndex} updateStyleId={this.updateStyleId.bind(this)}/>
+            <AddToCart currentStyleIndex={this.state.currentStyleIndex} currentStyleId={this.state.currentStyleId} styleInfo={this.state.styleInfo} currentQuantity={this.state.currentQuantity} currentSize={this.state.currentSize} renderQuantityDropDown={this.renderQuantityDropDown.bind(this)}/>
+          </VerticalContainer>
+        <ProductFeatures productInfo={this.state.productInfo}/>
+      </OverviewWrapper>
     );
   }
 }

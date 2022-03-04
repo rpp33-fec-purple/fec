@@ -11,10 +11,13 @@ const StyledImageContainer = styled.div`
   height: 45px;
   width: 45px;
   overflow: hidden;
+
 `;
 const StyledImage = styled.img`
   width: 100%;
   height: 100%;
+  padding-right: .2em;
+  padding-bottom: .2em;
   object-fit: cover;
   border-radius: 50%;
 `;
@@ -42,7 +45,8 @@ class StyleSelector extends React.Component {
     }
     return (
       <div className='styleSelector'>
-        Style > <span>{this.props.styleInfo[this.props.currentStyleIndex].name}</span>
+        <b>Style > </b>
+        <span>{this.props.styleInfo[this.props.currentStyleIndex].name}</span>
         <Row key='Row1'>
           {styleImages1}
         </Row>

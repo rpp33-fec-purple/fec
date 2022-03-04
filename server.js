@@ -7,9 +7,6 @@ const config = require('./config.js');
 
 var app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
 
 app.use(express.static(__dirname + '/client/dist'));
 
@@ -31,6 +28,7 @@ app.get('/*', (req, res) => {
       res.status(500).end();
     })
 });
+
 
 app.post('/reviews', (req, res) => {
   var params = {};
