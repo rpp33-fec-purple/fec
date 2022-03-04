@@ -111,7 +111,7 @@ class SearchBar extends React.Component {
       },
       method: 'GET',
       success: (data) => {
-        console.log('data in client', data);
+        // console.log('data in client', data);
         var filteredList = data.results.filter((val) => {
           if (term === '') {
             return val;
@@ -119,7 +119,7 @@ class SearchBar extends React.Component {
             return val;
           }
         })
-        console.log('filtered list', filteredList)
+        // console.log('filtered list', filteredList)
         if (term === '') {
           this.props.updateStateCauseFilter(filteredList, false, term)
         } else {

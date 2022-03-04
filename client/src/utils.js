@@ -30,16 +30,16 @@ export const formatDate = (isoDate) => {
 export const clickTracker = (element, widgetName) => {
   var currentTime = formatDate(new Date());
   $.ajax({
-    url: 'http://localhost:3000/interactions'
+    url: 'http://localhost:3000/interactions',
     method: 'POST',
     data: {
       element: element,
       widget: widget,
       time: currentTime
-    }
+    },
     success: () => {
       console.log('Post request to http://localhost:3000/interactions successful!');
-    }
+    },
     error: () => {
       console.log('Error sending post request to http://localhost:3000/interactions');
     }

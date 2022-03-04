@@ -18,16 +18,17 @@ const Container = styled.div`
   }
 `;
 
-const ScrollableList = styled.div`
-      margin: 0 auto;
-      max-height: 400px;
-      width: 100%;
-      overflow: auto;
-      // border: 1px solid black;
-      // display: flex;
-      // justify-content: center;
-      align-items: center;
-  `;
+
+  const AnswersScrollableList = styled.div`
+  margin: 0 auto;
+  max-height: 400px;
+  width: 100%;
+  overflow: auto;
+  // border: 1px solid black;
+  // display: flex;
+  // justify-content: center;
+  align-items: center;
+`;
 
 
   const ImageThumbnail = styled.img`
@@ -144,7 +145,7 @@ const ScrollableList = styled.div`
     `;
 
 
-  const AnswersButton = styled.button`
+  const AnswersButton = styled.div`
 
   .button-forAnswers {
     appearance: none;
@@ -298,7 +299,7 @@ class QuestionListEntry extends React.Component {
       },
       method: 'GET',
       success: (data) => {
-        console.log('these are the answers', data.results)
+        // console.log('these are the answers', data.results)
         var totalNumOfAs = data.results.length;
         this.seeMoreAnswersClicked = true;
         if (totalNumOfAs > this.state.answersInDisplay) {
@@ -543,14 +544,14 @@ class QuestionListEntry extends React.Component {
     }
 
     if (this.state.displayingAll) {
-      var answersInView = <ScrollableList>{answersDiv.slice(0, this.state.answersInDisplay)}</ScrollableList>
+      var answersInView = <AnswersScrollableList>{answersDiv.slice(0, this.state.answersInDisplay)}</AnswersScrollableList>
     } else {
       var answersInView = answersDiv.slice(0, this.state.answersInDisplay);
     }
 
     if (answersDiv.length > 2) {
       // var moreAnswersButton = this.state.displayingAll ? <button onClick={this.collapseAnswers}>Collapse Answers</button> : <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
-      var moreAnswersButton = this.state.displayingAll ? <AnswersButton><button onClick={this.collapseAnswers} className="button-forAnswers" role="button"><span className="text">COLLAPSE ANSWERS</span></button></AnswersButton> : <AnswersButton><button onClick={this.seeMoreAnswers.bind(this)} class="button-forAnswers" role="button"><span className="text">SEE MORE ANSWERS</span></button> </AnswersButton>
+      var moreAnswersButton = this.state.displayingAll ? <AnswersButton><button onClick={this.collapseAnswers} className="button-forAnswers" role="button"><span className="text">COLLAPSE ANSWERS</span></button></AnswersButton> : <AnswersButton><button onClick={this.seeMoreAnswers.bind(this)} className="button-forAnswers" role="button"><span className="text">SEE MORE ANSWERS</span></button> </AnswersButton>
 
     } else {
       var moreAnswersButton = <div/>
