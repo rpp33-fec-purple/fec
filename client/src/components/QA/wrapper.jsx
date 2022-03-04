@@ -15,8 +15,8 @@ const Container = styled.div`
   // margin: 0;
   // padding: 0;
   // font-family: 'Arial', sans-serif;
-
   // position: inherit;
+  height: 100%;
 `
 
 

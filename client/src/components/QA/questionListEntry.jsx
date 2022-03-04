@@ -10,19 +10,20 @@ const Container = styled.div`
   // height: 10vh;
   // box-sizing: border-box;
   // margin: 0;
-  padding: 8px;
-  width: 800px;
-
-
+  padding: 4px;
+  width: 780px;
   position: inherit;
+  .moreAnswersButton {
+  padding: .2rem 2rem;
+  }
 `;
 
 const ScrollableList = styled.div`
       margin: 0 auto;
-      max-height: 150px;
+      max-height: 400px;
       width: 100%;
       overflow: auto;
-      border: 1px solid black;
+      // border: 1px solid black;
       // display: flex;
       // justify-content: center;
       align-items: center;
@@ -45,14 +46,19 @@ const ScrollableList = styled.div`
       flex-wrap: nowrap;
       justify-content: space-between;
       width: 780px;
-
+      padding-bottom: .2rem;
     }
+
+    .questionTitle {
+      width: 2rem;
+    }
+
     .push {
         margin-left: auto;
         // padding-left: 140px;
         justify-content: right;
-        font-size: 14px;
-        font-color: #36454F;
+        font-size: 11.5px;
+        color: #808080;
     }
     .question {
       width: 28.12em;
@@ -61,16 +67,86 @@ const ScrollableList = styled.div`
     }
 
     .report {
-      padding-left: 3px;
-      padding-right: 3px;
+      padding-left: .5rem;
+      padding-right: .5rem;
+      cursor: pointer;
+
     }
     .answer {
-      padding-left: 3px;
+      padding-left: .5rem;
+      cursor: pointer;
+    }
+
+    .questionHelpfulSpan {
+      padding-right: .5rem;
+    }
+
+    .helpfulLink {
+      cursor: pointer;
     }
   `;
 
+    const AnswersContainer = styled.div`
+      .answersContainer {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        width: 700px;
+      }
+
+      .answersTitle {
+        width: 2rem;
+        padding-top: .5rem;
+        padding-bottom: .2rem;
+
+      }
+
+      .answersInView {
+        padding-left: 1px;
+        width: 400px;
+      }
+
+      .answerInfo {
+        font-size: 13.5px;
+        // font-color: #36454F;
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+      }
+      .markAnswerHelpful {
+        cursor: pointer;
+
+      }
+
+      .reportAnswer {
+        cursor: pointer;
+        padding-left: .5rem;
+
+      }
+
+      .photoThumbail {
+
+      }
+
+      .answererInfoAndLinks {
+        font-size: 11.5px;
+        color: #808080;
+        padding-top: .5rem;
+      }
+
+      .helpfulSpan {
+        padding-left: .5rem;
+        padding-right: .5rem;
+      }
+
+      .answererInfoSpan {
+        padding-right: .5rem;
+      }
+    `;
+
+
   const AnswersButton = styled.button`
-  .button-48 {
+
+  .button-forAnswers {
     appearance: none;
     background-color: #FFFFFF;
     border-width: 0;
@@ -94,7 +170,7 @@ const ScrollableList = styled.div`
     white-space: nowrap;
   }
 
-  .button-48:before {
+  .button-forAnswers:before {
     animation: opacityFallbackOut .5s step-end forwards;
     backface-visibility: hidden;
     background-color: #EBEBEB;
@@ -109,16 +185,16 @@ const ScrollableList = styled.div`
     width: 100%;
   }
 
-  .button-48:hover:before {
+  .button-forAnswers:hover:before {
     animation: opacityFallbackIn 0s step-start forwards;
     clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
   }
 
-  .button-48:after {
+  .button-forAnswers:after {
     background-color: #FFFFFF;
   }
 
-  .button-48 span {
+  .button-forAnswers span {
     z-index: 1;
     position: relative;
   }
@@ -403,18 +479,24 @@ class QuestionListEntry extends React.Component {
         } else {
           var photosDiv = a.photos.map(photo => {
             return (
-              <ImageThumbnail key={photo.url} src={photo.url} width='200'></ImageThumbnail>
+              <ImageThumbnail className='photoThumbnail' key={photo.url} src={photo.url} width='50'></ImageThumbnail>
             )
           })
         }
 
         return (
-          <div key={a.answer_id}>
+          <div key={a.answer_id} className='answerInfo'>
             {a.body}
           <br></br>
           <>{photosDiv}</>
 
-          <p> by {seller || a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.answer_id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.answer_id) }}> Report</u></p>
+          <div className='answererInfoAndLinks'>
+            <p>
+              <span className='answererInfoSpan'>by {seller || a.answerer_name}, {this.formatDate(a.date)}</span > |
+              <span className='helpfulSpan'> Helpful? <u className='markAnswerHelpful' id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.answer_id) }}> Yes</u>  ({a.helpfulness})</span> |
+              <u className='reportAnswer' id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.answer_id) }}> Report</u>
+             </p>
+          </div>
         </div>
         )
       }
@@ -437,17 +519,23 @@ class QuestionListEntry extends React.Component {
         } else {
           var photosDiv = a.photos.map(photo => {
             return (
-              <ImageThumbnail key={photo.url} src={photo.url} width='2000'></ImageThumbnail>
+              <ImageThumbnail className='photoThumbnails' key={photo.url} src={photo.url} width='50'></ImageThumbnail>
             )
           })
         }
 
         return (
-          <div key={a.id}>
+          <div key={a.id} className='answerInfo'>
             {a.body}
             <br></br>
             <>{photosDiv}</>
-            <p> by {seller || a.answerer_name}, {this.formatDate(a.date)} | Helpful? <u id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u> ({a.helpfulness}) | <u id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}>Report</u></p>
+            <div className='answererInfoAndLinks'>
+              <p>
+                <span className='answererInfoSpan'>by {seller || a.answerer_name}, {this.formatDate(a.date)}</span> |
+                <span className='helpfulSpan'> Helpful? <u className='markAnswerHelpful' id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u>  ({a.helpfulness})</span> |
+                <u className='reportAnswer' id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}> Report</u>
+              </p>
+            </div>
           </div>
         )
       }
@@ -462,7 +550,7 @@ class QuestionListEntry extends React.Component {
 
     if (answersDiv.length > 2) {
       // var moreAnswersButton = this.state.displayingAll ? <button onClick={this.collapseAnswers}>Collapse Answers</button> : <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
-      var moreAnswersButton = this.state.displayingAll ? <AnswersButton><button onClick={this.collapseAnswers} class="button-48" role="button"><span class="text">COLLAPSE ANSWERS</span></button></AnswersButton> : <AnswersButton><button onClick={this.seeMoreAnswers.bind(this)} class="button-48" role="button"><span class="text">SEE MORE ANSWERS</span></button> </AnswersButton>
+      var moreAnswersButton = this.state.displayingAll ? <AnswersButton><button onClick={this.collapseAnswers} className="button-forAnswers" role="button"><span className="text">COLLAPSE ANSWERS</span></button></AnswersButton> : <AnswersButton><button onClick={this.seeMoreAnswers.bind(this)} class="button-forAnswers" role="button"><span className="text">SEE MORE ANSWERS</span></button> </AnswersButton>
 
     } else {
       var moreAnswersButton = <div/>
@@ -476,12 +564,16 @@ class QuestionListEntry extends React.Component {
         <div key={this.props.qACombo.question_id} >
           <QuestionBox className='questionBox'>
             <div className='questionBox'>
+              <div className='questionTitle'>
+              <strong>Q: </strong>
+
+              </div>
               <div className='question'>
-                <strong>Q: {this.props.qACombo.question_body}</strong>
+                <strong>{this.props.qACombo.question_body}</strong>
               </div>
               <div className='push'>
-                Helpful? <u id={this.props.qACombo.question_id + 'helpful'} onClick={ () => { this.markQuestionHelpful(this.props.qACombo.question_id) } }> Yes </u> ({this.props.qACombo.question_helpfulness})
-                |  <u className='report' id={this.props.qACombo.question_id + 'report'} onClick={() => { this.reportQuestion(this.props.qACombo.question_id) }}> Report </u>  |  <u className='answer' onClick={() => { this.changeModalVisibilityState(false) }}> Add Answer</u>
+                <span className='questionHelpfulSpan'>Helpful? <u className='helpfulLink' id={this.props.qACombo.question_id + 'helpful'} onClick={ () => { this.markQuestionHelpful(this.props.qACombo.question_id) } }> Yes</u>  ({this.props.qACombo.question_helpfulness}) </span>
+                |  <u className='report' id={this.props.qACombo.question_id + 'report'} onClick={() => { this.reportQuestion(this.props.qACombo.question_id) }}> Report</u>  |  <u className='answer' onClick={() => { this.changeModalVisibilityState(false) }}> Add Answer</u>
               </div>
             </div>
           </QuestionBox>
@@ -490,10 +582,17 @@ class QuestionListEntry extends React.Component {
            <AnswerModal questionID={this.props.qACombo.question_id} question={this.props.qACombo.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
             {/* </Container> */}
           <div>
-          {/* <strong>A:</strong> */}
-            {answersTitle}
-            {answersInView}
-            {moreAnswersButton}
+            <AnswersContainer>
+              <div className='answersContainer'>
+                <div className='answersTitle'>{answersTitle}</div>
+                <div className='answersInView'>{answersInView}</div>
+              </div>
+            </AnswersContainer>
+            <div className='moreAnswersButton'>
+
+              {moreAnswersButton}
+
+            </div>
           </div>
 
           </div>
