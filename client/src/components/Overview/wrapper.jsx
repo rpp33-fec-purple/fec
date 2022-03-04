@@ -18,7 +18,6 @@ const VerticalContainer = styled.div`
   margin-left: 1.5em;
   height: 30em;
   width: 20em;
-  border-style: dashed;
   gap: 1em;
 `;
 class Overview extends React.Component {

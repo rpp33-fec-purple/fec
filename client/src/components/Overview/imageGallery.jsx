@@ -235,11 +235,9 @@ class ImageGallery extends React.Component {
       <MainImage src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.state.currentIndex].url} alt='mainImage'/>;
       if (this.props.styleInfo[this.props.currentStyleIndex].photos.length <= 7) {
         thumbnailList = this.props.styleInfo[this.props.currentStyleIndex].photos.map((photo, index) => {
-          console.log('index --> ',index);
           if (index !== this.state.currentIndex) {
             return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='thumbnail' onClick={this.changeMainImage.bind(this)} id={index}/>
           } else {
-            console.log(index);
             return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='currentThumbnail' id={index}/>
           }
         });
@@ -248,11 +246,13 @@ class ImageGallery extends React.Component {
           {thumbnailList}
         </ThumbnailCarouselContainer>
       } else if (this.props.styleInfo[this.props.currentStyleIndex].photos.length > 7) {
+        var thumbnailId = this.state.currentThumbnailScrollIndex - 1;
           thumbnailList = this.props.styleInfo[this.props.currentStyleIndex].photos.slice(this.state.currentThumbnailScrollIndex, this.state.currentThumbnailScrollIndex + 7).map((photo, index) => {
-            if (index !== this.state.currentIndex) {
-              return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='thumbnail' onClick={this.changeMainImage.bind(this)} id={index}/>
+            thumbnailId++;
+            if (thumbnailId !== this.state.currentIndex) {
+              return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='thumbnail' onClick={this.changeMainImage.bind(this)} id={thumbnailId}/>
             } else {
-              return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='currentThumbnail' id={index}/>
+              return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='currentThumbnail' id={thumbnailId}/>
             }
           });
         if (this.state.currentThumbnailScrollIndex === 0) {

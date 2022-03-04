@@ -3,22 +3,21 @@ import styled from 'styled-components';
 
 const ProductFeaturesWrapper = styled.div`
   display: grid;
-  gap: 20px;
   grid-template-columns: 600px 300px;
 `;
 const VerticalContainer = styled.div`
   display: grid;
-  gap: 15px;
 `;
 const HorizontalContainer = styled.div`
   display: grid
-  grid-template-columns: 100px auto;
 `;
 const Slogan = styled.h3`
   font-size: 15px;
+  margin-bottom: 1.5em;
 `;
 const Description = styled.p`
   font-size: 11px;
+  margin-bottom: 1.5em;
 `;
 const VerticalLine = styled.div`
   border-left: 3px solid black;
@@ -29,7 +28,7 @@ const NoBulletList = styled.ul`
 `;
 const Feature = styled.li`
   font-size: 11px;
-  margin-bottom: 15px;
+  margin-bottom: 1.5em;
 `;
 
 const ProductFeatures = (props) => (
@@ -39,7 +38,6 @@ const ProductFeatures = (props) => (
       <Description>{props.productInfo.description}</Description>
     </VerticalContainer>
     <HorizontalContainer>
-      <VerticalLine/>
       <NoBulletList>
         {props.productInfo.features.map((item, index) => (
           <Feature key={index}>✔ {item.value}</Feature>
