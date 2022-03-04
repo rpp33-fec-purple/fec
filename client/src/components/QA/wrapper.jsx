@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
-  // justify-content: center;
+  justify-content: center;
   // align-items: center;
   // height: 70%;
   // box-sizing: border-box;
@@ -17,6 +17,12 @@ const Container = styled.div`
   // font-family: 'Arial', sans-serif;
   // position: inherit;
   height: 100%;
+
+  .qaTitle {
+    font-size: 20px;
+    padding: 10px 32px;
+
+  }
 `
 
 
@@ -133,12 +139,15 @@ class QAndA extends React.Component {
     }
 
     return (
+      <Container>
         <div>
-          <h2>Questions and Answers</h2>
+          <h2 className='qaTitle'>Questions and Answers</h2>
           <SearchBar qAndAList={this.state.sortedQuestions} updateStateCauseFilter={this.updateStateCauseFilter} productID={this.props.product.id}/>
           <div>{listDiv}</div>
           <AddQuestion questionAdded={this.rerenderQandAs} productName={this.props.product.name} productID={this.props.product.id}/>
         </div>
+
+      </Container>
     )
   }
 }
