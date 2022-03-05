@@ -16,7 +16,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     $.ajax({
-      url: 'http://localhost:3000/products/64627',
+      url: 'http://localhost:3000/products/64623',
       method: 'GET',
       success: (data) => {
         // console.log('data in client', data);

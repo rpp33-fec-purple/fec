@@ -18,7 +18,6 @@ const VerticalContainer = styled.div`
   margin-left: 1.5em;
   height: 30em;
   width: 20em;
-  gap: 1em;
 `;
 class Overview extends React.Component {
   constructor(props) {
@@ -30,7 +29,6 @@ class Overview extends React.Component {
       currentStyleIndex: 0,
       currentQuantity: null,
       currentSize: null
-
     };
     this.renderQuantity = this.renderQuantityDropDown.bind(this);
   }
@@ -50,7 +48,21 @@ class Overview extends React.Component {
       error: (err) => {
         console.log('Error with GET request:', err);
       }
-    })
+    });
+
+    $.ajax({
+      url: `http://localhost:3000/reviews/meta?product_id=${this.state.productInfo.id}`,
+
+      method: 'GET',
+      success: (data) => {
+        // console.log('data in client', data);
+        this.setState({reviewInfo: data.ratings});
+        // console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
+      },
+      error: (err) => {
+        console.log('Error with GET request:', err);
+      }
+    });
   }
 
   updateStyleId(event) {

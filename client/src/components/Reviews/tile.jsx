@@ -123,7 +123,6 @@ class Tile extends React.Component {
   }
 
   render() {
-    return ''; // Added because reading undefined for 'reviewer_name' when switching to productId 64627 - Jakob
     let view;
     if (this.props.reviews.results) {
       let currentReview = this.props.reviews.results[this.props.reviewIndex];

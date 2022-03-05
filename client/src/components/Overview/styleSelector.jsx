@@ -1,15 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+const StyleSelectorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+
+`;
 const Row = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 5px;
-  height: 45px;
-  width: 200px;
+  gap: .7em;
+  height: 3em;
+  width: 18em;
 `;
 const StyledImageContainer = styled.div`
-  height: 45px;
-  width: 45px;
+  height: 3em;
+  width: 3em;
   overflow: hidden;
 
 `;
@@ -44,9 +50,11 @@ class StyleSelector extends React.Component {
       index++;
     }
     return (
-      <div className='styleSelector'>
-        <b>Style > </b>
-        <span>{this.props.styleInfo[this.props.currentStyleIndex].name}</span>
+      <StyleSelectorContainer>
+        <div>
+          <b>Style > </b>
+          <span>{this.props.styleInfo[this.props.currentStyleIndex].name}</span>
+        </div>
         <Row key='Row1'>
           {styleImages1}
         </Row>
@@ -60,7 +68,7 @@ class StyleSelector extends React.Component {
           {styleImages3}
         </Row> :
         ''}
-      </div>
+      </StyleSelectorContainer>
     );
   }
 }
