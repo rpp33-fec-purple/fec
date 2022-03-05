@@ -18,16 +18,17 @@ const Container = styled.div`
   }
 `;
 
-const ScrollableList = styled.div`
-      margin: 0 auto;
-      max-height: 400px;
-      width: 100%;
-      overflow: auto;
-      // border: 1px solid black;
-      // display: flex;
-      // justify-content: center;
-      align-items: center;
-  `;
+
+  const AnswersScrollableList = styled.div`
+  margin: 0 auto;
+  max-height: 400px;
+  width: 100%;
+  overflow: auto;
+  // border: 1px solid black;
+  // display: flex;
+  // justify-content: center;
+  align-items: center;
+`;
 
 
   const ImageThumbnail = styled.img`
@@ -144,7 +145,7 @@ const ScrollableList = styled.div`
     `;
 
 
-  const AnswersButton = styled.button`
+  const AnswersButton = styled.div`
 
   .button-forAnswers {
     appearance: none;
@@ -298,7 +299,7 @@ class QuestionListEntry extends React.Component {
       },
       method: 'GET',
       success: (data) => {
-        console.log('these are the answers', data.results)
+        // console.log('these are the answers', data.results)
         var totalNumOfAs = data.results.length;
         this.seeMoreAnswersClicked = true;
         if (totalNumOfAs > this.state.answersInDisplay) {
@@ -543,7 +544,7 @@ class QuestionListEntry extends React.Component {
     }
 
     if (this.state.displayingAll) {
-      var answersInView = <ScrollableList>{answersDiv.slice(0, this.state.answersInDisplay)}</ScrollableList>
+      var answersInView = <AnswersScrollableList>{answersDiv.slice(0, this.state.answersInDisplay)}</AnswersScrollableList>
     } else {
       var answersInView = answersDiv.slice(0, this.state.answersInDisplay);
     }
