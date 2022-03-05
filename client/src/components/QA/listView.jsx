@@ -63,7 +63,7 @@ class ListView extends React.Component {
       },
       method: 'GET',
       success: (data) => {
-        console.log('data in client', data);
+        // console.log('data in client', data);
 
         var totalNumOfQs = data.results.length;
 
