@@ -47,7 +47,7 @@ class ProductInformation extends React.Component {
           <span/>* * * * *<span/>
           <Underline onClick={this.moveToReviews.bind(this)}> Read all reviews</Underline>
         </div>
-        <span>Category > {this.props.productInfo.category}</span>
+        <span>{this.props.productInfo.category}</span>
         <h1>{this.props.productInfo.name}</h1>
         {price}
         </ProductInformationContainer>
