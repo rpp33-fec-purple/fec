@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const port = 3000;
 const axios = require('axios');
 const config = require('./config.js');
+require('dotenv').config();
 
 
 var app = express();
@@ -12,14 +13,17 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(express.static(__dirname + '/client/dist'));
-
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.get('/*', (req, res) => {
   var path = req.originalUrl;
   // console.log('PATH ->', path);
   return axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${path}`, {
     headers: {
-      'Authorization': config.TOKEN
+      'Authorization': process.env.API_KEY
+      //
     }
   })
     .then(response => {

@@ -1,40 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
 import _ from 'underscore';
+import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 
+const AddToCartForm = styled.form`
+  padding: 0;
+  margin: 0;
+`;
 const AddToCartContainer = styled.div`
   display: flex;
   flex-flow: row;
 `;
 const QuantityDropDown = styled.select`
+  text-align: center;
   margin-bottom: 1em;
   margin-right: 1em;
   width: 9em;
-  background-color: #141414;
+  background-color: #724060;
   color: #fff;
   padding: 16px 32px;
 `;
 const SizeDropDown = styled.select`
+  text-align: center;
   margin-bottom: 1em;
   margin-right: 1em;
   width: 16em;
-  background-color: #141414;
+  background-color: #724060;
   color: #fff;
   padding: 16px 32px;
 `;
 const AddToCartButton = styled.button`
+  font-size:
+  text-align: center;
   width: 17em;
   margin-bottom: 1em;
   margin-right: 1em;
-  background: #141414;
+  background: #724060;
   color: #fff;
   cursor: pointer;
   padding: 16px 32px;
 `;
 const AddToCartButtonHidden = styled.button`
+  text-align: center;
   border-radius: 4px;
   border: none;
-  background: #141414;
+  background: #724060;
   visibility: hidden;
   color: #fff;
   font-size: 18px;
@@ -44,10 +54,11 @@ const FavoriteButton = styled.button`
   width: 4em;
   margin-bottom: 1em;
   margin-right: 1em;
-  background: #141414;
+  background: #724060;
   color: #fff;
   cursor: pointer;
   padding: 16px 32px;
+  text-align: center;
 `;
 const Tooltip = styled.div`
   top: -2.8em;
@@ -84,18 +95,21 @@ class AddToCart extends React.Component {
   favorite() {
 
   }
-  // addToCart() {
+  addToCart() {
+
   //   var selectedSize = document.getElementById('selectedSize').value;
   //   var selectedQuantity = document.getElementById('selectedQuantity').value;
-  //   if (selectedSize !== 'DEFAULT') {
-  //     if (selectedQuantity !== 'DEFAULT') {
-  //       this.props.onAddToCart(skuId, selectedSize, selectedQuantity, () => {
-  //         let productName = document.getElementsByClassName('productName')[0].innerText;
-  //         let style = this.props.styleNames[this.props.currentStyleIndex];
-  //         this.openSuccessModal(productName, style, selectedSize, selectedQuantity);
-  //       });
-  //     }
-  //   }
+  var sku_id;
+    if (selectedSize !== 'DEFAULT') {
+      if (selectedQuantity !== 'DEFAULT') {
+          for (var i = 0; i < Object.keys(this.props.styleInfo[this.props.currentStyleIndex].skus).length; i++) {
+            if (Object.keys(this.props.styleInfo[this.props.currentStyleIndex].skus)[i].size === selectedSize) {
+              sku_id = Object.keys(this.props.styleInfo[this.props.currentStyleIndex].skus)[i];
+              break;
+            }
+          }
+      }
+    }
   //   if (selectedSize === 'DEFAULT' && selectedQuantity === 'DEFAULT') {
   //     OpenSelectMenu(document.getElementById('selectedSize'), 3).open();
   //     const tooltip = document.getElementById('sizeTooltipText');
@@ -104,12 +118,12 @@ class AddToCart extends React.Component {
   //     const tooltip2 = document.getElementById('quantityTooltipText');
   //     tooltip2.style.visibility = 'visible';
   //   }
-  // }
+  }
   render() {
     var addToCart;
     var favoriteButton;
     favoriteButton =
-    <FavoriteButton type="button" onClick={this.favorite.bind(this)}>*</FavoriteButton>
+    <FavoriteButton type="button" onClick={this.favorite.bind(this)}><AiOutlineStar/></FavoriteButton>
 
     var sizeDropDown;
     // Creates size dropdown based on sizes available
@@ -120,10 +134,10 @@ class AddToCart extends React.Component {
         <option disabled>OUT OF STOCK</option>
       </SizeDropDown>;
     } else {
-      addToCart = <AddToCartButton type="button" >ADD TO BAG &nbsp;&nbsp;&nbsp; +</AddToCartButton>
+      addToCart = <AddToCartButton type="button" onClick={addToCart}>ADD TO BAG &nbsp;&nbsp;&nbsp; +</AddToCartButton>
       sizeDropDown =
       <SizeDropDown id='selectedSize' onChange={this.props.renderQuantityDropDown}>
-        <option value='DEFAULT'>SELECT SIZE</option>
+        <option value='DEFAULT' hidden>SELECT SIZE</option>
         {_.map(Object.keys(this.props.styleInfo[this.props.currentStyleIndex].skus), (item, index) => {
           if (this.props.styleInfo[this.props.currentStyleIndex].skus[item].quantity !== 0) {
             return <option key={index}>{this.props.styleInfo[this.props.currentStyleIndex].skus[item].size}</option>
@@ -138,7 +152,7 @@ class AddToCart extends React.Component {
     if (!this.props.currentQuantity) {
       quantityDropDown =
       <QuantityDropDown id='selectedQuantity' disabled>
-        <option disabled> - </option>
+        <option hidden> - </option>
       </QuantityDropDown>;
     } else if (this.props.currentQuantity < 15) {
       var quantityCount = [];
@@ -165,8 +179,8 @@ class AddToCart extends React.Component {
 
 
     return (
-      <div className='addToCart'>
-        <form>
+      <React.Fragment>
+        <AddToCartForm>
           <Tooltip>
             <TooltipText id='sizeTooltipText'>Please select a size</TooltipText>
           </Tooltip>
@@ -182,8 +196,8 @@ class AddToCart extends React.Component {
             {addToCart}
             {favoriteButton}
           </AddToCartContainer>
-        </form>
-      </div>
+        </AddToCartForm>
+      </React.Fragment>
     );
   }
 }

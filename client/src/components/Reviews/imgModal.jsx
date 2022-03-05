@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { GlobalStyle } from './GlobalStyles.js';
+import { GlobalStyle } from './globalStyles.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
