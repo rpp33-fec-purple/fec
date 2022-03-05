@@ -3,7 +3,7 @@ import List from './list.jsx';
 import Tile from './tile.jsx';
 import Breakdown from './breakdown.jsx';
 import styled from 'styled-components';
-import { GlobalStyle } from './GlobalStyles.js';
+import { GlobalStyle } from './globalStyles.js';
 
 const Container = styled.div`
 display: grid;
