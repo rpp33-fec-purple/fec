@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const port = 3000;
 const axios = require('axios');
 const config = require('./config.js');
+var cors = require('cors');
 require('dotenv').config();
 
 
@@ -16,6 +17,8 @@ app.use(express.static(__dirname + '/client/dist'));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(cors());
+
 
 app.get('/*', (req, res) => {
   var path = req.originalUrl;
