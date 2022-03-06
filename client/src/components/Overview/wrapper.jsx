@@ -36,37 +36,45 @@ class Overview extends React.Component {
   }
 
 
-  componentDidMount() {
-    {/* Get styles and reviews */}
-    $.ajax({
-      url: `${baseUrl}/products/${this.state.productInfo.id}/styles`,
+  componentDidUpdate(prevProps) {
+    console.log(prevProps.productId);
+    console.log(this.props.productId);
+    if (this.props.productId !== prevProps.productId) {
+      {/* Get styles and reviews */}
+      $.ajax({
+        url: `${baseUrl}/products/${this.props.basicProductInfo.id}/styles`,
 
-      method: 'GET',
-      success: (data) => {
-        // console.log('data in client', data);
-        this.setState({styleInfo: data.results});
-        // console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
-      },
-      error: (err) => {
-        console.log('Error with GET request:', err);
-      }
-    });
+        method: 'GET',
+        success: (data) => {
+          // console.log('data in client', data);
+          this.setState({
+            productInfo: this.props.basicProductInfo,
+            styleInfo: data.results,
+            currenstStyleId: data.results[0].style_id
+          });
+          // console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
+        },
+        error: (err) => {
+          console.log('Error with GET request:', err);
+        }
+      });
 
-    // $.ajax({
-    //   url: `http://localhost:3000/reviews/meta?product_id=${this.state.productInfo.id}`,
+      // $.ajax({
+      //   url: `http://localhost:3000/reviews/meta?product_id=${this.state.productInfo.id}`,
 
-    //   method: 'GET',
-    //   success: (data) => {
-    //     // console.log('data in client', data);
-    //     var total = 0;
-    //     for (var i = 0; Object.keys())
-    //     this.setState({avgRatings: data.ratings});
-    //     // console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
-    //   },
-    //   error: (err) => {
-    //     console.log('Error with GET request:', err);
-    //   }
-    // });
+      //   method: 'GET',
+      //   success: (data) => {
+      //     // console.log('data in client', data);
+      //     var total = 0;
+      //     for (var i = 0; Object.keys())
+      //     this.setState({avgRatings: data.ratings});
+      //     // console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
+      //   },
+      //   error: (err) => {
+      //     console.log('Error with GET request:', err);
+      //   }
+      // });
+    }
   }
 
   updateStyleId(event) {

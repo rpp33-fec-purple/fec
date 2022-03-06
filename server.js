@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const port = 3000;
 const axios = require('axios');
-const config = require('./config.js');
+const baseUrl = require('./config.js');
 var cors = require('cors');
 require('dotenv').config();
 
@@ -26,7 +26,6 @@ app.get('/*', (req, res) => {
   return axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${path}`, {
     headers: {
       'Authorization': process.env.API_KEY
-      //
     }
   })
     .then(response => {
@@ -142,5 +141,5 @@ app.put('/*', (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`FEC App listening on http://localhost:${port}`);
+  console.log(`FEC App listening on ${baseUrl}`);
 });
