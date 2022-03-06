@@ -4,6 +4,7 @@ import Tile from './tile.jsx';
 import Breakdown from './breakdown.jsx';
 import styled from 'styled-components';
 import { GlobalStyle } from './globalStyles.js';
+import baseUrl from './../../../../config.js';
 
 const Container = styled.div`
 display: grid;
@@ -81,7 +82,7 @@ class Reviews extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.productID !== this.props.productID || prevState.sortBy !== this.state.sortBy) {
       $.ajax({
-        url: `http://localhost:3000/reviews/`,
+        url: `${baseUrl}/reviews/`,
         data: {
           product_id: this.props.productID,
           page: 1,
@@ -100,7 +101,7 @@ class Reviews extends React.Component {
 
       //Get meta data for current product
       $.ajax({
-        url: `http://localhost:3000/reviews/meta`,
+        url: `${baseUrl}/reviews/meta`,
         data: {
           product_id: this.props.productID
         },

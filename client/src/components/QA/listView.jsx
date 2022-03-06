@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import QuestionListEntry from './questionListEntry.jsx';
 import styled from 'styled-components';
+import baseUrl from './../../../../config.js';
 
 
 const Container = styled.div`
@@ -55,7 +56,7 @@ class ListView extends React.Component {
 
   seeMoreQuestions() {
     $.ajax({
-      url: `http://localhost:3000/qa/questions`,
+      url: `${baseUrl}/qa/questions`,
       data: {
         product_id: this.props.productID,
         page: 1,

@@ -6,6 +6,8 @@ import StyleSelector from './styleSelector.jsx';
 import AddToCart from './addToCart.jsx';
 import ProductFeatures from './productFeatures.jsx';
 import sampleData from './sampleData.js';
+import baseUrl from './../../../../config.js';
+
 const OverviewWrapper = styled.div`
   display: flex;
   height: 48em;
@@ -37,7 +39,7 @@ class Overview extends React.Component {
   componentDidMount() {
     {/* Get styles and reviews */}
     $.ajax({
-      url: `http://localhost:3000/products/${this.state.productInfo.id}/styles`,
+      url: `${baseUrl}/products/${this.state.productInfo.id}/styles`,
 
       method: 'GET',
       success: (data) => {
@@ -50,19 +52,21 @@ class Overview extends React.Component {
       }
     });
 
-    $.ajax({
-      url: `http://localhost:3000/reviews/meta?product_id=${this.state.productInfo.id}`,
+    // $.ajax({
+    //   url: `http://localhost:3000/reviews/meta?product_id=${this.state.productInfo.id}`,
 
-      method: 'GET',
-      success: (data) => {
-        // console.log('data in client', data);
-        this.setState({reviewInfo: data.ratings});
-        // console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
-      },
-      error: (err) => {
-        console.log('Error with GET request:', err);
-      }
-    });
+    //   method: 'GET',
+    //   success: (data) => {
+    //     // console.log('data in client', data);
+    //     var total = 0;
+    //     for (var i = 0; Object.keys())
+    //     this.setState({avgRatings: data.ratings});
+    //     // console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
+    //   },
+    //   error: (err) => {
+    //     console.log('Error with GET request:', err);
+    //   }
+    // });
   }
 
   updateStyleId(event) {
