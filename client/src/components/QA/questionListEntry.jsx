@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import styled from 'styled-components';
 import AnswerModal from './Modals/addAnswerModal.jsx';
+import baseUrl from './../../../../config.js';
 
 const Container = styled.div`
   display: flex;
@@ -233,7 +234,7 @@ class QuestionListEntry extends React.Component {
 
     if (answerAdded) {
       $.ajax({
-        url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+        url: `${baseUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
         data: {
           question_id: this.props.qACombo.question_id,
           page: 1,
@@ -267,7 +268,7 @@ class QuestionListEntry extends React.Component {
 
   collapseAnswers() {
     $.ajax({
-      url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+      url: `${basUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
       data: {
         question_id: this.props.qACombo.question_id,
         page: 1,
@@ -291,7 +292,7 @@ class QuestionListEntry extends React.Component {
 
   seeMoreAnswers() {
     $.ajax({
-      url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+      url: `${baseUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
       data: {
         question_id: this.props.qACombo.question_id,
         page: 1,

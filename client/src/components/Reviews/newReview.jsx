@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import baseUrl from './../../../../config.js';
 
 const Button = styled.button`
     display:inline-block;
@@ -98,7 +99,7 @@ class NewReview extends React.Component {
     event.preventDefault();
 
     $.ajax({
-      url: `http://localhost:3000/reviews/`,
+      url: `${baseUrl}/reviews/`,
       data: {
         product_id: this.props.productID,
         rating: this.state.rating,
