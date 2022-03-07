@@ -30,15 +30,14 @@ class Overview extends React.Component {
       currentStyleId: sampleData.styleInfo.results[0].style_id,
       currentStyleIndex: 0,
       currentQuantity: null,
-      currentSize: null
+      currentSize: null,
+      avgRating: 0
     };
     this.renderQuantity = this.renderQuantityDropDown.bind(this);
   }
 
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps.productId);
-    console.log(this.props.productId);
     if (this.props.productId !== prevProps.productId) {
       {/* Get styles and reviews */}
       $.ajax({
@@ -46,7 +45,6 @@ class Overview extends React.Component {
 
         method: 'GET',
         success: (data) => {
-          // console.log('data in client', data);
           this.setState({
             productInfo: this.props.basicProductInfo,
             styleInfo: data.results,
@@ -59,21 +57,24 @@ class Overview extends React.Component {
         }
       });
 
-      // $.ajax({
-      //   url: `http://localhost:3000/reviews/meta?product_id=${this.state.productInfo.id}`,
+      $.ajax({
+        url: `${baseUrl}/reviews/meta?product_id=${this.props.basicProductInfo.id}`,
 
-      //   method: 'GET',
-      //   success: (data) => {
-      //     // console.log('data in client', data);
-      //     var total = 0;
-      //     for (var i = 0; Object.keys())
-      //     this.setState({avgRatings: data.ratings});
-      //     // console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
-      //   },
-      //   error: (err) => {
-      //     console.log('Error with GET request:', err);
-      //   }
-      // });
+        method: 'GET',
+        success: (data) => {
+          var ratingTotal = 0;
+          var totalVotes = 0;
+          for (var rating in data.ratings) {
+            ratingTotal += Number(rating) * Number(data.ratings[rating]);
+            totalVotes += Number(data.ratings[rating]);
+          }
+          this.setState({avgRating: (ratingTotal/totalVotes).toFixed(1)});
+          // console.log(`GET request to http://localhost:3000/products/${this.state.productInfo.id}/styles successful!`);
+        },
+        error: (err) => {
+          console.log('Error with GET request:', err);
+        }
+      });
     }
   }
 
@@ -101,12 +102,11 @@ class Overview extends React.Component {
     }
   }
   render() {
-
     return (
       <OverviewWrapper>
           <ImageGallery productId={this.state.productInfo.id} currentStyleIndex={this.state.currentStyleIndex} styleInfo={this.state.styleInfo}/>
           <VerticalContainer>
-            <ProductInformation productInfo={this.state.productInfo} currentStyleIndex={this.state.currentStyleIndex} styleInfo={this.state.styleInfo}/>
+            <ProductInformation avgRating={this.state.avgRating} productInfo={this.state.productInfo} currentStyleIndex={this.state.currentStyleIndex} styleInfo={this.state.styleInfo}/>
             <StyleSelector styleInfo={this.state.styleInfo} currentStyleId={this.state.currentStyleId} currentStyleIndex={this.state.currentStyleIndex} updateStyleId={this.updateStyleId.bind(this)}/>
             <AddToCart currentStyleIndex={this.state.currentStyleIndex} currentStyleId={this.state.currentStyleId} styleInfo={this.state.styleInfo} currentQuantity={this.state.currentQuantity} currentSize={this.state.currentSize} renderQuantityDropDown={this.renderQuantityDropDown.bind(this)}/>
           </VerticalContainer>

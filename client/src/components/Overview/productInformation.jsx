@@ -44,7 +44,7 @@ class ProductInformation extends React.Component {
     return (
       <ProductInformationContainer>
         <div>
-          <span/>* * * * *<span/>
+          <StarRating avgRating={this.props.avgRating}/>
           <Underline onClick={this.moveToReviews.bind(this)}> Read all reviews</Underline>
         </div>
         <span>{this.props.productInfo.category}</span>
