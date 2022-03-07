@@ -12,12 +12,22 @@ const Strikethrough = styled.span`
 `;
 const Underline = styled.span`
   text-decoration: underline;
+  font-weight: bold;
   font-size: .5em;
-  color: #808080;
+  color: #737373;
   &:hover {
     background-color: lightblue;
     cursor: pointer;
   }
+`;
+const Category = styled.span`
+  color: #808080;
+  font-size: .8em;
+`;
+const Price = styled.span`
+  color: #808080;
+  font-size: .8em;
+  margin-bottom: 1em;
 `;
 
 class ProductInformation extends React.Component {
@@ -39,9 +49,7 @@ class ProductInformation extends React.Component {
         </div>;
     } else {
       price =
-        <div>
-          <span>${this.props.styleInfo[this.props.currentStyleIndex].original_price}</span>
-        </div>;
+        <Price>${this.props.styleInfo[this.props.currentStyleIndex].original_price}</Price>
     }
     return (
       <ProductInformationContainer>
@@ -50,7 +58,7 @@ class ProductInformation extends React.Component {
           <span> </span>
           <Underline onClick={this.moveToReviews.bind(this)}>Read all reviews</Underline>
         </div>
-        <span>{this.props.productInfo.category}</span>
+        <Category>{this.props.productInfo.category.toUpperCase()}</Category>
         <h1>{this.props.productInfo.name}</h1>
         {price}
         </ProductInformationContainer>

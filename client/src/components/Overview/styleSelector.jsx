@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const StyleSelectorContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: .5em;
+  gap: .8em;
 `;
 const Row = styled.div`
   display: flex;
@@ -52,6 +52,7 @@ const StyledImage = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  border: solid;
 `;
 const SelectedStyledImage = styled.img`
   width: 100%;
@@ -60,6 +61,9 @@ const SelectedStyledImage = styled.img`
   object-fit: cover;
   border-radius: 50%;
   border: solid;
+`;
+const StyleText = styled.span`
+  color: #808080;
 `;
 
 class StyleSelector extends React.Component {
@@ -98,18 +102,20 @@ class StyleSelector extends React.Component {
     return (
       <StyleSelectorContainer>
         <div>
-          <b>Style > </b>
-          <span>{this.props.styleInfo[this.props.currentStyleIndex].name}</span>
+          <b>STYLE > </b>
+          <StyleText>{this.props.styleInfo[this.props.currentStyleIndex].name.toUpperCase()}</StyleText>
         </div>
-        <Row key='Row1'>
-          {styleImages1}
-        </Row>
-        <Row key='Row2'>
-          {styleImages2}
-        </Row>
-        <Row key='Row3'>
-          {styleImages3}
-        </Row>
+        <div>
+          <Row key='Row1'>
+            {styleImages1}
+          </Row>
+          <Row key='Row2'>
+            {styleImages2}
+          </Row>
+          <Row key='Row3'>
+            {styleImages3}
+          </Row>
+        </div>
       </StyleSelectorContainer>
     );
   }
