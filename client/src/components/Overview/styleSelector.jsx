@@ -4,28 +4,32 @@ const StyleSelectorContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: .5em;
-
 `;
 const Row = styled.div`
   display: flex;
   flex-direction: row;
   gap: .7em;
   height: 3em;
-  width: 18em;
+  width: 19em;
 `;
 const StyledImageContainer = styled.div`
   height: 3em;
   width: 3em;
   overflow: hidden;
-
 `;
 const StyledImage = styled.img`
   width: 100%;
   height: 100%;
-  padding-right: .2em;
-  padding-bottom: .2em;
   object-fit: cover;
   border-radius: 50%;
+`;
+const SelectedStyledImage = styled.img`
+  width: 100%;
+  height: 100%;
+  opacity: 50%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: solid;
 `;
 
 class StyleSelector extends React.Component {
@@ -41,7 +45,11 @@ class StyleSelector extends React.Component {
     var styleImages3 = [];
     while (index < this.props.styleInfo.length) {
       if (index < 4) {
-        styleImages1.push(<StyledImageContainer key={index}><StyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url}/></StyledImageContainer>);
+        if (this.props.currentStyleIndex === index) {
+          styleImages1.push(<StyledImageContainer key={index}><SelectedStyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url}/></StyledImageContainer>);
+        } else {
+          styleImages1.push(<StyledImageContainer key={index}><StyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url}/></StyledImageContainer>);
+        }
       } else if (index < 8) {
         styleImages2.push(<StyledImageContainer key={index}><StyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url}/></StyledImageContainer>);
       } else {

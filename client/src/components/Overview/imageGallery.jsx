@@ -46,7 +46,6 @@ const FullscreenMainImageCarouselContainer = styled.div`
   background-color: rgb(231, 229, 229);
   position: relative;
 `;
-
 const MainImage = styled.img`
   height: 30em;
   width: 100%;
@@ -157,13 +156,7 @@ class ImageGallery extends React.Component {
     }
   }
   componentDidUpdate() {
-    // if (this.productId !== this.props.productId) {
-    //   this.setState({
-    //     currentIndex: 0,
-    //     screenState: 'default',
-    //     productId: this.props.productId
-    //   });
-    // }
+
   }
   changeMainImage(event) {
     if (this.state.currentIndex !== event.target.id) {
@@ -211,6 +204,11 @@ class ImageGallery extends React.Component {
 
   render() {
     console.log('CurrentIndex --> ', this.state.currentIndex);
+    if (this.state.currentIndex >= this.props.styleInfo[this.props.currentStyleIndex].photos.length) {
+      this.setState({
+        currentIndex: this.props.styleInfo[this.props.currentStyleIndex].photos.length - 1
+      })
+    }
     var mainImage;
     var leftArrow;
     var rightArrow;
@@ -231,9 +229,15 @@ class ImageGallery extends React.Component {
       <DownArrow>↓</DownArrow>;
       expandButton =
       <ExpandButton><AiOutlineExpand/></ExpandButton>;
-      mainImage =
-      <MainImage src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.state.currentIndex].url} alt='mainImage'/>;
+      if (this.state.currentIndex >= this.props.styleInfo[this.props.currentStyleIndex].photos.length) {
+        mainImage =
+      <MainImage src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.props.styleInfo[this.props.currentStyleIndex].photos.length - 1].url} alt='mainImage'/>;
+      } else {
+        mainImage =
+        <MainImage src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.state.currentIndex].url} alt='mainImage'/>;
+      }
       if (this.props.styleInfo[this.props.currentStyleIndex].photos.length <= 7) {
+        console.log(this.props.styleInfo[this.props.currentStyleIndex].photos);
         thumbnailList = this.props.styleInfo[this.props.currentStyleIndex].photos.map((photo, index) => {
           if (index !== this.state.currentIndex) {
             return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='thumbnail' onClick={this.changeMainImage.bind(this)} id={index}/>
