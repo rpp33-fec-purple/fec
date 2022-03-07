@@ -19,10 +19,9 @@ class App extends React.Component {
   componentDidMount() {
     console.log(baseUrl);
     $.ajax({
-      url: `${baseUrl}/products/64621`,
+      url: `${baseUrl}/products/64623`,
       method: 'GET',
       success: (data) => {
-        // console.log('data in client', data);
         this.setState({basicProductInfo: data});
         // console.log('GET request to http://localhost:3000/products/64620 successful!');
       },

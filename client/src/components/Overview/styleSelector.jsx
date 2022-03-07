@@ -58,16 +58,12 @@ class StyleSelector extends React.Component {
         <Row key='Row1'>
           {styleImages1}
         </Row>
-        {styleImages2.length !== 0 ?
         <Row key='Row2'>
           {styleImages2}
-        </Row> :
-        ''}
-        {styleImages3.length !== 0 ?
+        </Row>
         <Row key='Row3'>
           {styleImages3}
-        </Row> :
-        ''}
+        </Row>
       </StyleSelectorContainer>
     );
   }
