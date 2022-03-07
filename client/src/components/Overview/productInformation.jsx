@@ -12,6 +12,8 @@ const Strikethrough = styled.span`
 `;
 const Underline = styled.span`
   text-decoration: underline;
+  font-size: .5em;
+  color: #808080;
   &:hover {
     background-color: lightblue;
     cursor: pointer;
@@ -45,7 +47,8 @@ class ProductInformation extends React.Component {
       <ProductInformationContainer>
         <div>
           <StarRating avgRating={this.props.avgRating}/>
-          <Underline onClick={this.moveToReviews.bind(this)}> Read all reviews</Underline>
+          <span> </span>
+          <Underline onClick={this.moveToReviews.bind(this)}>Read all reviews</Underline>
         </div>
         <span>{this.props.productInfo.category}</span>
         <h1>{this.props.productInfo.name}</h1>
