@@ -18,7 +18,7 @@ app.get('/*', (req, res) => {
   // console.log('PATH ->', path);
   return axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${path}`, {
     headers: {
-      'Authorization': process.env.API_KEY
+      'Authorization': config.TOKEN
       //
     }
   })
