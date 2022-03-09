@@ -234,15 +234,15 @@ class ImageGallery extends React.Component {
       <MainImage src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.props.styleInfo[this.props.currentStyleIndex].photos.length - 1].url} alt='mainImage'/>;
       } else {
         mainImage =
-        <MainImage src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.state.currentIndex].url} alt='mainImage'/>;
+        <MainImage src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.state.currentIndex].url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text='/>;
       }
       if (this.props.styleInfo[this.props.currentStyleIndex].photos.length <= 7) {
         console.log(this.props.styleInfo[this.props.currentStyleIndex].photos);
         thumbnailList = this.props.styleInfo[this.props.currentStyleIndex].photos.map((photo, index) => {
           if (index !== this.state.currentIndex) {
-            return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='thumbnail' onClick={this.changeMainImage.bind(this)} id={index}/>
+            return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' onClick={this.changeMainImage.bind(this)} id={index}/>
           } else {
-            return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='currentThumbnail' id={index}/>
+            return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' id={index}/>
           }
         });
         thumbnailCarousel =
@@ -254,9 +254,9 @@ class ImageGallery extends React.Component {
           thumbnailList = this.props.styleInfo[this.props.currentStyleIndex].photos.slice(this.state.currentThumbnailScrollIndex, this.state.currentThumbnailScrollIndex + 7).map((photo, index) => {
             thumbnailId++;
             if (thumbnailId !== this.state.currentIndex) {
-              return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='thumbnail' onClick={this.changeMainImage.bind(this)} id={thumbnailId}/>
+              return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' onClick={this.changeMainImage.bind(this)} id={thumbnailId}/>
             } else {
-              return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='currentThumbnail' id={thumbnailId}/>
+              return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' id={thumbnailId}/>
             }
           });
         if (this.state.currentThumbnailScrollIndex === 0) {

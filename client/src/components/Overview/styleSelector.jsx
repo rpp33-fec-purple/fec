@@ -80,21 +80,21 @@ class StyleSelector extends React.Component {
     while (index < this.props.styleInfo.length) {
       if (index < 4) {
         if (this.props.currentStyleIndex === index) {
-          styleImages1.push(<SelectedStyledImageContainer key={index}><SelectedStyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url}/></SelectedStyledImageContainer>);
+          styleImages1.push(<SelectedStyledImageContainer key={index}><SelectedStyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url} alt="http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text="/></SelectedStyledImageContainer>);
         } else {
-          styleImages1.push(<StyledImageContainer key={index}><StyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url}/></StyledImageContainer>);
+          styleImages1.push(<StyledImageContainer key={index}><StyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url} alt="http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text="/></StyledImageContainer>);
         }
       } else if (index < 8) {
         if (this.props.currentStyleIndex === index) {
-          styleImages2.push(<SelectedStyledImageContainer key={index}><SelectedStyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url}/></SelectedStyledImageContainer>);
+          styleImages2.push(<SelectedStyledImageContainer key={index}><SelectedStyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url} alt="http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text="/></SelectedStyledImageContainer>);
         } else {
-          styleImages2.push(<StyledImageContainer key={index}><StyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url}/></StyledImageContainer>);
+          styleImages2.push(<StyledImageContainer key={index}><StyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url} alt="http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text="/></StyledImageContainer>);
         }
       } else {
         if (this.props.currentStyleIndex === index) {
-          styleImages3.push(<SelectedStyledImageContainer key={index}><SelectedStyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url}/></SelectedStyledImageContainer>);
+          styleImages3.push(<SelectedStyledImageContainer key={index}><SelectedStyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url} alt="http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text="/></SelectedStyledImageContainer>);
         } else {
-          styleImages3.push(<StyledImageContainer key={index}><StyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url}/></StyledImageContainer>);
+          styleImages3.push(<StyledImageContainer key={index}><StyledImage key={index} id={this.props.styleInfo[index].style_id} onClick={this.props.updateStyleId} src={this.props.styleInfo[index].photos[0].thumbnail_url} alt="http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text="/></StyledImageContainer>);
         }
       }
       index++;
@@ -105,17 +105,15 @@ class StyleSelector extends React.Component {
           <b>STYLE > </b>
           <StyleText>{this.props.styleInfo[this.props.currentStyleIndex].name.toUpperCase()}</StyleText>
         </div>
-        <div>
-          <Row key='Row1'>
-            {styleImages1}
-          </Row>
-          <Row key='Row2'>
-            {styleImages2}
-          </Row>
-          <Row key='Row3'>
-            {styleImages3}
-          </Row>
-        </div>
+        <Row key='Row1'>
+          {styleImages1}
+        </Row>
+        <Row key='Row2'>
+          {styleImages2}
+        </Row>
+        <Row key='Row3'>
+          {styleImages3}
+        </Row>
       </StyleSelectorContainer>
     );
   }
