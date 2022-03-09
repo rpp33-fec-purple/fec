@@ -85,7 +85,7 @@ class List extends React.Component {
         <>
         <div>
           <label>{reviews.results.length} reviews, sorted by </label>
-          <select name="sort" id="sort" value={this.props.sortBy} onChange={this.handleSortChange}>
+          <select name="sort" id="sort" value={this.props.sortBy} onChange={this.handleSortChange} style={{border: "none", borderBottom: "2px solid black"}}>
             <option value="relevant">relevance</option>
             <option value="helpful">helpfulness</option>
             <option value="newest">newest</option>
