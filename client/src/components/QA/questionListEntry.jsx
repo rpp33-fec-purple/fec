@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import styled from 'styled-components';
 import AnswerModal from './Modals/addAnswerModal.jsx';
+import baseUrl from './../../../../config.js';
 
 const Container = styled.div`
   display: flex;
@@ -18,16 +19,17 @@ const Container = styled.div`
   }
 `;
 
-const ScrollableList = styled.div`
-      margin: 0 auto;
-      max-height: 400px;
-      width: 100%;
-      overflow: auto;
-      // border: 1px solid black;
-      // display: flex;
-      // justify-content: center;
-      align-items: center;
-  `;
+
+  const AnswersScrollableList = styled.div`
+  margin: 0 auto;
+  max-height: 400px;
+  width: 100%;
+  overflow: auto;
+  // border: 1px solid black;
+  // display: flex;
+  // justify-content: center;
+  align-items: center;
+`;
 
 
   const ImageThumbnail = styled.img`
@@ -144,7 +146,7 @@ const ScrollableList = styled.div`
     `;
 
 
-  const AnswersButton = styled.button`
+  const AnswersButton = styled.div`
 
   .button-forAnswers {
     appearance: none;
@@ -232,7 +234,7 @@ class QuestionListEntry extends React.Component {
 
     if (answerAdded) {
       $.ajax({
-        url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+        url: `${baseUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
         data: {
           question_id: this.props.qACombo.question_id,
           page: 1,
@@ -266,7 +268,7 @@ class QuestionListEntry extends React.Component {
 
   collapseAnswers() {
     $.ajax({
-      url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+      url: `${basUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
       data: {
         question_id: this.props.qACombo.question_id,
         page: 1,
@@ -290,7 +292,7 @@ class QuestionListEntry extends React.Component {
 
   seeMoreAnswers() {
     $.ajax({
-      url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+      url: `${baseUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
       data: {
         question_id: this.props.qACombo.question_id,
         page: 1,
@@ -298,7 +300,7 @@ class QuestionListEntry extends React.Component {
       },
       method: 'GET',
       success: (data) => {
-        console.log('these are the answers', data.results)
+        // console.log('these are the answers', data.results)
         var totalNumOfAs = data.results.length;
         this.seeMoreAnswersClicked = true;
         if (totalNumOfAs > this.state.answersInDisplay) {
@@ -543,7 +545,7 @@ class QuestionListEntry extends React.Component {
     }
 
     if (this.state.displayingAll) {
-      var answersInView = <ScrollableList>{answersDiv.slice(0, this.state.answersInDisplay)}</ScrollableList>
+      var answersInView = <AnswersScrollableList>{answersDiv.slice(0, this.state.answersInDisplay)}</AnswersScrollableList>
     } else {
       var answersInView = answersDiv.slice(0, this.state.answersInDisplay);
     }

@@ -5,6 +5,8 @@ import RelatedItems from './RelatedItems/wrapper.jsx';
 import Reviews from './Reviews/wrapper.jsx';
 import GlobalStyle from './globalStyles.jsx';
 import styled from 'styled-components';
+import baseUrl from './../../../config.js';
+
 
 
 class App extends React.Component {
@@ -15,8 +17,9 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
+    console.log(baseUrl);
     $.ajax({
-      url: 'http://localhost:3000/products/64623',
+      url: `${baseUrl}/products/64623`,
       method: 'GET',
       success: (data) => {
         // console.log('data in client', data);

@@ -4,6 +4,7 @@ import ListView from './listView.jsx';
 import AddQuestion from './addQuestion.jsx';
 import sampleProductQuestions from './sampleData.js';
 import styled from 'styled-components';
+import baseUrl from './../../../../config.js';
 
 
 const Container = styled.div`
@@ -46,7 +47,7 @@ class QAndA extends React.Component {
     // console.log('product id in wrapper', this.props)
 
     $.ajax({
-      url: `http://localhost:3000/qa/questions`,
+      url: `${baseUrl}/qa/questions`,
       data: {
         product_id: this.props.product.id,
         page: 1,
@@ -68,7 +69,7 @@ class QAndA extends React.Component {
       this.setState({sortedQuestions: qandAs});
     } else {
       $.ajax({
-        url: `http://localhost:3000/qa/questions`,
+        url: `${baseUrl}/qa/questions`,
         data: {
           product_id: this.props.product.id,
           page: 1,
