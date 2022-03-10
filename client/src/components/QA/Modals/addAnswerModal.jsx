@@ -2,6 +2,8 @@ import React, {useRef, useEffect, useCallBack} from 'react';
 import {useSpring, animated} from 'react-spring';
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
+import baseUrl from './../../../../../config.js';
+
 
 const Container = styled.div`
   display: flex;
@@ -129,7 +131,7 @@ class AnswerModal extends React.Component {
       alert('The email address provided is not in correct email format')
     } else {
       $.ajax({
-        url: `http://localhost:3000/qa/questions/${this.props.questionID}/answers`,
+        url: `${baseUrl}/qa/questions/${this.props.questionID}/answers`,
         data: {
           body: answer,
           name: nickname,

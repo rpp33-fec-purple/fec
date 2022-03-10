@@ -510,7 +510,7 @@ class QuestionListEntry extends React.Component {
       var sorted = this.sortAnswers(answers);
 
       answersDiv = sorted.map(a => {
-        console.log('this is an answer', a)
+        // console.log('this is an answer', a)
         if (a.answerer_name === 'Seller') {
           var seller = <strong key={a.answerer_name}>{a.answerer_name}</strong>
         }
