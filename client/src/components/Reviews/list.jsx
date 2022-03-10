@@ -16,14 +16,14 @@ const ScrollableList = styled.div`
 const Button = styled.button`
 display:inline-block;
 padding:0.35em 1.2em;
-border:0.2em solid #a070a1;
+border:0.2em solid #724060;
 margin:0 0.3em 0.3em 0;
 border-radius: 5px;
 box-sizing: border-box;
 text-decoration:none;
 font-weight:300;
 color:#FFFFFF;
-background-color: #a070a1;
+background-color: #724060;
 text-align:center;
 transition: all 0.2s;
 min-width: 10ch;
@@ -85,7 +85,7 @@ class List extends React.Component {
         <>
         <div>
           <label>{reviews.results.length} reviews, sorted by </label>
-          <select name="sort" id="sort" value={this.props.sortBy} onChange={this.handleSortChange}>
+          <select name="sort" id="sort" value={this.props.sortBy} onChange={this.handleSortChange} style={{border: "none", borderBottom: "1px solid black", margin: "0 0 10px 0"}}>
             <option value="relevant">relevance</option>
             <option value="helpful">helpfulness</option>
             <option value="newest">newest</option>
@@ -115,7 +115,7 @@ class List extends React.Component {
 
     let newReviewForm;
     if (this.state.displayReviewForm) {
-      newReviewForm = <NewReview meta={this.props.meta} productID={this.props.productID} close={this.closeReview}/>
+      newReviewForm = <NewReview meta={this.props.meta} productID={this.props.productID} name={this.props.name} close={this.closeReview}/>
     } else {
       newReviewForm = null
     }

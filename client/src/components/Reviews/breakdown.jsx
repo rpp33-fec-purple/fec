@@ -4,6 +4,11 @@ import {formatDate, shorten} from '../../utils.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretUp } from '@fortawesome/free-solid-svg-icons'
 
+const BreakdownContainer = styled.div`
+display: flex;
+flex-direction: column;
+`;
+
 const Wrapper = styled.div`
   margin-top: 10px;
   width: 250px;
@@ -37,6 +42,13 @@ const ActionDiv = styled.div`
   }
 `;
 
+const RatingBarContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  margin-top: 10px;
+  // font-size: 30px;
+`;
+
 const RecommendBar = styled.div`
   width: 100%;
   background-color: #e0e0e0;
@@ -59,6 +71,7 @@ const RecommendMetricsDisplay = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  font-size: 0.8em;
 `;
 
 const recommendChars = {
@@ -145,12 +158,12 @@ class Breakdown extends React.Component {
           return b - a;
         });
         ratingFilterView =
-        <div>Ratings filtered by star(s): {ratingFilterLabels.map((label) => {
+        <div style={{fontSize: ".8em", margin: "10px 0 0 0"}}>Ratings filtered by star(s): {ratingFilterLabels.map((label) => {
           return (`${label} `)
         })} <ActionDiv onClick={this.handleRemoveAllStarFilterClick}>Remove all filters</ActionDiv>
         </div>
       } else {
-        ratingFilterView = <div></div>
+        ratingFilterView = <></>
       }
 
       //calculate recommendation %
@@ -207,25 +220,24 @@ class Breakdown extends React.Component {
 
       breakdownView =
       <>
-        <div>
-          <h2>{avgRating}</h2>
+        <div style={{display: "flex"}}>
+          <h2 style={{fontSize: "3em"}}>{avgRating}</h2>
           {starRatingDisplay}
         </div>
-        <h4>Rating Breakdown</h4>
+        <p style={{fontSize: "14px"}}>{recommendedPercent}% of reviews recommend this product</p>
         <>{ratingFilterView}</>
         <Wrapper>
-          <ActionDiv value={5} onClick={this.handleRatingClick}>5 Star</ActionDiv><span>({ratings[5]})</span><RatingBar value={5} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
-          <ActionDiv value={4} onClick={this.handleRatingClick}>4 Star</ActionDiv><span>({ratings[4]})</span><RatingBar value={4} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[4] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
-          <ActionDiv value={3} onClick={this.handleRatingClick}>3 Star</ActionDiv><span>({ratings[3]})</span><RatingBar value={3} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[3] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
-          <ActionDiv value={2} onClick={this.handleRatingClick}>2 Star</ActionDiv><span>({ratings[2]})</span><RatingBar value={2} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[2] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
-          <ActionDiv value={1} onClick={this.handleRatingClick}>1 Star</ActionDiv><span>({ratings[1]})</span><RatingBar value={1} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[1] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar>
+          <RatingBarContainer><ActionDiv value={5} onClick={this.handleRatingClick} style={{fontSize: "1.5vh"}}>5 stars<span>({ratings[5]})</span></ActionDiv><RatingBar value={5} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar></RatingBarContainer>
+          <RatingBarContainer><ActionDiv value={4} onClick={this.handleRatingClick} style={{fontSize: "1.5vh"}}>4 stars<span>({ratings[4]})</span></ActionDiv><RatingBar value={4} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[4] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar></RatingBarContainer>
+          <RatingBarContainer><ActionDiv value={3} onClick={this.handleRatingClick} style={{fontSize: "1.5vh"}}>3 stars<span>({ratings[3]})</span></ActionDiv><RatingBar value={3} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[3] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar></RatingBarContainer>
+          <RatingBarContainer><ActionDiv value={2} onClick={this.handleRatingClick} style={{fontSize: "1.5vh"}}>2 stars<span>({ratings[2]})</span></ActionDiv><RatingBar value={2} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[2] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar></RatingBarContainer>
+          <RatingBarContainer><ActionDiv value={1} onClick={this.handleRatingClick} style={{fontSize: "1.5vh"}}>1 stars<span>({ratings[1]})</span></ActionDiv><RatingBar value={1} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[1] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar></RatingBarContainer>
         </Wrapper>
         <div>{recommendDisplay}</div>
-        <p>{recommendedPercent}% of reviews recommend this product</p>
       </>
     }
     return(
-      <div>{breakdownView}</div>
+      <BreakdownContainer>{breakdownView}</BreakdownContainer>
     )
   }
 }

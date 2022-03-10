@@ -28,7 +28,7 @@ const Background = styled.div`
 
 const ModalWrapper = styled.div`
   width: 800px;
-  height: 500px;
+  height: 600px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
@@ -40,6 +40,7 @@ const ModalWrapper = styled.div`
 const ModalReview = styled.div`
   width: 100%;
   height: 100%;
+  margin: 0 20px;
   border-radius: 5px;
   background: #fff;
 `;

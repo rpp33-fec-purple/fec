@@ -7,6 +7,11 @@ import { GlobalStyle } from './globalStyles.js';
 import baseUrl from './../../../../config.js';
 
 const Container = styled.div`
+margin: auto;
+width: 80%;
+`;
+
+const Components = styled.div`
 display: grid;
 grid-template-columns: 1fr 2fr;
 `;
@@ -70,10 +75,12 @@ class Reviews extends React.Component {
 
     return (
       <div className="ratingsAndReviews">
-        <Header>RATINGS & REVIEWS</Header>
         <Container>
-          <Breakdown productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} rating={avgRating} updateRatingsToFilter={this.filterStarRatings}/>
-          <List productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} sortBy={this.state.sortBy} updateSort={this.handleSortChange}/>
+          <Header style={{fontWeight: "300", marginBottom: "20px"}}>RATINGS & REVIEWS</Header>
+          <Components>
+            <Breakdown productID={this.props.productID} reviews={this.state.filteredReviews} meta={this.state.meta} rating={avgRating} updateRatingsToFilter={this.filterStarRatings}/>
+            <List productID={this.props.productID} name={this.props.name} reviews={this.state.filteredReviews} meta={this.state.meta} sortBy={this.state.sortBy} updateSort={this.handleSortChange}/>
+          </Components>
         </Container>
       </div>
     )

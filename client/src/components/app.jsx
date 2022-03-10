@@ -1,12 +1,15 @@
-import React from 'react';
-import Overview from './Overview/wrapper.jsx';
-import QA from './QA/wrapper.jsx';
-import RelatedItems from './RelatedItems/wrapper.jsx';
-import Reviews from './Reviews/wrapper.jsx';
+import React, { Suspense } from 'react';
+// import Overview from './Overview/wrapper.jsx';
+// import QA from './QA/wrapper.jsx';
+// import RelatedItems from './RelatedItems/wrapper.jsx';
+// import Reviews from './Reviews/wrapper.jsx';
 import GlobalStyle from './globalStyles.jsx';
 import styled from 'styled-components';
 import baseUrl from './../../../config.js';
 
+const Reviews = React.lazy(() => import('./Reviews/wrapper.jsx'));
+const Overview = React.lazy(() => import('./Overview/wrapper.jsx'));
+const QA = React.lazy(() => import('./QA/wrapper.jsx'));
 
 
 class App extends React.Component {
@@ -19,7 +22,7 @@ class App extends React.Component {
   componentDidMount() {
     console.log(baseUrl);
     $.ajax({
-      url: `${baseUrl}/products/64623`,
+      url: `${baseUrl}/products/64621`,
       method: 'GET',
       success: (data) => {
         // console.log('data in client', data);
@@ -36,12 +39,15 @@ class App extends React.Component {
     let overviewDiv = this.state.basicProductInfo.id ? <Overview basicProductInfo={this.state.basicProductInfo}/> : <div/>;
     return (
       <div>
+        <Suspense fallback={<div>Loading...</div>}>
+
         <h1 className= 'App'>Product Detail Page</h1>
         {overviewDiv}
-        <RelatedItems productID = {this.state.basicProductInfo.id}/>
+        {/* <RelatedItems productID = {this.state.basicProductInfo.id}/> */}
         <div>{qaDiv}</div>
-        <Reviews productID={this.state.basicProductInfo.id}/>
+        <Reviews productID={this.state.basicProductInfo.id} name={this.state.basicProductInfo.name}/>
         <GlobalStyle/>
+        </Suspense>
       </div>
     )
   }

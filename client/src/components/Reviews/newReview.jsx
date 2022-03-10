@@ -167,17 +167,17 @@ class NewReview extends React.Component {
       let id = this.props.meta.characteristics[char].id;
       return (
         <li key={char} onChange={this.handleCharChange}>
-          <label>{char}</label>
+          <label>{char}: </label>
           <input type="radio" id={id} name={char} value="1" required/>
-          <label htmlFor={char}>{this.characteristicOptions[char][1]}</label>
+          <label htmlFor={char} style={{margin: "0 5px 0 0"}}>{this.characteristicOptions[char][1]}</label>
           <input type="radio" id={id} name={char} value="2"/>
-          <label htmlFor={char}>{this.characteristicOptions[char][2]}</label>
+          <label htmlFor={char} style={{margin: "0 5px 0 0"}}>{this.characteristicOptions[char][2]}</label>
           <input type="radio" id={id} name={char} value="3"/>
-          <label htmlFor={char}>{this.characteristicOptions[char][3]}</label>
+          <label htmlFor={char} style={{margin: "0 5px 0 0"}}>{this.characteristicOptions[char][3]}</label>
           <input type="radio" id={id} name={char} value="4"/>
-          <label htmlFor={char}>{this.characteristicOptions[char][4]}</label>
+          <label htmlFor={char} style={{margin: "0 5px 0 0"}}>{this.characteristicOptions[char][4]}</label>
           <input type="radio" id={id} name={char} value="5"/>
-          <label htmlFor={char}>{this.characteristicOptions[char][5]}</label>
+          <label htmlFor={char} style={{margin: "0 5px 0 0"}}>{this.characteristicOptions[char][5]}</label>
         </li>
       )
     })
@@ -204,14 +204,14 @@ class NewReview extends React.Component {
     return(
       <form onSubmit={this.handleSubmit}>
         <h2>Write your review</h2>
-        <h4>About the [product name here]</h4>
-        <ul>
-          <li>
+        <h4>About the {this.props.name}</h4>
+        <ul style={{listStyleType: "none"}}>
+          <li className="formInput">
             <label htmlFor="rating">Overall Rating*</label>
             {starRatingComponent}
           </li>
-          <li onChange={this.handleRecommendationChange}>
-            <label htmlFor="">Do you recommend this product?*</label>
+          <li className="formInput" onChange={this.handleRecommendationChange}>
+            <label htmlFor="">Do you recommend this product?* </label>
             <input type="radio" id="yes" name="recommend" value="yes" required/>
             <label htmlFor="yes">Yes</label>
             <input type="radio" id="no" name="recommend" value="no"/>
@@ -219,28 +219,28 @@ class NewReview extends React.Component {
           </li>
           <label>Characteristics*</label>
           {characteristicRating}
-          <li>
+          <li className="formInput">
             <label htmlFor="summary">Review summary</label>
-            <textarea id="summary" onChange={this.handleSummaryChange} name="summary" maxLength="60"rows="3" cols="33" placeholder="Example: Best purchase ever!"/>
+            <textarea id="summary" style={{display: "block"}} onChange={this.handleSummaryChange} name="summary" maxLength="60"rows="3" cols="100" placeholder="Example: Best purchase ever!"/>
           </li>
-          <li>
+          <li className="formInput">
             <label htmlFor="body">Review body*</label>
-            <textarea id="body" onChange={this.handleBodyChange} name="body" minLength="50" maxLength="1000"rows="8" cols="33" placeholder="Why did you like the product or not?" required/>
+            <textarea id="body" style={{display: "block"}} onChange={this.handleBodyChange} name="body" minLength="50" maxLength="1000"rows="8" cols="100" placeholder="Why did you like the product or not?" required/>
           </li>
-          <li>
+          <li className="formInput">
             <label>Upload your photos</label>
           </li>
-          <li>
-            <label htmlFor="nickname">What is your nickname*</label>
+          <li className="formInput">
+            <label htmlFor="nickname">What is your nickname?* </label>
             <input type="text" id="nickname" onChange={this.handleNicknameChange} name="nickname" maxLength="60" placeholder="Example: jackson11!" required/>
-            <label htmlFor="nickname">For privacy reasons, do not use your full name or email address</label>
+            <label htmlFor="nickname" style={{fontSize: "0.8em"}}>  For privacy reasons, do not use your full name or email address</label>
           </li>
-          <li>
-            <label htmlFor="email">Your email*</label>
+          <li className="formInput">
+            <label htmlFor="email">Your email* </label>
             <input type="email" id="email" onChange={this.handleEmailChange} name="email" maxLength="60" placeholder="Example: jackson11@email.com" required/>
-            <label htmlFor="email">For authentication reasons, you will not be emailed</label>
+            <label htmlFor="email" style={{fontSize: "0.8em"}}>  For authentication reasons, you will not be emailed</label>
           </li>
-          <li>
+          <li className="formInput">
             <Button type="submit" id="submit" name="">Submit</Button>
           </li>
         </ul>
