@@ -103,7 +103,7 @@ class SearchBar extends React.Component {
   sortWithFilter() {
     var term = this.state.searchTerm;
     $.ajax({
-      url: `http://localhost:3000/qa/questions`,
+      url: `${baseUrl}/qa/questions`,
       data: {
         product_id: this.props.productID,
         page: 1,

@@ -361,7 +361,7 @@ class QuestionListEntry extends React.Component {
     var buttonID = event.target.id;
 
     $.ajax({
-      url: `http://localhost:3000/qa/questions/${questionID}/helpful`,
+      url: `${baseUrl}/qa/questions/${questionID}/helpful`,
       data: {
         question_id: questionID
       },
@@ -382,7 +382,7 @@ class QuestionListEntry extends React.Component {
     var buttonID = event.target.id;
 
     $.ajax({
-      url: `http://localhost:3000/qa/questions/${questionID}/report`,
+      url: `${baseUrl}/qa/questions/${questionID}/report`,
       data: {
         question_id: questionID
       },
@@ -401,14 +401,14 @@ class QuestionListEntry extends React.Component {
     var buttonID = event.target.id;
 
     $.ajax({
-      url: `http://localhost:3000/qa/answers/${answerID}/helpful`,
+      url: `${baseUrl}/qa/answers/${answerID}/helpful`,
       data: {
         answer_id: answerID
       },
       method: 'PUT',
       success: (data) => {
         $.ajax({
-          url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+          url: `${baseUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
           data: {
             question_id: this.props.qACombo.question_id,
             page: 1,
@@ -442,7 +442,7 @@ class QuestionListEntry extends React.Component {
     var buttonID = event.target.id;
 
     $.ajax({
-      url: `http://localhost:3000/qa/answers/${answerID}/report`,
+      url: `${baseUrl}/qa/answers/${answerID}/report`,
       data: {
         answer_id: answerID
       },
