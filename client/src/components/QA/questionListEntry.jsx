@@ -39,6 +39,7 @@ const Container = styled.div`
     margin-left: 5px;
     margin-top: 2.5px;
     margin-bottom: 2.5px;
+    height: 60px;
 
   `;
 
