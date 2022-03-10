@@ -221,11 +221,11 @@ class NewReview extends React.Component {
           {characteristicRating}
           <li className="formInput">
             <label htmlFor="summary">Review summary</label>
-            <textarea id="summary" style={{display: "block"}} onChange={this.handleSummaryChange} name="summary" maxLength="60"rows="3" cols="33" placeholder="Example: Best purchase ever!"/>
+            <textarea id="summary" style={{display: "block"}} onChange={this.handleSummaryChange} name="summary" maxLength="60"rows="3" cols="100" placeholder="Example: Best purchase ever!"/>
           </li>
           <li className="formInput">
             <label htmlFor="body">Review body*</label>
-            <textarea id="body" style={{display: "block"}} onChange={this.handleBodyChange} name="body" minLength="50" maxLength="1000"rows="8" cols="33" placeholder="Why did you like the product or not?" required/>
+            <textarea id="body" style={{display: "block"}} onChange={this.handleBodyChange} name="body" minLength="50" maxLength="1000"rows="8" cols="100" placeholder="Why did you like the product or not?" required/>
           </li>
           <li className="formInput">
             <label>Upload your photos</label>
