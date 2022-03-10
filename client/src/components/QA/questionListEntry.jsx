@@ -397,7 +397,6 @@ class QuestionListEntry extends React.Component {
   }
 
   markAnswerHelpful(answerID) {
-    console.log('event target id', event.target)
     var buttonID = event.target.id;
 
     $.ajax({
@@ -511,6 +510,7 @@ class QuestionListEntry extends React.Component {
       var sorted = this.sortAnswers(answers);
 
       answersDiv = sorted.map(a => {
+        console.log('this is an answer', a)
         if (a.answerer_name === 'Seller') {
           var seller = <strong key={a.answerer_name}>{a.answerer_name}</strong>
         }
@@ -534,8 +534,8 @@ class QuestionListEntry extends React.Component {
             <div className='answererInfoAndLinks'>
               <p>
                 <span className='answererInfoSpan'>by {seller || a.answerer_name}, {this.formatDate(a.date)}</span> |
-                <span className='helpfulSpan'> Helpful? <u className='markAnswerHelpful' id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u>  ({a.helpfulness})</span> |
-                <u className='reportAnswer' id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}> Report</u>
+                <span className='helpfulSpan'> Helpful? <u className='markAnswerHelpful' id={a.id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u>  ({a.helpfulness})</span> |
+                <u className='reportAnswer' id={a.id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}> Report</u>
               </p>
             </div>
           </div>
