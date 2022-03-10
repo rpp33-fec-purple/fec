@@ -224,7 +224,7 @@ class Breakdown extends React.Component {
           <h2 style={{fontSize: "3em"}}>{avgRating}</h2>
           {starRatingDisplay}
         </div>
-        <p style={{fontSize: "1vw"}}>{recommendedPercent}% of reviews recommend this product</p>
+        <p style={{fontSize: "14px"}}>{recommendedPercent}% of reviews recommend this product</p>
         <>{ratingFilterView}</>
         <Wrapper>
           <RatingBarContainer><ActionDiv value={5} onClick={this.handleRatingClick} style={{fontSize: "1.5vh"}}>5 stars<span>({ratings[5]})</span></ActionDiv><RatingBar value={5} onClick={this.handleRatingClick}><RatingBarFill style={{width: `${(ratings[5] / numOfRatings) * 100}%`}}></RatingBarFill></RatingBar></RatingBarContainer>

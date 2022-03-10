@@ -24,7 +24,6 @@ class App extends React.Component {
       success: (data) => {
         // console.log('data in client', data);
         this.setState({basicProductInfo: data});
-        console.log('product data', data);
         // console.log('GET request to http://localhost:3000/products/64620 successful!');
       },
       error: (err) => {
