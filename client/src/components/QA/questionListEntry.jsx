@@ -268,7 +268,7 @@ class QuestionListEntry extends React.Component {
 
   collapseAnswers() {
     $.ajax({
-      url: `${basUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
+      url: `${baseUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
       data: {
         question_id: this.props.qACombo.question_id,
         page: 1,
