@@ -85,7 +85,7 @@ class List extends React.Component {
         <>
         <div>
           <label>{reviews.results.length} reviews, sorted by </label>
-          <select name="sort" id="sort" value={this.props.sortBy} onChange={this.handleSortChange} style={{border: "none", borderBottom: "1px solid black"}}>
+          <select name="sort" id="sort" value={this.props.sortBy} onChange={this.handleSortChange} style={{border: "none", borderBottom: "1px solid black", margin: "0 0 10px 0"}}>
             <option value="relevant">relevance</option>
             <option value="helpful">helpfulness</option>
             <option value="newest">newest</option>
@@ -115,7 +115,7 @@ class List extends React.Component {
 
     let newReviewForm;
     if (this.state.displayReviewForm) {
-      newReviewForm = <NewReview meta={this.props.meta} productID={this.props.productID} close={this.closeReview}/>
+      newReviewForm = <NewReview meta={this.props.meta} productID={this.props.productID} name={this.props.name} close={this.closeReview}/>
     } else {
       newReviewForm = null
     }

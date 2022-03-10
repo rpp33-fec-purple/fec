@@ -4,6 +4,10 @@
   --light-purple: #a070a1;
 }
 
+.formInput {
+  margin: 10px 0;
+}
+
 /* EMPTY STARS FOR DISPLAY */
 .stars-outer {
   display: inline-block;

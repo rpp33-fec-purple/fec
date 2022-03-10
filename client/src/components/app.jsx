@@ -19,11 +19,12 @@ class App extends React.Component {
   componentDidMount() {
     console.log(baseUrl);
     $.ajax({
-      url: `${baseUrl}/products/64621`,
+      url: `${baseUrl}/products/64622`,
       method: 'GET',
       success: (data) => {
         // console.log('data in client', data);
         this.setState({basicProductInfo: data});
+        console.log('product data', data);
         // console.log('GET request to http://localhost:3000/products/64620 successful!');
       },
       error: (err) => {
@@ -40,7 +41,7 @@ class App extends React.Component {
         {overviewDiv}
         <RelatedItems productID = {this.state.basicProductInfo.id}/>
         <div>{qaDiv}</div>
-        <Reviews productID={this.state.basicProductInfo.id}/>
+        <Reviews productID={this.state.basicProductInfo.id} name={this.state.basicProductInfo.name}/>
         <GlobalStyle/>
       </div>
     )
