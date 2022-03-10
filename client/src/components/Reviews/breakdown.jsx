@@ -10,7 +10,7 @@ flex-direction: column;
 `;
 
 const Wrapper = styled.div`
-  margin-top: 20px;
+  margin-top: 10px;
   width: 250px;
 `;
 
@@ -158,7 +158,7 @@ class Breakdown extends React.Component {
           return b - a;
         });
         ratingFilterView =
-        <div>Ratings filtered by star(s): {ratingFilterLabels.map((label) => {
+        <div style={{fontSize: ".8em", margin: "10px 0 0 0"}}>Ratings filtered by star(s): {ratingFilterLabels.map((label) => {
           return (`${label} `)
         })} <ActionDiv onClick={this.handleRemoveAllStarFilterClick}>Remove all filters</ActionDiv>
         </div>
