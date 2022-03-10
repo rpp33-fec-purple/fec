@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import baseUrl from './../../../../config.js';
+
 
 const Container = styled.div`
   display: flex;
@@ -79,6 +81,12 @@ class SearchBar extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.sortWithFilter = this.sortWithFilter.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
 
   }
 
@@ -103,7 +111,7 @@ class SearchBar extends React.Component {
   sortWithFilter() {
     var term = this.state.searchTerm;
     $.ajax({
-      url: `http://localhost:3000/qa/questions`,
+      url: `${baseUrl}/qa/questions`,
       data: {
         product_id: this.props.productID,
         page: 1,
@@ -152,7 +160,7 @@ class SearchBar extends React.Component {
       <Container>
         <StyledSearchBar>
           <div id='qaSearchBar'>
-            <form className='search'>
+            <form className='search' onSubmit={this.handleSubmit}>
               <label htmlFor='question' id='qaSearchBar'></label>
               <input type='text' name='question' className='searchTerm' size="97" placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' onChange={this.handleChange}></input>
               {/* <button type="submit" className='searchButton'>Search</button> */}

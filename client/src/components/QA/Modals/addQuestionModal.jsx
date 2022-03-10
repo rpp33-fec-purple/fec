@@ -2,6 +2,8 @@ import React, {useRef, useEffect, useCallBack} from 'react';
 import {useSpring, animated} from 'react-spring';
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
+import baseUrl from './../../../../../config.js';
+
 
 const Background = styled.div`
   position: fixed;
@@ -91,6 +93,7 @@ class QuestionModal extends React.Component {
     e.preventDefault();
     console.log('should be id', e.target.id)
     console.log('should be value', e.target.value)
+    console.log('base url', baseUrl)
 
 
     this.setState({
@@ -116,7 +119,7 @@ class QuestionModal extends React.Component {
       alert('The email address provided is not in correct email format')
     } else {
       $.ajax({
-        url: 'http://localhost:3000/qa/questions',
+        url: `${baseUrl}/qa/questions`,
         data: {
           body: question,
           name: nickname,
