@@ -519,9 +519,9 @@ class QuestionListEntry extends React.Component {
         if (a.photos.length === 0) {
           var photosDiv = <></>;
         } else {
-          var photosDiv = a.photos.map(photo => {
+          var photosDiv = a.photos.map((photoURL, i) => {
             return (
-              <ImageThumbnail className='photoThumbnails' key={photo.url} src={photo.url} width='50'></ImageThumbnail>
+              <ImageThumbnail className='photoThumbnail' key={i} src={photoURL} width='50'></ImageThumbnail>
             )
           })
         }
