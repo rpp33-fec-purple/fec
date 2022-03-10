@@ -16,14 +16,14 @@ const ScrollableList = styled.div`
 const Button = styled.button`
 display:inline-block;
 padding:0.35em 1.2em;
-border:0.2em solid #a070a1;
+border:0.2em solid #724060;
 margin:0 0.3em 0.3em 0;
 border-radius: 5px;
 box-sizing: border-box;
 text-decoration:none;
 font-weight:300;
 color:#FFFFFF;
-background-color: #a070a1;
+background-color: #724060;
 text-align:center;
 transition: all 0.2s;
 min-width: 10ch;

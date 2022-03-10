@@ -151,7 +151,7 @@ class Tile extends React.Component {
       let photos;
       if (currentReview.photos) {
         photos = currentReview.photos.map((photo) => {
-          return <Thumbnail src={photo.url} key={photo.id} onClick={this.expandImg}></Thumbnail>
+          return <Thumbnail src={photo.url} key={photo.id} onClick={this.expandImg} alt="customer submitted image thumbnail"></Thumbnail>
         })
       }
 
@@ -177,7 +177,7 @@ class Tile extends React.Component {
 
       view =
       <>
-          {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
+          {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal} alt="customer submitted image"></ImgModal> : null}
           <TileHeader>
             <div>{currentReviewStarRating}</div>
             <div style={{fontSize: ".7em", color: "#666"}}>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
