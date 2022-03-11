@@ -58,6 +58,8 @@ const ModalContent = styled.div`
     background: #141414;
     color: #fff;
     border: none;
+    cursor: pointer;
+
   }
 `;
 

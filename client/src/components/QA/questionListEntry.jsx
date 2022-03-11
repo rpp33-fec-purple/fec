@@ -2,15 +2,12 @@ import React from 'react';
 import $ from 'jquery';
 import styled from 'styled-components';
 import AnswerModal from './Modals/addAnswerModal.jsx';
+import ImageModal from './Modals/imageModal.jsx';
 import baseUrl from './../../../../config.js';
 
 const Container = styled.div`
   display: flex;
   justify-content: left;
-  // align-items: center;
-  // height: 10vh;
-  // box-sizing: border-box;
-  // margin: 0;
   padding: 4px;
   width: 780px;
   position: inherit;
@@ -25,9 +22,6 @@ const Container = styled.div`
   max-height: 400px;
   width: 100%;
   overflow: auto;
-  // border: 1px solid black;
-  // display: flex;
-  // justify-content: center;
   align-items: center;
 `;
 
@@ -40,7 +34,7 @@ const Container = styled.div`
     margin-top: 2.5px;
     margin-bottom: 2.5px;
     height: 60px;
-
+    cursor: pointer;
   `;
 
   const QuestionBox = styled.div`
@@ -58,7 +52,6 @@ const Container = styled.div`
 
     .push {
         margin-left: auto;
-        // padding-left: 140px;
         justify-content: right;
         font-size: 11.5px;
         color: #808080;
@@ -101,7 +94,6 @@ const Container = styled.div`
         width: 2rem;
         padding-top: .5rem;
         padding-bottom: .2rem;
-
       }
 
       .answersInView {
@@ -111,7 +103,6 @@ const Container = styled.div`
 
       .answerInfo {
         font-size: 13.5px;
-        // font-color: #36454F;
         padding-top: .5rem;
         padding-bottom: .5rem;
       }
@@ -123,11 +114,6 @@ const Container = styled.div`
       .reportAnswer {
         cursor: pointer;
         padding-left: .5rem;
-
-      }
-
-      .photoThumbail {
-
       }
 
       .answererInfoAndLinks {
@@ -211,7 +197,8 @@ class QuestionListEntry extends React.Component {
       displayingAll: false,
       isModalShowing: false,
       updatedAnswersList: [],
-      answersMarkedHelpful: []
+      answersMarkedHelpful: [],
+      isImageModalShowing: false
     }
     this.seeMoreAnswers = this.seeMoreAnswers.bind(this);
     this.collapseAnswers = this.collapseAnswers.bind(this);
@@ -223,12 +210,23 @@ class QuestionListEntry extends React.Component {
     this.markAnswerHelpful = this.markAnswerHelpful.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
     this.disableButton = this.disableButton.bind(this);
+    this.changeImageModalVisibilityState = this.changeImageModalVisibilityState.bind(this);
 
     var newAnswerAdded = false;
     var answerMarkedHelpful = false;
     var seeMoreAnswersClicked = false;
     var collapseAnswersClicked = false;
     var questionMarkedHelpful = false;
+    var imageThumbnailClicked = '';
+  }
+
+
+  changeImageModalVisibilityState() {
+    console.log('image clicked', event.target.src)
+    this.imageThumbnailClicked = event.target.src;
+    this.setState({
+      isImageModalShowing: !this.state.isImageModalShowing
+    })
   }
 
   changeModalVisibilityState(answerAdded) {
@@ -418,7 +416,6 @@ class QuestionListEntry extends React.Component {
           success: (data) => {
             this.answerMarkedHelpful = true;
             this.disableButton(buttonID);
-            // var buttonsMarkedHelpful = this.state.answersMarkedHelpful.push(buttonID);
             console.log('Successfully marking answer as helpful')
             this.setState({
               updatedAnswersList: data.results
@@ -481,7 +478,7 @@ class QuestionListEntry extends React.Component {
         } else {
           var photosDiv = a.photos.map(photo => {
             return (
-              <ImageThumbnail className='photoThumbnail' key={photo.url} src={photo.url} width='50'></ImageThumbnail>
+              <ImageThumbnail className='photoThumbnail' key={photo.url} src={photo.url} width='50' onClick={() => { this.changeImageModalVisibilityState() }}></ImageThumbnail>
             )
           })
         }
@@ -511,7 +508,6 @@ class QuestionListEntry extends React.Component {
       var sorted = this.sortAnswers(answers);
 
       answersDiv = sorted.map(a => {
-        // console.log('this is an answer', a)
         if (a.answerer_name === 'Seller') {
           var seller = <strong key={a.answerer_name}>{a.answerer_name}</strong>
         }
@@ -522,7 +518,7 @@ class QuestionListEntry extends React.Component {
         } else {
           var photosDiv = a.photos.map((photoURL, i) => {
             return (
-              <ImageThumbnail className='photoThumbnail' key={i} src={photoURL} width='50'></ImageThumbnail>
+              <ImageThumbnail className='photoThumbnail' key={i} src={photoURL} width='50' onClick={() => { this.changeImageModalVisibilityState(photoURL) }}></ImageThumbnail>
             )
           })
         }
@@ -552,7 +548,6 @@ class QuestionListEntry extends React.Component {
     }
 
     if (answersDiv.length > 2) {
-      // var moreAnswersButton = this.state.displayingAll ? <button onClick={this.collapseAnswers}>Collapse Answers</button> : <button onClick={this.seeMoreAnswers.bind(this)}>SEE MORE ANSWERS</button>
       var moreAnswersButton = this.state.displayingAll ? <AnswersButton><button onClick={this.collapseAnswers} className="button-forAnswers" role="button"><span className="text">COLLAPSE ANSWERS</span></button></AnswersButton> : <AnswersButton><button onClick={this.seeMoreAnswers.bind(this)} className="button-forAnswers" role="button"><span className="text">SEE MORE ANSWERS</span></button> </AnswersButton>
 
     } else {
@@ -581,9 +576,8 @@ class QuestionListEntry extends React.Component {
             </div>
           </QuestionBox>
           <div>
-           {/* <Container> */}
            <AnswerModal questionID={this.props.qACombo.question_id} question={this.props.qACombo.question_body} productName={this.props.productName} isModalShowing={this.state.isModalShowing} changeModalState={this.changeModalVisibilityState}></AnswerModal>
-            {/* </Container> */}
+           <ImageModal imageSrc={this.imageThumbnailClicked} isImageModalShowing={this.state.isImageModalShowing} changeImageModalState={this.changeImageModalVisibilityState}></ImageModal>
           <div>
             <AnswersContainer>
               <div className='answersContainer'>
@@ -592,9 +586,7 @@ class QuestionListEntry extends React.Component {
               </div>
             </AnswersContainer>
             <div className='moreAnswersButton'>
-
               {moreAnswersButton}
-
             </div>
           </div>
 
