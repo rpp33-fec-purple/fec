@@ -63,7 +63,7 @@ app.post('/reviews', (req, res) => {
 
   axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews`, params, {
     headers: {
-      'Authorization': config.TOKEN
+      'Authorization': process.env.API_KEY
     }
   })
   .then(response => {
@@ -95,7 +95,7 @@ app.post('/*', (req, res) => {
   }
   return axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${path}`, params, {
     headers: {
-      'Authorization': config.TOKEN
+      'Authorization': process.env.API_KEY
     }
   })
     .then(response => {
@@ -126,7 +126,7 @@ app.put('/*', (req, res) => {
 
   return axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${path}`, params, {
     headers: {
-      'Authorization': config.TOKEN
+      'Authorization': process.env.API_KEY
     }
   })
   .then(response => {
