@@ -10,8 +10,9 @@ import baseUrl from './../../../../config.js';
 
 const OverviewWrapper = styled.div`
   display: flex;
-  height: 48em;
-  width: 70em;
+  height:auto;
+  width: 59.5em;
+  margin: auto;
   flex-flow: row wrap;
 `;
 const VerticalContainer = styled.div`

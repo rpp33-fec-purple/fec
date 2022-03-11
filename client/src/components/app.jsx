@@ -17,7 +17,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      basicProductInfo: sampleData.basicProductInfo
+      basicProductInfo: {}
     }
   }
   componentDidMount() {

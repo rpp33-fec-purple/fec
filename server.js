@@ -5,6 +5,7 @@ const axios = require('axios');
 const config = require('./config.js');
 const path = require('path');
 var cors = require('cors');
+var baseUrl = require('./config.js');
 require('dotenv').config();
 
 

@@ -8,7 +8,6 @@ const ImageGalleryContainer = styled.div`
   display: flex;
   flex-direction: row;
   background-color: rgb(231, 229, 229);
-  /* border: .2em dotted rgb(78, 78, 47); */
   box-shadow: 0 0 30px rgb(0, 0, 0, 0.15);
 `;
 const ImageGalleryContainerExpanded = styled.div`
@@ -17,7 +16,6 @@ const ImageGalleryContainerExpanded = styled.div`
   display: flex;
   flex-direction: row;
   background-color: rgb(231, 229, 229);
-  /* border: .2em dotted rgb(78, 78, 47); */
   box-shadow: 0 0 30px rgb(0, 0, 0, 0.15);
 `;
 const ThumbnailCarouselContainer = styled.div`

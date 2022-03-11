@@ -18,6 +18,7 @@ const QuantityDropDown = styled.select`
   margin-right: 1em;
   width: 9em;
   background-color: #724060;
+  cursor: pointer;
   color: #fff;
   padding: 16px 32px;
 `;
@@ -27,6 +28,7 @@ const SizeDropDown = styled.select`
   margin-right: 1em;
   width: 16em;
   background-color: #724060;
+  cursor: pointer;
   color: #fff;
   padding: 16px 32px;
 `;

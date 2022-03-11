@@ -58,7 +58,7 @@ class ProductInformation extends React.Component {
           <span> </span>
           <Underline onClick={this.moveToReviews.bind(this)}>Read all reviews</Underline>
         </div>
-        <Category>{this.props.productInfo.category.toUpperCase()}</Category>
+        <Category>{this.props.productInfo.category ? this.props.productInfo.category.toUpperCase() : ''}</Category>
         <h1>{this.props.productInfo.name}</h1>
         {price}
         </ProductInformationContainer>
