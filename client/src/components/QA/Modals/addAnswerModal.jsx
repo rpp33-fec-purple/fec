@@ -5,17 +5,6 @@ import { MdClose } from 'react-icons/md';
 import baseUrl from './../../../../../config.js';
 
 
-const Container = styled.div`
-  display: flex;
-  justify-content: left;
-  // align-items: center;
-  // height: 10vh;
-  // box-sizing: border-box;
-  // margin: 0;
-  // padding: 8px;
-
-  // font-family: 'Arial', sans-serif;
-`
 
 const Background = styled.div`
   position: fixed;
@@ -28,18 +17,8 @@ const Background = styled.div`
   background: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
-
-
-
-  // width: 100%;
-  // height: 100%;
-  // background: rgba(0, 0, 0, 0.8);
-  // position: absolute;
-  // // position: inherit;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
 `;
+
 const ModalWrapper = styled.div`
   width: 600px;
   height: 385px;
@@ -65,7 +44,6 @@ const ModalContent = styled.div`
   h2 {
     padding-left: 15px;
     padding-right: 10px;
-    // font-size: 15px;
   }
 
   p {
@@ -77,6 +55,8 @@ const ModalContent = styled.div`
     background: #141414;
     color: #fff;
     border: none;
+    cursor: pointer;
+
   }
 `;
 

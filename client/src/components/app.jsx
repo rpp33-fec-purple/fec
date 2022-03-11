@@ -6,7 +6,7 @@ import React, { Suspense } from 'react';
 import GlobalStyle from './globalStyles.jsx';
 import styled from 'styled-components';
 import baseUrl from './../../../config.js';
-import sampleData from './Overview/sampleData.js';
+import { wrapWithParams } from './wrapWithParams.jsx';
 
 const Reviews = React.lazy(() => import('./Reviews/wrapper.jsx'));
 const Overview = React.lazy(() => import('./Overview/wrapper.jsx'));
@@ -21,8 +21,10 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
+    console.log('props params', this.props.params);
+    console.log(baseUrl);
     $.ajax({
-      url: `${baseUrl}/products/64622`,
+      url: `${baseUrl}/products/${this.props.params.product_id}`,
       method: 'GET',
       success: (data) => {
         this.setState({basicProductInfo: data});
@@ -53,6 +55,6 @@ class App extends React.Component {
 }
 
 
-export default App;
+export default wrapWithParams(App);
 
 

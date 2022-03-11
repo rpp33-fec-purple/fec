@@ -1,5 +1,10 @@
+import {useParams} from 'react-router-dom';
 const baseUrl = require('./../../config.js');
 
+
+export const wrapWithParams = (Component) => {
+  return props => <Component {...props} params = {useParams()}/>;
+}
 export const justAnAlert = () => {
   alert('hello');
 }
