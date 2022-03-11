@@ -114,9 +114,6 @@ class AddToCart extends React.Component {
     var sku_id;
     if (selectedSize !== 'DEFAULT' && selectedQuantity !== 'DEFAULT') {
       for (var key in this.props.styleInfo[this.props.currentStyleIndex].skus) {
-        console.log(this.props.styleInfo[this.props.currentStyleIndex].skus[key]['size']);
-
-
         if (this.props.styleInfo[this.props.currentStyleIndex].skus[key]['size'] === selectedSize) {
           sku_id = key;
           $.ajax({
@@ -144,7 +141,11 @@ class AddToCart extends React.Component {
       const tooltip2 = document.getElementById('quantityTooltipText');
       tooltip2.style.visibility = 'visible';
     } else if (selectedSize === 'DEFAULT') {
-
+      const tooltip = document.getElementById('sizeTooltipText');
+      tooltip.style.visibility = 'visible';
+    } else if (selectedQuantity === 'DEFAULT') {
+      const tooltip2 = document.getElementById('quantityTooltipText');
+      tooltip2.style.visibility = 'visible';
     }
   }
   render() {

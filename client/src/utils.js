@@ -1,3 +1,5 @@
+const baseUrl = require('./../../config.js');
+
 export const justAnAlert = () => {
   alert('hello');
 }
@@ -30,11 +32,11 @@ export const formatDate = (isoDate) => {
 export const clickTracker = (element, widgetName) => {
   var currentTime = formatDate(new Date());
   $.ajax({
-    url: 'http://localhost:3000/interactions',
+    url: `${baseUrl}/interactions`,
     method: 'POST',
     data: {
       element: element,
-      widget: widget,
+      widget: widgetName,
       time: currentTime
     },
     success: () => {

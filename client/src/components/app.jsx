@@ -6,6 +6,7 @@ import React, { Suspense } from 'react';
 import GlobalStyle from './globalStyles.jsx';
 import styled from 'styled-components';
 import baseUrl from './../../../config.js';
+import sampleData from './Overview/sampleData.js';
 
 const Reviews = React.lazy(() => import('./Reviews/wrapper.jsx'));
 const Overview = React.lazy(() => import('./Overview/wrapper.jsx'));
@@ -20,9 +21,8 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    console.log(baseUrl);
     $.ajax({
-      url: `${baseUrl}/products/64621`,
+      url: `${baseUrl}/products/64622`,
       method: 'GET',
       success: (data) => {
         this.setState({basicProductInfo: data});
@@ -40,12 +40,12 @@ class App extends React.Component {
       <div>
         <Suspense fallback={<div>Loading...</div>}>
 
-        <h1 className= 'App'>Product Detail Page</h1>
-        <Overview productId={this.state.basicProductInfo.id} basicProductInfo={this.state.basicProductInfo}/>
-        {/* <RelatedItems productID = {this.state.basicProductInfo.id}/> */}
-        <div>{qaDiv}</div>
-        <Reviews productID={this.state.basicProductInfo.id} name={this.state.basicProductInfo.name}/>
-        <GlobalStyle/>
+          <h1 className= 'App'>Product Detail Page</h1>
+          {<Overview productId={this.state.basicProductInfo.id} basicProductInfo={this.state.basicProductInfo}/>}
+          {/* <RelatedItems productID = {this.state.basicProductInfo.id}/> */}
+          <div>{qaDiv}</div>
+          <Reviews productID={this.state.basicProductInfo.id} name={this.state.basicProductInfo.name}/>
+          <GlobalStyle/>
         </Suspense>
       </div>
     )
