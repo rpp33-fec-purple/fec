@@ -22,7 +22,6 @@ app.use(cors());
 
 
 app.get('/reviews', (req, res) => {
-  console.log('reviews path hit, req body', req.body);
   var path = req.originalUrl;
   // console.log('PATH ->', path);
   return axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${path}`, {
