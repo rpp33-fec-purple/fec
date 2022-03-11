@@ -12,6 +12,7 @@ ReactDOM.render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<App/>}/>
+            <Route path="/:product_id" element={<App/>}/>
         </Routes>
     </BrowserRouter>,
  document.getElementById('app'));

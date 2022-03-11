@@ -89,7 +89,7 @@ class Reviews extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.productID !== this.props.productID || prevState.sortBy !== this.state.sortBy) {
       $.ajax({
-        url: `${baseUrl}/reviews/`,
+        url: `${baseUrl}/reviews`,
         data: {
           product_id: this.props.productID,
           page: 1,
