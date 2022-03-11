@@ -2,6 +2,8 @@ import React, {useRef, useEffect, useCallBack} from 'react';
 import {useSpring, animated} from 'react-spring';
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
+import baseUrl from './../../../../../config.js';
+
 
 const Container = styled.div`
   display: flex;
@@ -40,7 +42,7 @@ const Background = styled.div`
 `;
 const ModalWrapper = styled.div`
   width: 600px;
-  height: 350px;
+  height: 385px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fdf3f3;
   color: #000;
@@ -59,6 +61,12 @@ const ModalContent = styled.div`
   line-height: 1.8;
   color: #141414;
   font-size: 12px;
+
+  h2 {
+    padding-left: 15px;
+    padding-right: 10px;
+    // font-size: 15px;
+  }
 
   p {
     margin-bottom: 1rem;
@@ -129,7 +137,7 @@ class AnswerModal extends React.Component {
       alert('The email address provided is not in correct email format')
     } else {
       $.ajax({
-        url: `http://localhost:3000/qa/questions/${this.props.questionID}/answers`,
+        url: `${baseUrl}/qa/questions/${this.props.questionID}/answers`,
         data: {
           body: answer,
           name: nickname,
@@ -155,7 +163,7 @@ class AnswerModal extends React.Component {
               <ModalWrapper isModalShowing={this.props.isModalShowing}>
                 <ModalContent>
                   <h1>Submit your Answer</h1>
-                  <h2>{this.props.productName}: {this.props.question}</h2>
+                  <h2 id='questionHeader'>{this.props.productName}: {this.props.question}</h2>
                   <form>
                     <label htmlFor='answer'>Your Answer *</label><br></br>
                     <TextArea id='answer' name='answer' maxLength='1000' rows="4" cols="50" onChange={this.handleChange}></TextArea><br></br>

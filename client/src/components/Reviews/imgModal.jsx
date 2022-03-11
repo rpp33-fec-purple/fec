@@ -40,7 +40,7 @@ const ModalWrapper = styled.div`
 const ModalImg = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 10px 0 0 10px;
+  border-radius: 10px;
   background: #000;
 `;
 

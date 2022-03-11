@@ -5,9 +5,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import ImgModal from './imgModal.jsx';
 
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Thumbnails = styled.div`
+  display: flex;
+`;
+
 const Thumbnail = styled.img`
-width: 100px;
-height: 100px;
+  width: 75px;
+  height: 75px;
+  margin: 5px;
+  border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const ActionDiv = styled.div`
@@ -17,6 +32,12 @@ const ActionDiv = styled.div`
     cursor: pointer;
   }
 `;
+
+const TileHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 
 
 
@@ -130,7 +151,7 @@ class Tile extends React.Component {
       let photos;
       if (currentReview.photos) {
         photos = currentReview.photos.map((photo) => {
-          return <Thumbnail src={photo.url} key={photo.id} onClick={this.expandImg}></Thumbnail>
+          return <Thumbnail src={photo.url} key={photo.id} onClick={this.expandImg} alt="customer submitted image thumbnail"></Thumbnail>
         })
       }
 
@@ -156,24 +177,24 @@ class Tile extends React.Component {
 
       view =
       <>
-        <div>
-          {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal}></ImgModal> : null}
-          {currentReviewStarRating}
-          <div>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
-          <div><b>{currentReview.summary}</b></div>
-          {this.shorten(currentReview.body, 250, currentReview.id)}
-          {photos}
-          {currentReview.recommend ? <div>{checkMark} I recommend this product</div> : null}
+          {this.state.isImageExpanded ? <ImgModal url={this.state.expandedImageURL} closeImgModal={this.closeImgModal} alt="customer submitted image"></ImgModal> : null}
+          <TileHeader>
+            <div>{currentReviewStarRating}</div>
+            <div style={{fontSize: ".7em", color: "#666"}}>{currentReview.reviewer_name}, {formatDate(currentReview.date)}</div>
+          </TileHeader>
+          <div style={{margin: "10px 0"}}><b>{currentReview.summary}</b></div>
+          <div style={{fontSize: "0.9em", margin: "10px 0"}}>{this.shorten(currentReview.body, 250, currentReview.id)}</div>
+          <Thumbnails>{photos}</Thumbnails>
+          {currentReview.recommend ? <div style={{fontSize: "0.9em"}}>{checkMark} I recommend this product</div> : null}
           {currentReview.response ? <div>Response: {currentReview.response}</div>: null}
-          <div>Helpful? <ActionDiv id={currentReview.review_id} onClick={this.handleHelpfulClick}>Yes</ActionDiv>({currentReview.helpfulness})  |  <ActionDiv id={currentReview.review_id} onClick={this.handleReportClick}>Report</ActionDiv></div>
-        </div>
-        <hr></hr>
+          <div style={{fontSize: "0.7em", color:"#666", marginTop: "10px"}}>Helpful? <ActionDiv id={currentReview.review_id} onClick={this.handleHelpfulClick}>Yes</ActionDiv>({currentReview.helpfulness})  |  <ActionDiv id={currentReview.review_id} onClick={this.handleReportClick}>Report</ActionDiv></div>
+        <hr style={{margin: "20px 0"}}></hr>
       </>
     } else {
       view = <div>No Reviews Yet</div>
     }
 
-    return (<div>{view}</div>)
+    return (<Container>{view}</Container>)
   }
 
 }

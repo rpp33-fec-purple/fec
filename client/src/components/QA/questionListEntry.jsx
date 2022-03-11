@@ -39,6 +39,7 @@ const Container = styled.div`
     margin-left: 5px;
     margin-top: 2.5px;
     margin-bottom: 2.5px;
+    height: 60px;
 
   `;
 
@@ -268,7 +269,7 @@ class QuestionListEntry extends React.Component {
 
   collapseAnswers() {
     $.ajax({
-      url: `${basUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
+      url: `${baseUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
       data: {
         question_id: this.props.qACombo.question_id,
         page: 1,
@@ -361,7 +362,7 @@ class QuestionListEntry extends React.Component {
     var buttonID = event.target.id;
 
     $.ajax({
-      url: `http://localhost:3000/qa/questions/${questionID}/helpful`,
+      url: `${baseUrl}/qa/questions/${questionID}/helpful`,
       data: {
         question_id: questionID
       },
@@ -382,7 +383,7 @@ class QuestionListEntry extends React.Component {
     var buttonID = event.target.id;
 
     $.ajax({
-      url: `http://localhost:3000/qa/questions/${questionID}/report`,
+      url: `${baseUrl}/qa/questions/${questionID}/report`,
       data: {
         question_id: questionID
       },
@@ -397,18 +398,17 @@ class QuestionListEntry extends React.Component {
   }
 
   markAnswerHelpful(answerID) {
-    console.log('event target id', event.target)
     var buttonID = event.target.id;
 
     $.ajax({
-      url: `http://localhost:3000/qa/answers/${answerID}/helpful`,
+      url: `${baseUrl}/qa/answers/${answerID}/helpful`,
       data: {
         answer_id: answerID
       },
       method: 'PUT',
       success: (data) => {
         $.ajax({
-          url: `http://localhost:3000/qa/questions/${this.props.qACombo.question_id}/answers`,
+          url: `${baseUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
           data: {
             question_id: this.props.qACombo.question_id,
             page: 1,
@@ -442,7 +442,7 @@ class QuestionListEntry extends React.Component {
     var buttonID = event.target.id;
 
     $.ajax({
-      url: `http://localhost:3000/qa/answers/${answerID}/report`,
+      url: `${baseUrl}/qa/answers/${answerID}/report`,
       data: {
         answer_id: answerID
       },
@@ -511,6 +511,7 @@ class QuestionListEntry extends React.Component {
       var sorted = this.sortAnswers(answers);
 
       answersDiv = sorted.map(a => {
+        // console.log('this is an answer', a)
         if (a.answerer_name === 'Seller') {
           var seller = <strong key={a.answerer_name}>{a.answerer_name}</strong>
         }
@@ -519,9 +520,9 @@ class QuestionListEntry extends React.Component {
         if (a.photos.length === 0) {
           var photosDiv = <></>;
         } else {
-          var photosDiv = a.photos.map(photo => {
+          var photosDiv = a.photos.map((photoURL, i) => {
             return (
-              <ImageThumbnail className='photoThumbnails' key={photo.url} src={photo.url} width='50'></ImageThumbnail>
+              <ImageThumbnail className='photoThumbnail' key={i} src={photoURL} width='50'></ImageThumbnail>
             )
           })
         }
@@ -534,8 +535,8 @@ class QuestionListEntry extends React.Component {
             <div className='answererInfoAndLinks'>
               <p>
                 <span className='answererInfoSpan'>by {seller || a.answerer_name}, {this.formatDate(a.date)}</span> |
-                <span className='helpfulSpan'> Helpful? <u className='markAnswerHelpful' id={a.answer_id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u>  ({a.helpfulness})</span> |
-                <u className='reportAnswer' id={a.answer_id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}> Report</u>
+                <span className='helpfulSpan'> Helpful? <u className='markAnswerHelpful' id={a.id + 'helpful'} onClick={() => { this.markAnswerHelpful(a.id) }}> Yes</u>  ({a.helpfulness})</span> |
+                <u className='reportAnswer' id={a.id + 'report'} onClick={ () => { this.reportAnswer(a.id) }}> Report</u>
               </p>
             </div>
           </div>

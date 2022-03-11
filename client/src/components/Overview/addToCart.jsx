@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import _ from 'underscore';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
+import baseUrl from './../../../../config.js';
 
 const AddToCartForm = styled.form`
   padding: 0;
@@ -90,51 +91,83 @@ const TooltipText = styled.span`
 class AddToCart extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      favorite: false
+    }
   }
   favorite() {
-
+    if (this.state.favorite) {
+      this.setState({
+        favorite: false
+      })
+    } else {
+      this.setState({
+        favorite: true
+      })
+    }
   }
-  addToCart() {
+  addToCartClick() {
+    var selectedSize = document.getElementById('selectedSize').value;
+    var selectedQuantity = document.getElementById('selectedQuantity').value;
+    console.log(selectedSize);
+    console.log(selectedQuantity);
+    var sku_id;
+    if (selectedSize !== 'DEFAULT' && selectedQuantity !== 'DEFAULT') {
+      for (var key in this.props.styleInfo[this.props.currentStyleIndex].skus) {
+        console.log(this.props.styleInfo[this.props.currentStyleIndex].skus[key]['size']);
 
-  //   var selectedSize = document.getElementById('selectedSize').value;
-  //   var selectedQuantity = document.getElementById('selectedQuantity').value;
-  var sku_id;
-    if (selectedSize !== 'DEFAULT') {
-      if (selectedQuantity !== 'DEFAULT') {
-          for (var i = 0; i < Object.keys(this.props.styleInfo[this.props.currentStyleIndex].skus).length; i++) {
-            if (Object.keys(this.props.styleInfo[this.props.currentStyleIndex].skus)[i].size === selectedSize) {
-              sku_id = Object.keys(this.props.styleInfo[this.props.currentStyleIndex].skus)[i];
-              break;
+
+        if (this.props.styleInfo[this.props.currentStyleIndex].skus[key]['size'] === selectedSize) {
+          sku_id = key;
+          $.ajax({
+            url: `${baseUrl}/cart`,
+            data: {
+              sku_id: sku_id
+            },
+            method: 'POST',
+            success: (data) => {
+              console.log('Item(s) successfully added to cart!', data);
+              alert('Item(s) successfully added to cart!');
+            },
+            error: (err) => {
+              console.log('Error adding item(s) to cart: ', err);
             }
-          }
+          });
+        }
       }
     }
-  //   if (selectedSize === 'DEFAULT' && selectedQuantity === 'DEFAULT') {
-  //     OpenSelectMenu(document.getElementById('selectedSize'), 3).open();
-  //     const tooltip = document.getElementById('sizeTooltipText');
-  //     tooltip.style.visibility = 'visible';
+    if (selectedSize === 'DEFAULT' && selectedQuantity === 'DEFAULT') {
+      console.log('hi');
+      // Open Select menu
+      const tooltip = document.getElementById('sizeTooltipText');
+      tooltip.style.visibility = 'visible';
+      const tooltip2 = document.getElementById('quantityTooltipText');
+      tooltip2.style.visibility = 'visible';
+    } else if (selectedSize === 'DEFAULT') {
 
-  //     const tooltip2 = document.getElementById('quantityTooltipText');
-  //     tooltip2.style.visibility = 'visible';
-  //   }
+    }
   }
   render() {
     var addToCart;
     var favoriteButton;
-    favoriteButton =
-    <FavoriteButton type="button" onClick={this.favorite.bind(this)}><AiOutlineStar/></FavoriteButton>
+    if (this.state.favorite) {
+      favoriteButton =
+      <FavoriteButton type="button" onClick={this.favorite.bind(this)}><AiFillStar/></FavoriteButton>;
+    } else {
+      favoriteButton =
+      <FavoriteButton type="button" onClick={this.favorite.bind(this)}><AiOutlineStar/></FavoriteButton>;
+    }
 
     var sizeDropDown;
     // Creates size dropdown based on sizes available
     if(Object.keys(this.props.styleInfo[this.props.currentStyleIndex].skus)[0] === 'null') {
-      addToCart = <AddToCartButtonHidden type="button">ADD TO BAG &nbsp;&nbsp;&nbsp; +</AddToCartButtonHidden>
+      addToCart = <AddToCartButtonHidden type="button" onClick={this.addToCartClick.bind(this)}>ADD TO BAG &nbsp;&nbsp;&nbsp; +</AddToCartButtonHidden>
       sizeDropDown =
       <SizeDropDown id='selectedSize'>
         <option disabled>OUT OF STOCK</option>
       </SizeDropDown>;
     } else {
-      addToCart = <AddToCartButton type="button" onClick={addToCart}>ADD TO BAG &nbsp;&nbsp;&nbsp; +</AddToCartButton>
+      addToCart = <AddToCartButton type="button" onClick={this.addToCartClick.bind(this)}>ADD TO BAG &nbsp;&nbsp;&nbsp; +</AddToCartButton>
       sizeDropDown =
       <SizeDropDown id='selectedSize' onChange={this.props.renderQuantityDropDown}>
         <option value='DEFAULT' hidden>SELECT SIZE</option>
@@ -152,7 +185,7 @@ class AddToCart extends React.Component {
     if (!this.props.currentQuantity) {
       quantityDropDown =
       <QuantityDropDown id='selectedQuantity' disabled>
-        <option hidden> - </option>
+        <option hidden value='DEFAULT'> - </option>
       </QuantityDropDown>;
     } else if (this.props.currentQuantity < 15) {
       var quantityCount = [];

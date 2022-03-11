@@ -10,7 +10,15 @@ const ImageGalleryContainer = styled.div`
   background-color: rgb(231, 229, 229);
   /* border: .2em dotted rgb(78, 78, 47); */
   box-shadow: 0 0 30px rgb(0, 0, 0, 0.15);
-
+`;
+const ImageGalleryContainerExpanded = styled.div`
+  height: 30em;
+  width: 38em;
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(231, 229, 229);
+  /* border: .2em dotted rgb(78, 78, 47); */
+  box-shadow: 0 0 30px rgb(0, 0, 0, 0.15);
 `;
 const ThumbnailCarouselContainer = styled.div`
   z-index: 1;
@@ -47,6 +55,14 @@ const FullscreenMainImageCarouselContainer = styled.div`
   position: relative;
 `;
 const MainImage = styled.img`
+  height: 30em;
+  width: 100%;
+  object-fit: cover;
+  cursor: zoom-in;
+  filter: drop-shadow(0px 0px 5px rgba(0,0,0,1))
+          drop-shadow(0px 0px 50px rgba(0,0,0,.3));
+`;
+const MainImageExpanded = styled.img`
   height: 30em;
   width: 100%;
   object-fit: cover;
@@ -209,6 +225,7 @@ class ImageGallery extends React.Component {
         currentIndex: this.props.styleInfo[this.props.currentStyleIndex].photos.length - 1
       })
     }
+    var imageGallery;
     var mainImage;
     var leftArrow;
     var rightArrow;
@@ -287,16 +304,20 @@ class ImageGallery extends React.Component {
           {leftArrow}
           {rightArrow}
         </MainImageCarouselContainer>;
+
+        imageGallery=
+        <ImageGalleryContainer>
+          {mainCarousel}
+          {thumbnailCarousel}
+          {expandButton}
+        </ImageGalleryContainer>;
     } else if (this.state.screenState ==='expanded') {
 
     }
     return (
-      <ImageGalleryContainer>
-        {mainCarousel}
-        {thumbnailCarousel}
-        {expandButton}
-      </ImageGalleryContainer>
-    )
+      <React.Fragment>
+        {imageGallery}
+      </React.Fragment>    )
   }
 }
 
