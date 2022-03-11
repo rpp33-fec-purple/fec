@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "react-dev": "webpack --watch --mode production",
+    "react-dev": "webpack --watch",
     "server-dev": "npx nodemon server.js",
     "test": "jest"
   },

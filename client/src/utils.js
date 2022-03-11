@@ -1,3 +1,10 @@
+import {useParams} from 'react-router-dom';
+const baseUrl = require('./../../config.js');
+
+
+export const wrapWithParams = (Component) => {
+  return props => <Component {...props} params = {useParams()}/>;
+}
 export const justAnAlert = () => {
   alert('hello');
 }
@@ -30,7 +37,7 @@ export const formatDate = (isoDate) => {
 export const clickTracker = (element, widgetName) => {
   var currentTime = formatDate(new Date());
   $.ajax({
-    url: 'http://localhost:3000/interactions',
+    url: `${baseUrl}/interactions`,
     method: 'POST',
     data: {
       element: element,

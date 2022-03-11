@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const port = 3000;
 const axios = require('axios');
 const config = require('./config.js');
+const path = require('path');
 var cors = require('cors');
 require('dotenv').config();
 
@@ -20,13 +21,39 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 
 
+app.get('/reviews', (req, res) => {
+  console.log('reviews path hit, req body', req.body);
+  var path = req.originalUrl;
+  // console.log('PATH ->', path);
+  return axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${path}`, {
+    headers: {
+      'Authorization': process.env.API_KEY
+    }
+  })
+    .then(response => {
+      // console.log('response from API', response.data);
+      res.status(200).json(response.data);
+    })
+    .catch(error => {
+      // console.log('error from api request', error);
+      res.status(500).end();
+    })
+});
+
+
+
+app.get('/:product_id', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/dist/index.html'));
+})
+
+
+
 app.get('/*', (req, res) => {
   var path = req.originalUrl;
   // console.log('PATH ->', path);
   return axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${path}`, {
     headers: {
       'Authorization': process.env.API_KEY
-      //
     }
   })
     .then(response => {
