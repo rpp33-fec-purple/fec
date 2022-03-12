@@ -12,6 +12,12 @@ const Reviews = React.lazy(() => import('./Reviews/wrapper.jsx'));
 const Overview = React.lazy(() => import('./Overview/wrapper.jsx'));
 const QA = React.lazy(() => import('./QA/wrapper.jsx'));
 
+const Title = styled.h1`
+  font-size: 4em;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 1em;
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -42,7 +48,7 @@ class App extends React.Component {
       <div>
         <Suspense fallback={<div>Loading...</div>}>
 
-          <h1 className= 'App'>Product Detail Page</h1>
+          <Title className= 'App'>Purple Parrots</Title>
           {<Overview productId={this.state.basicProductInfo.id} basicProductInfo={this.state.basicProductInfo}/>}
           {/* <RelatedItems productID = {this.state.basicProductInfo.id}/> */}
           <div>{qaDiv}</div>
