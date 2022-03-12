@@ -2,48 +2,55 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ProductFeaturesWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 600px 300px;
+  display: flex;
+  margin-top: 2em;
+  margin-bottom: 2em;
 `;
-const VerticalContainer = styled.div`
-  display: grid;
+const LeftContainer = styled.div`
+  width: 40em;
+  height: auto;
+  margin-right: 1em;
 `;
-const HorizontalContainer = styled.div`
-  display: grid
+const RightContainer = styled.div`
+  margin-left: 1em;
 `;
 const Slogan = styled.h3`
-  font-size: 15px;
+  font-size: 1.1em;
   margin-bottom: 1.5em;
 `;
 const Description = styled.p`
-  font-size: 11px;
+  font-size: .8em;
   margin-bottom: 1.5em;
 `;
 const VerticalLine = styled.div`
-  border-left: 3px solid black;
+  border-left: 2px solid black;
   height: auto
 `;
 const NoBulletList = styled.ul`
   list-style: none;
 `;
 const Feature = styled.li`
-  font-size: 11px;
+  font-size: .7em;
   margin-bottom: 1.5em;
 `;
 
 const ProductFeatures = (props) => (
   <ProductFeaturesWrapper>
-    <VerticalContainer>
+    <LeftContainer>
       <Slogan>{props.productInfo.slogan}</Slogan>
       <Description>{props.productInfo.description}</Description>
-    </VerticalContainer>
-    <HorizontalContainer>
+    </LeftContainer>
+    <VerticalLine/>
+    <RightContainer>
       <NoBulletList>
-        {props.productInfo.features.map((item, index) => (
+        {props.productInfo.features ?
+        props.productInfo.features.map((item, index) => (
           <Feature key={index}>✔ {item.value}</Feature>
-      ))}
+        )) :
+          ''
+      }
       </NoBulletList>
-    </HorizontalContainer>
+    </RightContainer>
 
   </ProductFeaturesWrapper>
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Zoom from 'react-img-zoom';
+import {clickTracker} from './../../utils.js';
 import { AiOutlineArrowRight, AiOutlineArrowLeft, AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineExpand } from 'react-icons/ai';
 
 const ImageGalleryContainer = styled.div`
@@ -8,9 +10,29 @@ const ImageGalleryContainer = styled.div`
   display: flex;
   flex-direction: row;
   background-color: rgb(231, 229, 229);
-  /* border: .2em dotted rgb(78, 78, 47); */
   box-shadow: 0 0 30px rgb(0, 0, 0, 0.15);
-
+`;
+const ImageGalleryContainerExpanded = styled.div`
+  z-index: 999;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 30px rgb(0, 0, 0, 0.15);
+`;
+const ImageGalleryContainerZoomed = styled.div`
+  z-index: 2;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 30px rgb(0, 0, 0, 0.15);
 `;
 const ThumbnailCarouselContainer = styled.div`
   z-index: 1;
@@ -19,7 +41,18 @@ const ThumbnailCarouselContainer = styled.div`
   height: 30em;
   width: 4em;
 `;
+const ThumbnailCarouselContainerExpanded = styled.div`
+  z-index: 1;
+  display: flex;
+  flex-flow: column;
+  height: 30em;
+  width: 4em;
+`;
 const VerticalThumbnailContainer = styled.div`
+  height: 30em;
+  border: .2em dotted rgb(78, 78, 47);
+`;
+const VerticalThumbnailContainerExpanded = styled.div`
   height: 30em;
   border: .2em dotted rgb(78, 78, 47);
 `;
@@ -38,15 +71,27 @@ const MainImageCarouselContainer = styled.div`
   width: 38em;
   background-color: rgb(231, 229, 229);
 `;
-const FullscreenMainImageCarouselContainer = styled.div`
-  height: 35em;
-  width: 65.5em;
+const MainImageCarouselContainerExpanded = styled.div`
+  position: absolute;
+  margin: auto;
   display: flex;
-  flex-flow: row;
-  background-color: rgb(231, 229, 229);
-  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
 `;
-
+const MainImageCarouselContainerZoomed = styled.div`
+  position: absolute;
+  cursor: zoom-out;
+  margin: auto;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+`;
 const MainImage = styled.img`
   height: 30em;
   width: 100%;
@@ -55,13 +100,22 @@ const MainImage = styled.img`
   filter: drop-shadow(0px 0px 5px rgba(0,0,0,1))
           drop-shadow(0px 0px 50px rgba(0,0,0,.3));
 `;
-const FullscreenMainImage = styled.img`
-  height: 35em;
-  width: 65.5em;
-  object-fit: contain;
-  /* border: .3em solid black; */
-  transition: width .5s;
-  filter: drop-shadow(0px 0px 5px rgba(0,0,0,.3))
+const MainImageExpanded = styled.img`
+  height: 100vh;
+  width: auto;
+  object-fit: cover;
+  cursor: crosshair;
+  filter: drop-shadow(0px 0px 5px rgba(0,0,0,1))
+          drop-shadow(0px 0px 50px rgba(0,0,0,.3));
+`;
+const MainImageZoomed = styled.img`
+  z-index: 999;
+  position: fill;
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  cursor: crosshair;
+  filter: drop-shadow(0px 0px 5px rgba(0,0,0,1))
           drop-shadow(0px 0px 50px rgba(0,0,0,.3));
 `;
 const LeftArrow = styled.button`
@@ -76,6 +130,19 @@ const LeftArrow = styled.button`
   height: 1.5em;
   width: 1.5em;
 `;
+const LeftArrowExpanded = styled.button`
+  z-index: 1;
+  position: fixed;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 0;
+  opacity: 50%;
+  margin-top: 50vh;
+  margin-left: 1vw;
+  height: 1.5em;
+  width: 1.5em;
+`;
 const RightArrow = styled.button`
   position: absolute;
   font-size: 2rem;
@@ -87,12 +154,34 @@ const RightArrow = styled.button`
   margin-left: 17.4em;
   height: 1.5em;
   width: 1.5em;
+  `;
+const RightArrowExpanded = styled.button`
+  position: fixed;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 0;
+  opacity: 50%;
+  margin-top:50vh;
+  margin-left: 90vw;
+  height: 1.5em;
+  width: 1.5em;
 `;
 const UpArrow = styled.button`
   margin-left: .8em;
   margin-top: .8em;
   height: 3em;
   width: 3em;
+  text-align: center;
+  margin: .2em;
+  opacity: 50%;
+  cursor: pointer;
+`;
+const UpArrowExpanded = styled.button`
+  margin-left: .8em;
+  margin-top: .8em;
+  height: 2em;
+  width: 2em;
   text-align: center;
   margin: .2em;
   opacity: 50%;
@@ -108,11 +197,29 @@ const DownArrow = styled.button`
   opacity: 50%;
   cursor: pointer;
 `;
+const DownArrowExpanded = styled.button`
+  margin-left: .8em;
+  margin-bottom: .8em;
+  height: 2em;
+  width: 2em;
+  text-align: center;
+  margin: .2em;
+  opacity: 50%;
+  cursor: pointer;
+`;
 const ArrowPlaceholder = styled.div`
   margin-left: .8em;
   margin-bottom: .8em;
   height: 3em;
   width: 3em;
+  text-align: center;
+  margin: .2em;
+`;
+const ArrowPlaceholderExpanded = styled.div`
+  margin-left: .8em;
+  margin-bottom: .8em;
+  height: 2em;
+  width: 2em;
   text-align: center;
   margin: .2em;
 `;
@@ -126,7 +233,16 @@ const ExpandButton = styled.button`
   opacity: 50%;
   z-index: 1;
 `;
-
+const ExpandButtonExpanded = styled.button`
+  position: fixed;
+  cursor: pointer;
+  margin-left: 91vw;
+  height: 1.5em;
+  width: 1.5em;
+  font-size: 1.8em;
+  opacity: 50%;
+  z-index: 1;
+`;
 const ThumbnailImage = styled.img`
   object-fit: cover;
   height: 2.5em;
@@ -135,11 +251,31 @@ const ThumbnailImage = styled.img`
   border-radius: 12px;
   cursor: pointer;
   margin: .2em;
+  filter: grayscale(100%);
+`;
+const ThumbnailImageExpanded = styled.img`
+  object-fit: cover;
+  height: 2.0em;
+  width: 2.0em;
+  box-shadow: 0 0 20px rgb(0, 0, 0, 0.15);
+  border-radius: 12px;
+  cursor: pointer;
+  margin: .2em;
+  filter: grayscale(100%);
 `;
 const CurrentThumbnailImage = styled.img`
   object-fit: cover;
   height: 2.5em;
   width: 2.5em;
+  box-shadow: 0 0 20px rgb(0, 0, 0, 0.15);
+  border-radius: 12px;
+  border: .1em solid rgb(36, 32, 32);
+  margin: .2em;
+`;
+const CurrentThumbnailImageExpanded = styled.img`
+  object-fit: cover;
+  height: 2.0em;
+  width: 2.0em;
   box-shadow: 0 0 20px rgb(0, 0, 0, 0.15);
   border-radius: 12px;
   border: .1em solid rgb(36, 32, 32);
@@ -156,16 +292,8 @@ class ImageGallery extends React.Component {
       currentThumbnailScrollIndex: 0
     }
   }
-  componentDidUpdate() {
-    // if (this.productId !== this.props.productId) {
-    //   this.setState({
-    //     currentIndex: 0,
-    //     screenState: 'default',
-    //     productId: this.props.productId
-    //   });
-    // }
-  }
   changeMainImage(event) {
+    clickTracker('Thumbnail click on image gallery', 'Overview');
     if (this.state.currentIndex !== event.target.id) {
       console.log(event.target.id);
       this.setState({
@@ -174,6 +302,7 @@ class ImageGallery extends React.Component {
     }
   }
   leftArrowClick() {
+    clickTracker('Left arrow click on image gallery', 'Overview');
     if (this.state.currentIndex !== 0) {
       this.setState({
         currentIndex: this.state.currentIndex - 1
@@ -181,6 +310,7 @@ class ImageGallery extends React.Component {
     }
   }
   rightArrowClick() {
+    clickTracker('Right arrow click on image gallery', 'Overview');
     if (this.state.currentIndex !== this.props.styleInfo[this.props.currentStyleIndex].photos.length - 1) {
       this.setState({
         currentIndex: this.state.currentIndex + 1
@@ -188,16 +318,19 @@ class ImageGallery extends React.Component {
     }
   }
   downArrowClick() {
+    clickTracker('Down arrow click on image gallery', 'Overview');
       this.setState({
         currentThumbnailScrollIndex: this.state.currentThumbnailScrollIndex + 1
       });
   }
   upArrowClick() {
+    clickTracker('Up arrow click on image gallery', 'Overview');
     this.setState({
       currentThumbnailScrollIndex: this.state.currentThumbnailScrollIndex - 1
     });
   }
   toggleFullScreen() {
+    clickTracker('Expand/minimize main image on image gallery', 'Overview');
     if (this.state.screenState === 'default') {
       this.setState({
         screenState: 'expanded'
@@ -208,9 +341,26 @@ class ImageGallery extends React.Component {
       });
     }
   }
+  toggleZoom() {
+    clickTracker('Zoom/un-zoom on image gallery', 'Overview');
+    if (this.state.screenState === 'expanded') {
+      this.setState({
+        screenState: 'zoomed'
+      });
+    } else {
+      this.setState({
+        screenState: 'expanded'
+      });
+    }
+  }
 
   render() {
-    console.log('CurrentIndex --> ', this.state.currentIndex);
+    if (this.state.currentIndex >= this.props.styleInfo[this.props.currentStyleIndex].photos.length) {
+      this.setState({
+        currentIndex: this.props.styleInfo[this.props.currentStyleIndex].photos.length - 1
+      })
+    }
+    var imageGallery;
     var mainImage;
     var leftArrow;
     var rightArrow;
@@ -230,15 +380,20 @@ class ImageGallery extends React.Component {
       downArrow =
       <DownArrow>↓</DownArrow>;
       expandButton =
-      <ExpandButton><AiOutlineExpand/></ExpandButton>;
-      mainImage =
-      <MainImage src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.state.currentIndex].url} alt='mainImage'/>;
+      <ExpandButton onClick={this.toggleFullScreen.bind(this)}><AiOutlineExpand/></ExpandButton>;
+      if (this.state.currentIndex >= this.props.styleInfo[this.props.currentStyleIndex].photos.length) {
+        mainImage =
+        <MainImage onClick={this.toggleFullScreen.bind(this)} src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.props.styleInfo[this.props.currentStyleIndex].photos.length - 1].url} alt='mainImage'/>;
+      } else {
+        mainImage =
+        <MainImage onClick={this.toggleFullScreen.bind(this)} src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.state.currentIndex].url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text='/>;
+      }
       if (this.props.styleInfo[this.props.currentStyleIndex].photos.length <= 7) {
         thumbnailList = this.props.styleInfo[this.props.currentStyleIndex].photos.map((photo, index) => {
           if (index !== this.state.currentIndex) {
-            return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='thumbnail' onClick={this.changeMainImage.bind(this)} id={index}/>
+            return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' onClick={this.changeMainImage.bind(this)} id={index}/>
           } else {
-            return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='currentThumbnail' id={index}/>
+            return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' id={index}/>
           }
         });
         thumbnailCarousel =
@@ -250,9 +405,9 @@ class ImageGallery extends React.Component {
           thumbnailList = this.props.styleInfo[this.props.currentStyleIndex].photos.slice(this.state.currentThumbnailScrollIndex, this.state.currentThumbnailScrollIndex + 7).map((photo, index) => {
             thumbnailId++;
             if (thumbnailId !== this.state.currentIndex) {
-              return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='thumbnail' onClick={this.changeMainImage.bind(this)} id={thumbnailId}/>
+              return <ThumbnailImage key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' onClick={this.changeMainImage.bind(this)} id={thumbnailId}/>
             } else {
-              return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='currentThumbnail' id={thumbnailId}/>
+              return <CurrentThumbnailImage key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' id={thumbnailId}/>
             }
           });
         if (this.state.currentThumbnailScrollIndex === 0) {
@@ -283,16 +438,124 @@ class ImageGallery extends React.Component {
           {leftArrow}
           {rightArrow}
         </MainImageCarouselContainer>;
-    } else if (this.state.screenState ==='expanded') {
 
-    }
-    return (
-      <ImageGalleryContainer>
+        imageGallery=
+        <ImageGalleryContainer>
+          {mainCarousel}
+          {thumbnailCarousel}
+          {expandButton}
+        </ImageGalleryContainer>;
+    } else if (this.state.screenState ==='expanded') {
+      leftArrow =
+      <LeftArrowExpanded id='leftArrow' onClick={this.leftArrowClick.bind(this)}><AiOutlineArrowLeft/></LeftArrowExpanded>;
+      rightArrow =
+      <RightArrowExpanded id='rightArrow' onClick={this.rightArrowClick.bind(this)}><AiOutlineArrowRight/></RightArrowExpanded>;
+      <UpArrowExpanded><AiOutlineArrowUp/></UpArrowExpanded>;
+      downArrow =
+      <DownArrowExpanded><AiOutlineArrowDown/></DownArrowExpanded>;
+      expandButton =
+      <ExpandButtonExpanded onClick={this.toggleFullScreen.bind(this)}><AiOutlineExpand/></ExpandButtonExpanded>;
+      if (this.state.currentIndex >= this.props.styleInfo[this.props.currentStyleIndex].photos.length) {
+        mainImage =
+        <MainImageExpanded src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.props.styleInfo[this.props.currentStyleIndex].photos.length - 1].url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text='/>;
+      } else {
+        mainImage =
+        <MainImageExpanded onClick={this.toggleZoom.bind(this)} src={this.props.styleInfo[this.props.currentStyleIndex].photos[this.state.currentIndex].url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text='/>;
+      }
+      if (this.props.styleInfo[this.props.currentStyleIndex].photos.length <= 7) {
+        console.log(this.props.styleInfo[this.props.currentStyleIndex].photos);
+        thumbnailList = this.props.styleInfo[this.props.currentStyleIndex].photos.map((photo, index) => {
+          if (index !== this.state.currentIndex) {
+            return <ThumbnailImageExpanded key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' onClick={this.changeMainImage.bind(this)} id={index}/>
+          } else {
+            return <CurrentThumbnailImageExpanded key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' id={index}/>
+          }
+        });
+        thumbnailCarousel =
+        <ThumbnailCarouselContainerExpanded>
+          {thumbnailList}
+        </ThumbnailCarouselContainerExpanded>
+      } else if (this.props.styleInfo[this.props.currentStyleIndex].photos.length > 7) {
+        var thumbnailId = this.state.currentThumbnailScrollIndex - 1;
+          thumbnailList = this.props.styleInfo[this.props.currentStyleIndex].photos.slice(this.state.currentThumbnailScrollIndex, this.state.currentThumbnailScrollIndex + 7).map((photo, index) => {
+            thumbnailId++;
+            if (thumbnailId !== this.state.currentIndex) {
+              return <ThumbnailImageExpanded key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' onClick={this.changeMainImage.bind(this)} id={thumbnailId}/>
+            } else {
+              return <CurrentThumbnailImageExpanded key={index} src={photo.thumbnail_url} alt='http://via.placeholder.com/640x360/FFFFFF/FFFFFF?Text=' id={thumbnailId}/>
+            }
+          });
+        if (this.state.currentThumbnailScrollIndex === 0) {
+          thumbnailCarousel =
+            <ThumbnailCarouselContainerExpanded>
+              <ArrowPlaceholderExpanded></ArrowPlaceholderExpanded>
+              {thumbnailList}
+              <DownArrowExpanded onClick={this.downArrowClick.bind(this)}><AiOutlineArrowDown/></DownArrowExpanded>
+            </ThumbnailCarouselContainerExpanded>;
+        } else if (this.state.currentThumbnailScrollIndex + 7 === this.props.styleInfo[this.props.currentStyleIndex].photos.length) {
+          thumbnailCarousel =
+            <ThumbnailCarouselContainerExpanded>
+              <UpArrowExpanded onClick={this.upArrowClick.bind(this)}><AiOutlineArrowUp/></UpArrowExpanded>
+              {thumbnailList}
+            </ThumbnailCarouselContainerExpanded>;
+        } else {
+          thumbnailCarousel =
+          <ThumbnailCarouselContainerExpanded>
+            <UpArrowExpanded onClick={this.upArrowClick.bind(this)}><AiOutlineArrowUp/></UpArrowExpanded>
+            {thumbnailList}
+            <DownArrowExpanded onClick={this.downArrowClick.bind(this)}><AiOutlineArrowDown/></DownArrowExpanded>
+          </ThumbnailCarouselContainerExpanded>;
+        }
+      }
+      mainCarousel =
+        <MainImageCarouselContainerExpanded>
+          {mainImage}
+        </MainImageCarouselContainerExpanded>;
+
+      imageGallery =
+      <ImageGalleryContainerExpanded>
         {mainCarousel}
         {thumbnailCarousel}
         {expandButton}
-      </ImageGalleryContainer>
-    )
+        {leftArrow}
+        {rightArrow}
+      </ImageGalleryContainerExpanded>;
+    } else if (this.state.screenState ==='zoomed') {
+      if (this.state.currentIndex >= this.props.styleInfo[this.props.currentStyleIndex].photos.length) {
+        mainImage =
+        <Zoom
+          onClick={this.toggleZoom.bind(this)}
+          img={this.props.styleInfo[this.props.currentStyleIndex].photos[this.props.styleInfo[this.props.currentStyleIndex].photos.length - 1].url}
+          zoomScale={2.5}
+          width={1000}
+          height={1000}
+        />
+      } else {
+        if(this.props.styleInfo[this.props.currentStyleIndex].photos[this.state.currentIndex].url) {
+          mainImage =
+          <Zoom
+            id='zoomedImage'
+            onClick= {this.toggleZoom.bind(this)}
+            img={this.props.styleInfo[this.props.currentStyleIndex].photos[this.state.currentIndex].url}
+            zoomScale={2.5}
+            width={1000}
+            height={1000}
+          />
+        }
+      }
+      mainCarousel =
+        <MainImageCarouselContainerZoomed onClick={this.toggleZoom.bind(this)}>
+          {mainImage}
+        </MainImageCarouselContainerZoomed>;
+      imageGallery =
+        <ImageGalleryContainerZoomed id ='imageGalleryContainer'>
+          {mainCarousel}
+        </ImageGalleryContainerZoomed>;
+    }
+    return (
+      <React.Fragment>
+        {imageGallery}
+      </React.Fragment>    )
   }
 }
 

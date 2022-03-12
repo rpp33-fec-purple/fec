@@ -12,6 +12,12 @@ const Reviews = React.lazy(() => import('./Reviews/wrapper.jsx'));
 const Overview = React.lazy(() => import('./Overview/wrapper.jsx'));
 const QA = React.lazy(() => import('./QA/wrapper.jsx'));
 
+const Title = styled.h1`
+  font-size: 4em;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 1em;
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -27,7 +33,6 @@ class App extends React.Component {
       url: `${baseUrl}/products/${this.props.params.product_id}`,
       method: 'GET',
       success: (data) => {
-        // console.log('data in client', data);
         this.setState({basicProductInfo: data});
         // console.log('GET request to http://localhost:3000/products/64620 successful!');
       },
@@ -43,12 +48,12 @@ class App extends React.Component {
       <div>
         <Suspense fallback={<div>Loading...</div>}>
 
-        <h1 className= 'App'>Product Detail Page</h1>
-        {overviewDiv}
-        {/* <RelatedItems productID = {this.state.basicProductInfo.id}/> */}
-        <div>{qaDiv}</div>
-        <Reviews productID={this.state.basicProductInfo.id} name={this.state.basicProductInfo.name}/>
-        <GlobalStyle/>
+          <Title className= 'App'>Purple Parrots</Title>
+          {<Overview productId={this.state.basicProductInfo.id} basicProductInfo={this.state.basicProductInfo}/>}
+          {/* <RelatedItems productID = {this.state.basicProductInfo.id}/> */}
+          <div>{qaDiv}</div>
+          <Reviews productID={this.state.basicProductInfo.id} name={this.state.basicProductInfo.name}/>
+          <GlobalStyle/>
         </Suspense>
       </div>
     )
