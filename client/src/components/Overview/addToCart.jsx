@@ -126,6 +126,10 @@ class AddToCart extends React.Component {
             method: 'POST',
             success: (data) => {
               console.log('Item(s) successfully added to cart!', data);
+              var tooltip = document.getElementById('sizeTooltipText');
+              tooltip.style.visibility = 'visible';
+              var tooltip2 = document.getElementById('quantityTooltipText');
+              tooltip2.style.visibility = 'visible';
               alert('Item(s) successfully added to cart!');
             },
             error: (err) => {
@@ -138,15 +142,15 @@ class AddToCart extends React.Component {
     if (selectedSize === 'DEFAULT' && selectedQuantity === 'DEFAULT') {
       console.log('hi');
       // Open Select menu
-      const tooltip = document.getElementById('sizeTooltipText');
+      var tooltip = document.getElementById('sizeTooltipText');
       tooltip.style.visibility = 'visible';
-      const tooltip2 = document.getElementById('quantityTooltipText');
+      var tooltip2 = document.getElementById('quantityTooltipText');
       tooltip2.style.visibility = 'visible';
     } else if (selectedSize === 'DEFAULT') {
-      const tooltip = document.getElementById('sizeTooltipText');
+      var tooltip = document.getElementById('sizeTooltipText');
       tooltip.style.visibility = 'visible';
     } else if (selectedQuantity === 'DEFAULT') {
-      const tooltip2 = document.getElementById('quantityTooltipText');
+      var tooltip2 = document.getElementById('quantityTooltipText');
       tooltip2.style.visibility = 'visible';
     }
   }
