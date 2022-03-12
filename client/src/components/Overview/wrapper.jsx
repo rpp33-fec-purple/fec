@@ -7,6 +7,7 @@ import AddToCart from './addToCart.jsx';
 import ProductFeatures from './productFeatures.jsx';
 import sampleData from './sampleData.js';
 import baseUrl from './../../../../config.js';
+import {clickTracker} from './../../utils.js';
 
 const OverviewWrapper = styled.div`
   display: flex;
@@ -80,6 +81,7 @@ class Overview extends React.Component {
   }
 
   updateStyleId(event) {
+    clickTracker('style selector', 'Overview');
     for (var i = 0; i < this.state.styleInfo.length; i++) {
       if (this.state.styleInfo[i].style_id == event.target.id) {
         this.setState({

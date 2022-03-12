@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import StarRating from './starRating.jsx';
+import {clickTracker} from './../../utils.js';
 
 const ProductInformationContainer = styled.span`
   display: flex;
@@ -36,6 +37,7 @@ class ProductInformation extends React.Component {
   }
 
   moveToReviews() {
+    clickTracker('Scroll to reviews', 'Overview');
     document.getElementsByClassName('ratingsAndReviews')[0].scrollIntoView();
   }
 

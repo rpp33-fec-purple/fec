@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Zoom from 'react-img-zoom';
+import {clickTracker} from './../../utils.js';
 import { AiOutlineArrowRight, AiOutlineArrowLeft, AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineExpand } from 'react-icons/ai';
 
 const ImageGalleryContainer = styled.div`
@@ -292,6 +293,7 @@ class ImageGallery extends React.Component {
     }
   }
   changeMainImage(event) {
+    clickTracker('Thumbnail click on image gallery', 'Overview');
     if (this.state.currentIndex !== event.target.id) {
       console.log(event.target.id);
       this.setState({
@@ -300,6 +302,7 @@ class ImageGallery extends React.Component {
     }
   }
   leftArrowClick() {
+    clickTracker('Left arrow click on image gallery', 'Overview');
     if (this.state.currentIndex !== 0) {
       this.setState({
         currentIndex: this.state.currentIndex - 1
@@ -307,6 +310,7 @@ class ImageGallery extends React.Component {
     }
   }
   rightArrowClick() {
+    clickTracker('Right arrow click on image gallery', 'Overview');
     if (this.state.currentIndex !== this.props.styleInfo[this.props.currentStyleIndex].photos.length - 1) {
       this.setState({
         currentIndex: this.state.currentIndex + 1
@@ -314,16 +318,19 @@ class ImageGallery extends React.Component {
     }
   }
   downArrowClick() {
+    clickTracker('Down arrow click on image gallery', 'Overview');
       this.setState({
         currentThumbnailScrollIndex: this.state.currentThumbnailScrollIndex + 1
       });
   }
   upArrowClick() {
+    clickTracker('Up arrow click on image gallery', 'Overview');
     this.setState({
       currentThumbnailScrollIndex: this.state.currentThumbnailScrollIndex - 1
     });
   }
   toggleFullScreen() {
+    clickTracker('Expand/minimize main image on image gallery', 'Overview');
     if (this.state.screenState === 'default') {
       this.setState({
         screenState: 'expanded'
@@ -335,6 +342,7 @@ class ImageGallery extends React.Component {
     }
   }
   toggleZoom() {
+    clickTracker('Zoom/un-zoom on image gallery', 'Overview');
     if (this.state.screenState === 'expanded') {
       this.setState({
         screenState: 'zoomed'
