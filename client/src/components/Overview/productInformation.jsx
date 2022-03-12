@@ -10,6 +10,8 @@ const ProductInformationContainer = styled.span`
 `;
 const Strikethrough = styled.span`
   text-decoration: line-through;
+  font-size: .8em;
+  margin-bottom: 1em;
 `;
 const Underline = styled.span`
   text-decoration: underline;
@@ -30,7 +32,9 @@ const Price = styled.span`
   font-size: .8em;
   margin-bottom: 1em;
 `;
-
+const PriceContainer = styled.div`
+  margin-bottom: 1em;
+`;
 class ProductInformation extends React.Component {
   constructor(props) {
     super(props);
@@ -45,10 +49,10 @@ class ProductInformation extends React.Component {
     var price;
     if (this.props.styleInfo[this.props.currentStyleIndex].sale_price !== null) {
       price =
-        <div className='price'>
+        <PriceContainer>
           <Strikethrough>${this.props.styleInfo[this.props.currentStyleIndex].original_price}</Strikethrough>
-          <span> ${this.props.styleInfo[this.props.currentStyleIndex].sale_price}</span>
-        </div>;
+          <Price> ${this.props.styleInfo[this.props.currentStyleIndex].sale_price}</Price>
+        </PriceContainer>;
     } else {
       price =
         <Price>${this.props.styleInfo[this.props.currentStyleIndex].original_price}</Price>
