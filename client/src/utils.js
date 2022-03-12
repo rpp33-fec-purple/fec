@@ -41,14 +41,14 @@ export const clickTracker = (element, widgetName) => {
     method: 'POST',
     data: {
       element: element,
-      widget: widget,
+      widget: widgetName,
       time: currentTime
     },
     success: () => {
-      console.log('Post request to http://localhost:3000/interactions successful!');
+      console.log(`Post request to ${baseUrl}/interactions successful!`);
     },
     error: () => {
-      console.log('Error sending post request to http://localhost:3000/interactions');
+      // console.log('Error sending post request to http://localhost:3000/interactions');
     }
 
   })

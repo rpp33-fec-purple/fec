@@ -1,4 +1,5 @@
 const path = require('path');
+// const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -20,5 +21,9 @@ module.exports = {
         }
       },
     ]
-  },
+  }
+  // plugin: [new HtmlWebPackPlugin ({
+  //   template: './client/dist/index.html',
+  //   fileName: './index.html'
+  // })]
 }
