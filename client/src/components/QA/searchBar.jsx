@@ -7,13 +7,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  // height: 70%;
-  // box-sizing: border-box;
-  // margin: 0;
-  // padding: 5px;
   padding: 10px 32px;
-
-  // font-family: 'Arial', sans-serif;
 `;
 
 const StyledSearchBar = styled.div`
@@ -33,13 +27,9 @@ const StyledSearchBar = styled.div`
     border: 3px solid #724060;
     padding: 5px;
     height: 35px;
-    // width: 100px;
     outline: none;
     color: #724060;
     font-size: 16px;
-
-    // border-right: none;
-    // border-radius: 5px 0 0 5px;
   }
 
   .searchTerm:focus{
@@ -59,17 +49,6 @@ const StyledSearchBar = styled.div`
     padding-left: 2px;
     padding-right: 2px;
   }
-
-  /*Resize the wrap to see the search bar change!*/
-  .wrap{
-    // width: 30%;
-    // position: relative;
-    // top: 50%;
-    // left: 50%;
-    // transform: translate(-50%, -50%);
-  }
-
-
 `;
 
 class SearchBar extends React.Component {
@@ -119,7 +98,6 @@ class SearchBar extends React.Component {
       },
       method: 'GET',
       success: (data) => {
-        // console.log('data in client', data);
         var filteredList = data.results.filter((val) => {
           if (term === '') {
             return val;
@@ -127,7 +105,6 @@ class SearchBar extends React.Component {
             return val;
           }
         })
-        // console.log('filtered list', filteredList)
         if (term === '') {
           this.props.updateStateCauseFilter(filteredList, false, term)
         } else {
@@ -138,21 +115,6 @@ class SearchBar extends React.Component {
         console.log('Error with GET request in filter:', err);
       }
     });
-
-    // var term = this.state.searchTerm;
-    // var filteredList = this.props.qAndAList.filter((val) => {
-    //   if (term === '') {
-    //     return val;
-    //   } else if (val.question_body.toLowerCase().includes(term.toLowerCase())) {
-    //     return val;
-    //   }
-    // })
-    // console.log('filtered list', filteredList)
-    // if (term === '') {
-    //   this.props.updateStateCauseFilter(filteredList, false, term)
-    // } else {
-    //   this.props.updateStateCauseFilter(filteredList, true, term)
-    // }
   }
 
   render() {
@@ -163,7 +125,6 @@ class SearchBar extends React.Component {
             <form className='search' onSubmit={this.handleSubmit}>
               <label htmlFor='question' id='qaSearchBar'></label>
               <input type='text' name='question' className='searchTerm' size="97" placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' onChange={this.handleChange}></input>
-              {/* <button type="submit" className='searchButton'>Search</button> */}
             </form>
           </div>
         </StyledSearchBar>

@@ -1,5 +1,4 @@
 import React, {useRef, useEffect, useCallBack} from 'react';
-import {useSpring, animated} from 'react-spring';
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
 import baseUrl from './../../../../../config.js';
@@ -41,6 +40,10 @@ const ModalContent = styled.div`
   color: #141414;
   font-size: 12px;
 
+  input {
+    padding: 3px;
+  }
+
   h2 {
     padding-left: 15px;
     padding-right: 10px;
@@ -62,6 +65,7 @@ const ModalContent = styled.div`
 
 const TextArea = styled.textarea`
   resize: none;
+  padding: 3px;
 `;
 
 const CloseModalButton = styled(MdClose)`
@@ -153,7 +157,7 @@ class AnswerModal extends React.Component {
                     <label htmlFor='email'>Your email *</label><br></br>
                     <input id='email' name='email' maxLength='60' size='28' onChange={this.handleChange} placeholder="Example: jack@email.com"></input><br></br>
                     <>For authentication reasons, you will not be emailed</><br></br>
-                    <button aria-label='Close modal' onClick={this.handleSubmit}>Submit question</button>
+                    <button aria-label='Close modal' onClick={this.handleSubmit}>Submit answer</button>
                   </form>
                 </ModalContent>
                 <CloseModalButton aria-label='Close modal' onClick={()=> {this.props.changeModalState(false)}} />
@@ -163,10 +167,6 @@ class AnswerModal extends React.Component {
       } </>
     )
   }
-
-
-
-
 }
 
 

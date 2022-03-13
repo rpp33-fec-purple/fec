@@ -10,22 +10,13 @@ import baseUrl from './../../../../config.js';
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  // align-items: center;
-  // height: 70%;
-  // box-sizing: border-box;
-  // margin: 0;
-  // padding: 0;
-  // font-family: 'Arial', sans-serif;
-  // position: inherit;
   height: 100%;
 
   .qaTitle {
     font-size: 20px;
     padding: 10px 32px;
-
   }
-`
-
+`;
 
 class QAndA extends React.Component {
   constructor(props) {
@@ -44,8 +35,6 @@ class QAndA extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('product id in wrapper', this.props)
-
     $.ajax({
       url: `${baseUrl}/qa/questions`,
       data: {
@@ -55,7 +44,6 @@ class QAndA extends React.Component {
       },
       method: 'GET',
       success: (data) => {
-        // console.log('data in client', data);
         this.setState({sortedQuestions: data.results});
       },
       error: (err) => {
@@ -100,14 +88,12 @@ class QAndA extends React.Component {
         return val;
       }
     })
-    console.log('filtered list', filteredList)
     if (term === '') {
       this.updateStateCauseFilter(filteredList, false, term)
     } else {
       this.updateStateCauseFilter(filteredList, true, term)
     }
   }
-
 
   sortQuestions(data) {
     var sorted = data.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
@@ -131,7 +117,6 @@ class QAndA extends React.Component {
   }
 
   render() {
-
     var productName = this.props.product.name;
     if (this.filterApplies) {
       var listDiv = this.state.filteredAndSorted ? <ListView rerenderQandAs={this.rerenderQandAs} qAndAList={this.state.filteredAndSorted} productName={productName} productID={this.props.product.id}/> : <div/>
@@ -147,7 +132,6 @@ class QAndA extends React.Component {
           <div>{listDiv}</div>
           <AddQuestion questionAdded={this.rerenderQandAs} productName={this.props.product.name} productID={this.props.product.id}/>
         </div>
-
       </Container>
     )
   }
