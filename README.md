@@ -34,7 +34,24 @@
 
 ---
   ### Ratings and  Reviews
-* TBD
+  The Ratings & Reviews module will allow viewing and submission of reviews for the product selected.  The functionality contained within this module can be divided into several pieces:
+  
+* Write new review
+* Reviews List
+* Sorting 
+* Rating Breakdown
+* Product Breakdown
+
+This component will extend the ability to write, read, and browse through reviews for the current product. 
+All reviews will be saved per product.
+
+The core of the reviews component is a list of all reviews for the current product.  By default two reviews will display on initial load.  If available, the user can click 'more reviews' to load additional reviews in a scrollable list.  The user has the option to vote each review as helpful or report it.
+
+Sorting of the list is another key feature implemented.  Sorting of relevance will be the default state, which is a combination of recency and helpfulness.  There is also the option to sort by newest or helpfulness.
+
+For the rating breakdown, the user can see how each product was rated and by how many users it received that rating. The rating breakdown functions as an additive filter, allowing the user to filter for only reviews that received that rating.  Users are also able to see how the product was rated in relevant characteristcs such as fit, comfort etc.
+
+
 
 ---
   ## Team Members
