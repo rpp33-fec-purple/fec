@@ -1,5 +1,4 @@
 import React, {useRef, useEffect, useCallBack} from 'react';
-import {useSpring, animated} from 'react-spring';
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
 import baseUrl from './../../../../../config.js';
@@ -16,16 +15,8 @@ const Background = styled.div`
   background: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
-
-  // width: 100%;
-  // height: 100%;
-  // background: rgba(0, 0, 0, 0.8);
-  // position: absolute;
-  // // position: fixed;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
 `;
+
 const ModalWrapper = styled.div`
   width: 600px;
   height: 350px;
@@ -33,11 +24,9 @@ const ModalWrapper = styled.div`
   background: #fdf3f3;
   color: #000;
   display: grid;
-  // grid-template-columns: 1fr 1fr;
   position: relative;
   z-index: 10;
   border-radius: 10px;
-  // padding-left: 20px;
 `;
 
 const ModalContent = styled.div`
@@ -49,6 +38,10 @@ const ModalContent = styled.div`
   color: #141414;
   font-size: 12px;
 
+  input {
+    padding: 3px;
+  }
+
   p {
     margin-bottom: 1rem;
   }
@@ -59,12 +52,12 @@ const ModalContent = styled.div`
     color: #fff;
     border: none;
     cursor: pointer;
-
   }
 `;
 
 const TextArea = styled.textarea`
   resize: none;
+  padding: 3px;
 `;
 
 const CloseModalButton = styled(MdClose)`
@@ -88,20 +81,13 @@ class QuestionModal extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
   }
 
   handleChange(e) {
     e.preventDefault();
-    console.log('should be id', e.target.id)
-    console.log('should be value', e.target.value)
-    console.log('base url', baseUrl)
-
 
     this.setState({
       [e.target.id]: e.target.value
-    }, ()=> {
-      console.log('this is the prop in state after setting', this.state)
     })
   }
 
@@ -135,7 +121,6 @@ class QuestionModal extends React.Component {
         error: (err) => {
           console.log('Error with POST request:', err);
           this.props.changeModalState()
-
         }
       })
     }
@@ -143,7 +128,6 @@ class QuestionModal extends React.Component {
 
 
   render() {
-
     return (
       <>{this.props.isModalShowing ? (
         <Background>

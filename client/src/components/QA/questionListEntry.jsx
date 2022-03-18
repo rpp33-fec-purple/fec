@@ -16,8 +16,7 @@ const Container = styled.div`
   }
 `;
 
-
-  const AnswersScrollableList = styled.div`
+const AnswersScrollableList = styled.div`
   margin: 0 auto;
   max-height: 400px;
   width: 100%;
@@ -25,169 +24,169 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const ImageThumbnail = styled.img`
+  border: 2px solid #C0C0C0;
+  padding: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
+  height: 60px;
+  cursor: pointer;
+`;
 
-  const ImageThumbnail = styled.img`
-    border: 2px solid #C0C0C0;
-    padding: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
-    margin-top: 2.5px;
-    margin-bottom: 2.5px;
-    height: 60px;
+const QuestionBox = styled.div`
+  .questionBox {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 780px;
+    padding-bottom: .2rem;
+  }
+
+  .questionTitle {
+    width: 2rem;
+  }
+
+  .push {
+      margin-left: auto;
+      justify-content: right;
+      font-size: 11.5px;
+      color: #808080;
+  }
+
+  .question {
+    width: 28.12em;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .report {
+    padding-left: .5rem;
+    padding-right: .5rem;
     cursor: pointer;
-  `;
 
-  const QuestionBox = styled.div`
-    .questionBox {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      width: 780px;
-      padding-bottom: .2rem;
-    }
+  }
 
-    .questionTitle {
-      width: 2rem;
-    }
+  .answer {
+    padding-left: .5rem;
+    cursor: pointer;
+  }
 
-    .push {
-        margin-left: auto;
-        justify-content: right;
-        font-size: 11.5px;
-        color: #808080;
-    }
-    .question {
-      width: 28.12em;
-      flex-wrap: wrap;
-      overflow-wrap: anywhere;
-    }
+  .questionHelpfulSpan {
+    padding-right: .5rem;
+  }
 
-    .report {
-      padding-left: .5rem;
-      padding-right: .5rem;
-      cursor: pointer;
+  .helpfulLink {
+    cursor: pointer;
+  }
+`;
 
-    }
-    .answer {
-      padding-left: .5rem;
-      cursor: pointer;
-    }
+const AnswersContainer = styled.div`
+  .answersContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 700px;
+  }
 
-    .questionHelpfulSpan {
-      padding-right: .5rem;
-    }
+  .answersTitle {
+    width: 2rem;
+    padding-top: .5rem;
+    padding-bottom: .2rem;
+  }
 
-    .helpfulLink {
-      cursor: pointer;
-    }
-  `;
+  .answersInView {
+    padding-left: 1px;
+    width: 400px;
+  }
 
-    const AnswersContainer = styled.div`
-      .answersContainer {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        width: 700px;
-      }
+  .answerInfo {
+    font-size: 13.5px;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+  }
 
-      .answersTitle {
-        width: 2rem;
-        padding-top: .5rem;
-        padding-bottom: .2rem;
-      }
+  .markAnswerHelpful {
+    cursor: pointer;
+  }
 
-      .answersInView {
-        padding-left: 1px;
-        width: 400px;
-      }
+  .reportAnswer {
+    cursor: pointer;
+    padding-left: .5rem;
+  }
 
-      .answerInfo {
-        font-size: 13.5px;
-        padding-top: .5rem;
-        padding-bottom: .5rem;
-      }
-      .markAnswerHelpful {
-        cursor: pointer;
+  .answererInfoAndLinks {
+    font-size: 11.5px;
+    color: #808080;
+    padding-top: .5rem;
+  }
 
-      }
+  .helpfulSpan {
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
 
-      .reportAnswer {
-        cursor: pointer;
-        padding-left: .5rem;
-      }
-
-      .answererInfoAndLinks {
-        font-size: 11.5px;
-        color: #808080;
-        padding-top: .5rem;
-      }
-
-      .helpfulSpan {
-        padding-left: .5rem;
-        padding-right: .5rem;
-      }
-
-      .answererInfoSpan {
-        padding-right: .5rem;
-      }
-    `;
+  .answererInfoSpan {
+    padding-right: .5rem;
+  }
+`;
 
 
-  const AnswersButton = styled.div`
-
+const AnswersButton = styled.div`
   .button-forAnswers {
-    appearance: none;
-    background-color: #FFFFFF;
-    border-width: 0;
-    box-sizing: border-box;
-    color: #000000;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Clarkson,Helvetica,sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: .7em;
-    opacity: 1;
-    outline: 0;
-    padding: .8em 1.6em;
-    position: relative;
-    text-align: center;
-    text-rendering: geometricprecision;
-    transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1),background-color 100ms cubic-bezier(.694, 0, 0.335, 1),color 100ms cubic-bezier(.694, 0, 0.335, 1);
-    touch-action: manipulation;
-    vertical-align: baseline;
-    white-space: nowrap;
+  appearance: none;
+  background-color: #FFFFFF;
+  border-width: 0;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Clarkson,Helvetica,sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: .7em;
+  opacity: 1;
+  outline: 0;
+  padding: .8em 1.6em;
+  position: relative;
+  text-align: center;
+  text-rendering: geometricprecision;
+  transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1),background-color 100ms cubic-bezier(.694, 0, 0.335, 1),color 100ms cubic-bezier(.694, 0, 0.335, 1);
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
   }
 
   .button-forAnswers:before {
-    animation: opacityFallbackOut .5s step-end forwards;
-    backface-visibility: hidden;
-    background-color: #EBEBEB;
-    clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
-    content: "";
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform: translateZ(0);
-    transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
-    width: 100%;
+  animation: opacityFallbackOut .5s step-end forwards;
+  backface-visibility: hidden;
+  background-color: #EBEBEB;
+  clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: translateZ(0);
+  transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+  width: 100%;
   }
 
   .button-forAnswers:hover:before {
-    animation: opacityFallbackIn 0s step-start forwards;
-    clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+  animation: opacityFallbackIn 0s step-start forwards;
+  clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
   }
 
   .button-forAnswers:after {
-    background-color: #FFFFFF;
+  background-color: #FFFFFF;
   }
 
   .button-forAnswers span {
-    z-index: 1;
-    position: relative;
+  z-index: 1;
+  position: relative;
   }
-  `;
+`;
 
 class QuestionListEntry extends React.Component {
   constructor(props) {
@@ -222,7 +221,6 @@ class QuestionListEntry extends React.Component {
 
 
   changeImageModalVisibilityState() {
-    console.log('image clicked', event.target.src)
     this.imageThumbnailClicked = event.target.src;
     this.setState({
       isImageModalShowing: !this.state.isImageModalShowing
@@ -230,7 +228,6 @@ class QuestionListEntry extends React.Component {
   }
 
   changeModalVisibilityState(answerAdded) {
-
     if (answerAdded) {
       $.ajax({
         url: `${baseUrl}/qa/questions/${this.props.qACombo.question_id}/answers`,
@@ -299,7 +296,6 @@ class QuestionListEntry extends React.Component {
       },
       method: 'GET',
       success: (data) => {
-        // console.log('these are the answers', data.results)
         var totalNumOfAs = data.results.length;
         this.seeMoreAnswersClicked = true;
         if (totalNumOfAs > this.state.answersInDisplay) {
@@ -315,7 +311,6 @@ class QuestionListEntry extends React.Component {
       }
     })
   }
-
 
   sortAnswers(answers) {
     var sorted = answers.sort((a, b) => b.helpfulness - a.helpfulness);
@@ -433,8 +428,6 @@ class QuestionListEntry extends React.Component {
   }
 
   reportAnswer(answerID) {
-    console.log('event target id', event.target)
-
     this.disableButton(event.target.id);
     var buttonID = event.target.id;
 
@@ -478,7 +471,7 @@ class QuestionListEntry extends React.Component {
         } else {
           var photosDiv = a.photos.map(photo => {
             return (
-              <ImageThumbnail className='photoThumbnail' key={photo.url} src={photo.url} width='50' onClick={() => { this.changeImageModalVisibilityState() }}></ImageThumbnail>
+              <ImageThumbnail className='photoThumbnail' key={photo.url} src={photo.url} width='50' alt='.' onClick={() => { this.changeImageModalVisibilityState() }}></ImageThumbnail>
             )
           })
         }
@@ -511,14 +504,12 @@ class QuestionListEntry extends React.Component {
         if (a.answerer_name === 'Seller') {
           var seller = <strong key={a.answerer_name}>{a.answerer_name}</strong>
         }
-
-
         if (a.photos.length === 0) {
           var photosDiv = <></>;
         } else {
           var photosDiv = a.photos.map((photoURL, i) => {
             return (
-              <ImageThumbnail className='photoThumbnail' key={i} src={photoURL} width='50' onClick={() => { this.changeImageModalVisibilityState(photoURL) }}></ImageThumbnail>
+              <ImageThumbnail className='photoThumbnail' key={i} src={photoURL} width='50' alt='.' onClick={() => { this.changeImageModalVisibilityState(photoURL) }}></ImageThumbnail>
             )
           })
         }
@@ -537,8 +528,7 @@ class QuestionListEntry extends React.Component {
             </div>
           </div>
         )
-      }
-      )
+      })
     }
 
     if (this.state.displayingAll) {
@@ -564,7 +554,6 @@ class QuestionListEntry extends React.Component {
             <div className='questionBox'>
               <div className='questionTitle'>
               <strong>Q: </strong>
-
               </div>
               <div className='question'>
                 <strong>{this.props.qACombo.question_body}</strong>
@@ -589,14 +578,11 @@ class QuestionListEntry extends React.Component {
               {moreAnswersButton}
             </div>
           </div>
-
           </div>
         </div>
       </Container>
-
     )
   }
-
 }
 
 export default QuestionListEntry;
