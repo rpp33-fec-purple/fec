@@ -23,7 +23,14 @@
 * The user is able to select the size and quantity before adding the selected available product to the cart. When clicking on the add to cart button when either size or quantity is not selected, the user will be prompted to select an available size and/or quantity.
 ---
   ### Questions and Answers
-* TBD
+  The Questions and Answers module allows the customer to ask and answer questions related to the product on display. Some key functionality of this widget includes the ability to:
+
+  * View questions and answers;
+  * Filter questions with a search bar;
+  * Add a question;
+  * And add an answer.
+
+  Additionally, the user may mark answers and questions as helpful, as well as report specific entries. For the customer’s convenience, answers and questions are sorted based on helpfulness, while any answer provided by the Seller are displayed at the top of a list.
 
 ---
   ### Ratings and  Reviews
