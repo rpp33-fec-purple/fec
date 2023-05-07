@@ -13,9 +13,6 @@
 ---
   ## Usage
   This is our Front End Capstone (FEC) project designed to demonstrate our frontend skills and practice frontend optimization.
-
----
- ## Project Widgets
 ---
   ### Product Overview
 * This feature displays the product information related to the selected product as well as the ability to browse through the existing images for that product. This feature will also display relevant information regarding the product including the article of clothing's category, title, price, features, as well as additional information such as slogan and description.
