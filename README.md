@@ -1,17 +1,7 @@
 # FEC-Purple-Parrots
   In Project Atelier, we are tasked to revamp a client-facing retail website application while meeting industry standards.
 
-  ## Table of Contents
-  1. <a href='#description'> Description</a>
 
-  2. <a href='#usage'> Usage</a>
-
-  3. <a href='#project-widgets'> Project Widgets</a>
-
-  4. <a href='#team-members'> Team Members</a>
-
----
-  ## Usage
   This is our Front End Capstone (FEC) project designed to demonstrate our frontend skills and practice frontend optimization.
 ---
   ### Product Overview
